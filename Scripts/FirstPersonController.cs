@@ -17,6 +17,20 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Mouse Look")]
     public float mouseSensitivity = 100f;
+    [Header("Crouch")]
+    [Tooltip("Stand height otomatik alınır . Bu oran crouch yüksekliğini belirler.")]
+    [Range(0.3f, 095f)] public float crouchHeightRatio = 0.55f;
+
+    [Tooltip("Stand cameraY otomatik alınır . Bu oran crouch kamera yüksekliğini belirler.")]
+    [Range(0.3f, 098f)] public float crouchCameraRatio = 0.58f;
+
+    public float crouchHeight = 1.5f; // Eğilince height
+    public float standHeight = 1.89f; //Normal height //Buna dokunma !!!!!
+    public float crouchSpeed = 2.5f; // Eğilince hız
+    public float standSpeed = 5f; // Normal hız
+    public float crouchCameraY = 0.8f; // Eğilince kamera local Y
+    public float standCameraY = 0.9f; // normal karema Local Y
+    bool isCrouching; // Eğiliyormu ? = 
 
     CharacterController controller;
     Transform cam;
@@ -30,9 +44,22 @@ public class FirstPersonController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         cam = Camera.main.transform;
 
+        
+
         //Mouse'u ekrana kilitle
         Cursor.lockState = CursorLockMode.Locked; //mouse kilitlenir.
         Cursor.visible = false; //mouse gözükmez.
+
+        standSpeed = moveSpeed;
+
+          // ✅ Stand değerlerini sahneden oku (senin kodunla aynı mantık)
+        standHeight = controller.height;
+        standCameraY = cam.localPosition.y;
+
+        // ✅ Crouch değerlerini stand değerlerden oranla üret
+        crouchHeight = standHeight * crouchHeightRatio;
+        crouchCameraY = standCameraY * crouchCameraRatio;
+        controller.center = new Vector3(0, standHeight / 2f, 0);
         
     }
 
@@ -41,6 +68,8 @@ public class FirstPersonController : MonoBehaviour
     {
         Look();
         Move();
+
+        HandleCrouch();
     }
 
     void Look()
@@ -74,7 +103,7 @@ public class FirstPersonController : MonoBehaviour
         controller.Move(move * moveSpeed * Time.deltaTime);
 
         //ZIPLAMA
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded && !isCrouching)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -82,5 +111,46 @@ public class FirstPersonController : MonoBehaviour
         //Yerçekimi 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void HandleCrouch()
+    {
+        //Basılı tutarak eğilme 
+        bool wantsCrouch = Input.GetKey(KeyCode.LeftControl);
+
+        if(wantsCrouch && !isCrouching)
+        {
+            //Eğil
+            isCrouching =true;
+
+            controller.height = crouchHeight;
+            controller.center = new Vector3(0, crouchHeight / 2f, 0);
+
+            cam.localPosition = new Vector3(
+                cam.localPosition.x,
+                crouchCameraY,
+                cam.localPosition.z
+            );
+
+            moveSpeed = crouchSpeed;
+        }
+
+        else if (!wantsCrouch && isCrouching)
+        {
+            // AYAĞA KALK
+            isCrouching = false;
+
+            controller.height = standHeight;
+            controller.center = new Vector3(0, standHeight / 2f, 0);
+
+            cam.localPosition = new Vector3(
+                cam.localPosition.x,
+                standCameraY,
+                cam.localPosition.z
+            );
+
+            moveSpeed = standSpeed;
+        }
+
     }
 }
