@@ -1,141 +1,129 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
-//Bu kodda asıl amacımız elde gösterme ...
-
+// TOOL ELDE TUTMA / BIRAKMA
 public class PlayerToolController : MonoBehaviour
 {
     [Header("Refs")]
-    [SerializeField] Transform handPoint;
-    [SerializeField] Camera playerCam;
+    [SerializeField] Transform handPoint; //Burada handPoint objesiini direk atıyoruz oraya .
+    [SerializeField] Camera playerCam; // player kamerasın ıatıyoruız
+
     [Header("Drop Settings")]
-    [SerializeField] float dropDistance = 1.2f;  //kameranın önüne bırakma mesafıesi.
-    [SerializeField] float dropUpOffset = 0.05f; //zemine gömülmesin
+    [SerializeField] float dropDistance = 1.2f; //bırakma uzaklığı 
+    [SerializeField] float dropUpOffset = 0.05f; //offseti 
 
-    [Header("Current Tool")]
-    GameObject heldToolInstance;
-    PickUpItem heldToolPickUpItem; //Başka bir sınıfın objesi
-    public bool HasImpactWrench => currentToolType == ToolType.ImpactWrench ;
+    GameObject heldTool; //Şu an elimde tuttuğum tool objesi
+    PickUpItem heldPickUpItem; //Eldeki tool'un PicUpItem component'i
 
-    public enum ToolType { None, ImpactWrench} 
-    
-    ToolType currentToolType = ToolType.None;
+    public bool HasImpactWrench => heldTool != null; //Başka scriptler “elde tool var mı?” kontrolünü heldTool’a direkt bakmadan yapsın diye. Şu an tek tool olduğundan heldTool != null yeterli.
 
-    void Update()
+
+    void Awake() // Unityde component aktif olur olmaz çalışır.
     {
-        // Drop / Return için Input girişi
-        if(Input.GetKeyDown(KeyCode.G))
-        {
-            DropCurrentTool();
-        }
+        if (!playerCam) playerCam = Camera.main; //Eğer kamera yoksa hemen kamerayı atar.
+    }
 
-        if(Input.GetKeyDown(KeyCode.R))
+    void Update() //Her frame çalışır.
+    {
+        if (Input.GetKeyDown(KeyCode.G)) //G'ye basıldığında yere bırakır.
         {
-            ReturnCurrentToolToOriginal();
+            DropTool();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ReturnToolToOriginal();
         }
     }
 
-
-    public void EquipImpactWrench(GameObject toolPrefab)
+    // 🔥 ASIL KISIM — SAHNEDEKİ OBJENİN KENDİSİNİ ELİNE ALIYOR
+    public void EquipImpactWrench(GameObject toolObject) //Fonksiyonun gereksinimleri game obje
     {
-        //elde var ise sil.
-        if (heldToolInstance) return;
+        if (heldTool != null) return; //Eğer elde hiçbir şey yok ise returnluyoruz.
 
-    // Sahnedeki objeyi ele alıyoruz (instantiate YOK)
-        heldToolInstance = toolObject;
-        heldToolInstance.transform.SetParent(handPoint);
-        heldToolInstance.transform.localPosition = Vector3.zero;
-        heldToolInstance.transform.localRotation = Quaternion.identity;
+        heldTool = toolObject; //toolObject heldTool 'a aktarıyoruz
+        heldPickUpItem = heldTool.GetComponent<PickUpItem>(); //heldTool'un componentini aktarıyoruz...
 
-     // PickUpItem referansı
-        heldToolPickUpItem = heldToolInstance.GetComponent<PickUpItem>();
+        heldTool.transform.SetParent(handPoint); //Burada heldTool'u handPoint'in childi yapıyoruz ki beraber gezebilsin.
+        heldTool.transform.localPosition = Vector3.zero; //parente göre konum alıyoru.
+        heldTool.transform.localRotation = Quaternion.identity; //HandPoint’in rotation’ı neyse onu “default” kabul et. Tool’u onunla hizala.
 
-    // Elde iken collider kapat
-        foreach (var col in heldToolInstance.GetComponentsInChildren<Collider>())
-        col.enabled = false;
+        foreach (Collider col in heldTool.GetComponentsInChildren<Collider>())
+            col.enabled = false; //heldTool'un kendisi ve tüm childrenların collider'larını kapatıyoruz ki Player ile çarpışmasın.
 
-    // Rigidbody sabitle
-        var rb = heldToolInstance.GetComponentInChildren<Rigidbody>();
+        Rigidbody rb = heldTool.GetComponentInChildren<Rigidbody>(); //Rigidbody'i düzenlememizi sağlar ve rb ile.
         if (rb)
-    {
-        rb.isKinematic = true;
-        rb.useGravity = false;
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
+        {
+            rb.isKinematic = true; //Rigidbody fizik simülasyonundan çıkar.
+            rb.useGravity = false; //yerçekimini kapatıyoruz.
+            rb.velocity = Vector3.zero; // anlık hız sıfır
+            rb.angularVelocity = Vector3.zero; // dönme hızı sıfır.
+        }
     }
 
-    currentToolType = ToolType.ImpactWrench;   
-
-    }
-
-    public void DropCurrentTool()
+    // 🔽 YERE BIRAK
+    void DropTool()
     {
-        if (!heldToolInstance) return;
+        if (heldTool == null) return; //yoksa direk dön
 
-        Transform toolTransform = heldToolInstance.transform;
-        toolTransform.SetParent(null);
+        heldTool.transform.SetParent(null); //Parenti kaldırıyoruz artık world root'ta 
 
-        //Bırakılacak pozisyon : kameranın önünde yere
-        Vector3 dropPos = playerCam.transform.position + playerCam.transform.forward * dropDistance;
+        Vector3 dropPos = playerCam.transform.position + playerCam.transform.forward * dropDistance; //kameranın dünya konumu + kameranın baktığı yön 
 
-        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward, out RaycastHit hit , dropDistance + 1.0f ))
+        if (Physics.Raycast(playerCam.transform.position, playerCam.transform.forward,
+            out RaycastHit hit, dropDistance + 1f))//Raycast: bir ışın at bir şeye çarpar mı bak !
+            //RaycastHit hit eğer çarparsa bilgileri hit'e yaz.
+            //Kamera önünde duvar varsa tool’u duvarın içine spawn etmek istemiyorsun. “Çarptığın yerde bırak”.
         {
             dropPos = hit.point + Vector3.up * dropUpOffset;
+            //hit.point : ışınının çarptığı dünya noktası
+            //zemin objeye yapışık değil biraz üstte dursun.
         }
 
-        toolTransform.position = dropPos;
-        toolTransform.rotation = Quaternion.Euler(0f, playerCam.transform.eulerAngles.y, 0f);
+        heldTool.transform.position = dropPos; //Tool’u world’de o pozisyona koy.
+        heldTool.transform.rotation = Quaternion.Euler(0f, playerCam.transform.eulerAngles.y, 0f); //Tool yere bırakılınca kabaca kameranın baktığı yöne dönük dursun (daha doğal).
 
-        foreach (var col in heldToolInstance.GetComponentsInChildren<Collider>())
-        col.enabled = true;
+        foreach (Collider col in heldTool.GetComponentsInChildren<Collider>())
+            col.enabled = true; //yerdeyken collider'ı aç
 
-        var rb = heldToolInstance.GetComponentInChildren<Rigidbody>();
+        Rigidbody rb = heldTool.GetComponentInChildren<Rigidbody>();
         if (rb)
         {
             rb.isKinematic = false;
-            rb.useGravity = true;
+            rb.useGravity = true; //grafvity aç
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
 
-        //Tool state temizle
-        heldToolInstance = null;
-        heldToolPickUpItem = null;
-        currentToolType = ToolType.None;
-
-
+        heldTool = null; //ele alınan objeyi sıfırlıyoruzz
+        heldPickUpItem = null;
     }
 
-    public void ReturnCurrentToolToOriginal()
+    void ReturnToolToOriginal()
     {
-        if (!heldToolInstance || heldToolPickUpItem == null) return;
+        if (heldTool == null || heldPickUpItem == null) return;
 
-        Transform toolTransform = heldToolInstance.transform;
-        toolTransform.SetParent(heldToolPickUpItem.originalParent);
+        heldTool.transform.SetParent(heldPickUpItem.originalParent);
+        heldTool.transform.position = heldPickUpItem.originalPosition;
+        heldTool.transform.rotation = heldPickUpItem.originalRotation;
 
-        toolTransform.position = heldToolPickUpItem.originalPosition;
-        toolTransform.rotation = heldToolPickUpItem.originalRotation;
-        toolTransform.localScale = heldToolPickUpItem.originalScale;
+        EnablePhysics(standMode: true);
 
-        // Collider/rigidbody açık (standda fizik istemiyorsan kapatabilirsin)
-        foreach (var col in heldToolInstance.GetComponentsInChildren<Collider>())
+        heldTool = null;
+        heldPickUpItem = null;
+    }
+
+    void EnablePhysics(bool standMode = false)
+    {
+        foreach (Collider col in heldTool.GetComponentsInChildren<Collider>())
             col.enabled = true;
 
-        var rb = heldToolInstance.GetComponentInChildren<Rigidbody>();
+        Rigidbody rb = heldTool.GetComponentInChildren<Rigidbody>();
         if (rb)
         {
-            rb.isKinematic = true;   // standda sabit dursun
-            rb.useGravity = false;
+            rb.isKinematic = standMode;   // standda sabit
+            rb.useGravity = !standMode;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
-
-        // Elden düşürmüş gibi state temizle
-        heldToolInstance = null;
-        heldToolPickUpItem = null;
-        currentToolType = ToolType.None;
-
     }
-}
+    
+    }

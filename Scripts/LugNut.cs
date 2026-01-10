@@ -12,6 +12,6 @@ public class LugNut : MonoBehaviour
 
         IsRemoved = true;
         //Görseli kaldır...
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); // Ai + replay için daha vüenli bir kısım.
     }
 }

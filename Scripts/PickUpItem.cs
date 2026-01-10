@@ -1,30 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-// using System.Numerics;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class PickUpItem : MonoBehaviour
 {
-    // public enum ItemType { ImpactWrench}
-    // BUNLAR ÇALIŞIYOR.
-    // public ItemType itemType = ItemType.ImpactWrench;
+    // Bu obje hangi tur item olarak sayilacak?
+    public enum ItemType { ImpactWrench } //Bu pickup hangi tip ve şu an sadece 1 tip var oda ImpactWrench(Bİjon tabancası yani)
+    //Neden enum? Çünkü string ile ("ImpactWrench") uğraşınca typo riski var. Enum daha güvenli, daha hızlı, refactor’a dayanıklı
+    // Inspector'dan secilen item tipi
+    public ItemType itemType = ItemType.ImpactWrench; //itemType 'ı tanımlıyoruz (Bijon makinesi diye.)
 
-    public enum ItemType { ImpactWrench}
-    public ItemType itemType;
-
-    [HideInInspector] public Transform originalParent;
-    [HideInInspector] public Vector3 originalPosition;
-    [HideInInspector] public Quaternion originalRotation;
-    [HideInInspector] public Vector3 originalScale;
+    // Item'i birakirken geri donmek icin ilk halini saklariz
+    [HideInInspector] public Transform originalParent; //Transform : Unity’de konum/dönüş/scale taşıyan component türü.
+    [HideInInspector] public Vector3 originalPosition; //Vector3 (x,y,z)
+    [HideInInspector] public Quaternion originalRotation; //Unity’de dönüş (rotation) temsilidir.
 
     void Awake()
     {
-        //ilk sahneye geldiği anki konumunu kaydet.
+        // Sahnedeki ilk halini kaydet (bırakma/geri koyma icin)
         originalParent = transform.parent;
-        originalRotation= transform.rotation;
         originalPosition = transform.position;
-        originalScale = transform.localScale;
+        originalRotation = transform.rotation;
     }
-    
 }
