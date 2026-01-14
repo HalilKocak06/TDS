@@ -115,7 +115,7 @@ public class PlayerWheelCarrier : MonoBehaviour
 
     public void ForcePickUpExternalObject(GameObject obj)
     {
-
+        
 
         //Şimdilik sadece Tire objesi için BASİT TAŞIMA!!!
         obj.transform.SetParent(carryPoint, false);

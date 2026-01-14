@@ -17,6 +17,8 @@ public class TireChangerMachineController : MonoBehaviour
 
     WheelCarryable currentWheel;
 
+    public Transform GetRimStayPoint() => rimStayPoint;
+
     //PlayerWheelCarrier burayı çağıracak
     public bool TryAcceptWheel(WheelCarryable wheel)
     {
@@ -53,6 +55,12 @@ public class TireChangerMachineController : MonoBehaviour
 
     void SplitWheel()
     {
+        if (currentWheel == null)
+        {
+            Debug.LogWarning("SplitWheel called but currentWheel is null");
+            return;
+        }
+
         //Wheel içinde Tire ve rim bulalım
         var tire = currentWheel.transform.Find("Tyres");
         var rim = currentWheel.transform.Find("Rim");
@@ -63,23 +71,37 @@ public class TireChangerMachineController : MonoBehaviour
             return;
         }
 
-        //1) Rim Makinede kalsın
-        // rim.SetParent(rimStayPoint != null ? rimStayPoint : wheelSlotPoint, false);
-        // rim.localPosition = Vector3.zero;
-        // rim.localRotation = Quaternion.identity;
+        int genericLayer = LayerMask.NameToLayer("Generic");
+        if (genericLayer == -1)
+        {
+            Debug.LogError("Layer 'Generic' yok! Project Settings > Tags and Layers'tan 'Generic' layer'ı ekle.");
+        }
+        else
+        {
+            SetLayerRecursively(tire.gameObject, genericLayer);
+            SetLayerRecursively(rim.gameObject, genericLayer);
+        }
+
+
 
         var rimTarget = (rimStayPoint != null ? rimStayPoint : wheelSlotPoint);
         ParentAndSnapKeepWorld(rim, rimTarget);
 
-        //2- Tire player'a gitsin (elde taşınabilir olarak)
-        //TirepickUpPoint varsa önce oraya ardından sonra playera veriyoruz (güvenli için).
-        Transform pickPoint = tirePickupPoint != null ? tirePickupPoint : wheelSlotPoint;
-        // tire.SetParent(pickPoint, false); //tire objesi picPoint'in childi olur.
-        // tire.localPosition = pickPoint.position; //tire objesi pickpoint'in pozisyonuna gider.
-        // tire.localRotation = pickPoint.rotation;
-        // tire.localScale = Vector3.one;
+        var rimPhys = rim.GetComponentInChildren<SplitPhysicsToggle>(true);
+        if(rimPhys) rimPhys.SetOnMachine(true);
+        else Debug.LogError("Rim tarafında SplitPhysicsToggle bulunamadı (child dahil arandı).");
 
+
+
+        Transform pickPoint = tirePickupPoint != null ? tirePickupPoint : wheelSlotPoint;
         ParentAndSnapKeepWorld(tire,pickPoint);
+
+        //Tire yerde serbest E ile al / G ile bırak
+        var tirePhys = tire.GetComponentInChildren<SplitPhysicsToggle>(true);
+        if(tirePhys) tirePhys.SetLoose(true);
+        else Debug.LogError("Tyre tarafında SplitPhysicsToggle bulunamadı (child dahil arandı).");
+
+
 
         //Wheel root artık yok işlevsiz kalsın
         currentWheel.gameObject.SetActive(false);
@@ -123,6 +145,13 @@ public class TireChangerMachineController : MonoBehaviour
 
         child.SetPositionAndRotation(parent.position, parent.rotation);
 
+    }
+
+    static void SetLayerRecursively(GameObject obj, int layer)
+    {
+    obj.layer = layer;
+    foreach (Transform child in obj.transform)
+        SetLayerRecursively(child.gameObject, layer);
     }
 
 }
