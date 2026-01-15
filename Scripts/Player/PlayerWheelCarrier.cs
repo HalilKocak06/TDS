@@ -13,6 +13,8 @@ public class PlayerWheelCarrier : MonoBehaviour
     [SerializeField] LayerMask placeLayer; //
     [SerializeField] Vector3 carryEulerOffset = new Vector3(0f, 250f, 0f); //*
 
+    [SerializeField] LayerMask genericLayer;
+
     WheelCarryable carriedWheel;
 
     GameObject carriedGeneric;
@@ -27,24 +29,64 @@ public class PlayerWheelCarrier : MonoBehaviour
     
     void Update()
     {
-         if(!Input.GetKeyDown(KeyCode.E)) return;
-
-        //Lastik janttan ayrıldığında lastiği bırakabilmemizi sağlar . E ile 
-         if (carriedGeneric != null)
+         if (Input.GetKeyDown(KeyCode.G))
         {
-            DropGeneric();
+            if(carriedGeneric != null)
+            {
+                DropGeneric();
+                return;
+            }
+
+        }
+
+        //E ile al / yerleştir
+        if(!Input.GetKeyDown(KeyCode.E)) return;
+
+        if(carriedGeneric != null) return;
+
+        //Elimde WHEEL VARSA DAVRANIŞŞ
+        if(carriedWheel != null)
+        {
+            TryPlaceOrDrop();
             return;
         }
 
-         //* 1)Elimde teker varsa bırak:
-         if (carriedWheel != null)
-         {
-            TryPlaceOrDrop();
-            return;
-         }
-
-        // 2)Elimde teker yoksa al
         TryPickUpWheel();
+        if(carriedWheel == null)
+        {
+            TryPickUpGeneric();
+        }
+    }
+
+    void TryPickUpGeneric()
+    {
+        //Generic layer'I burada raycast edeceğiz.
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, genericLayer))
+        {
+             // collider child’da olabilir → parent objeyi al
+        var go = hit.collider.GetComponentInParent<Transform>()?.gameObject;
+        if (go == null) return;
+
+        carriedGeneric = go;
+
+        // eldeyken fizik kapat (sürünme biter)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Generic picked up");
+
+        }
     }
 
     void TryPickUpWheel()
@@ -117,12 +159,24 @@ public class PlayerWheelCarrier : MonoBehaviour
     {
         
 
-        //Şimdilik sadece Tire objesi için BASİT TAŞIMA!!!
-        obj.transform.SetParent(carryPoint, false);
-        obj.transform.localPosition = Vector3.zero;
-        obj.transform.localRotation = Quaternion.identity;
+        carriedGeneric = obj; // ✅ EN ÖNEMLİ SATIR
 
-        Debug.Log(" Tire given to player hand");
+        // eldeyken fizik kapat (sürünme biter)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Tire given to player hand");
 
     }
 
@@ -137,7 +191,11 @@ public class PlayerWheelCarrier : MonoBehaviour
         carriedGeneric.transform.position = dropPos;
         carriedGeneric.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
 
-        if(carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+        {
+            gc.SetCarried(false); // ✅ collider + rb geri açılır
+        }
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = false;
             rb.useGravity = true;

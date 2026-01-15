@@ -10,7 +10,9 @@ public class GenericCarryable : MonoBehaviour
     void Awake()
     {
         col = GetComponent<Collider>(); //Collider'i col'a eşitledipk o objedeki.
+        if(!col) col = GetComponentInChildren<Collider>(true);
         rb = GetComponent<Rigidbody>(); // Rigidbody 'yi rbye eşitledik o objedeki
+        if(!rb) rb = GetComponentInChildren<Rigidbody>(true);
     }
 
     public void SetCarried(bool carried)
