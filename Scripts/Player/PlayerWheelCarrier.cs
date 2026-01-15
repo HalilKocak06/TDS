@@ -185,11 +185,22 @@ public class PlayerWheelCarrier : MonoBehaviour
         Vector3 dropPos = cam.transform.position + cam.transform.forward * 1.2f;
 
         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit groundHit, 2f))
-            dropPos = groundHit.point + Vector3.up * 0.05f;
+            dropPos = groundHit.point + Vector3.up * 0.1f;
 
         carriedGeneric.transform.SetParent(null, true);
         carriedGeneric.transform.position = dropPos;
-        carriedGeneric.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+        bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+        if(isRim)
+        {
+            carriedGeneric.transform.rotation = Quaternion.Euler(-90f, cam.transform.eulerAngles.y, 0f);
+        }
+        else
+        {
+            carriedGeneric.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+        }
+
+
+
 
         if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
         {
