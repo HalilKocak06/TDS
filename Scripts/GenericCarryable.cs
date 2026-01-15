@@ -17,7 +17,7 @@ public class GenericCarryable : MonoBehaviour
 
     public void SetCarried(bool carried)
     {
-        //carried true-false olan ve başka bir yerden gelen //
+         //carried true-false olan ve başka bir yerden gelen //
          if (col) col.enabled = !carried;
 
          if (rb)

@@ -42,7 +42,11 @@ public class PlayerWheelCarrier : MonoBehaviour
         //E ile al / yerleştir
         if(!Input.GetKeyDown(KeyCode.E)) return;
 
-        if(carriedGeneric != null) return;
+        if(carriedGeneric != null)
+        {
+            TryPlaceRimOnMachine();
+            return;
+        }
 
         //Elimde WHEEL VARSA DAVRANIŞŞ
         if(carriedWheel != null)
@@ -54,7 +58,15 @@ public class PlayerWheelCarrier : MonoBehaviour
         TryPickUpWheel();
         if(carriedWheel == null)
         {
-            TryPickUpGeneric();
+            //önce makinden rim almaya çalışacağız.
+            TryPickUpRimFromMachine();
+
+            // hala hiçbir şey almadıysak yerden generic dene
+            if(carriedGeneric == null)
+            {
+                TryPickUpGeneric();
+            }
+            
         }
     }
 
@@ -159,7 +171,7 @@ public class PlayerWheelCarrier : MonoBehaviour
     {
         
 
-        carriedGeneric = obj; // ✅ EN ÖNEMLİ SATIR
+        carriedGeneric = obj; 
 
         // eldeyken fizik kapat (sürünme biter)
         if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
@@ -216,4 +228,88 @@ public class PlayerWheelCarrier : MonoBehaviour
         Debug.Log("SADE LASTIK BAŞARILI BİR ŞEKİLDE YERE BIRAKILDI :::");
 
     }
+
+    void TryPlaceRimOnMachine()
+    {
+        if(carriedGeneric == null) return;
+
+        bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+        if(!isRim) return; // sadece Rim
+
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+        {
+            var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+            if (machine == null) return;
+
+            Transform target = machine.GetRimStayPoint();
+            if(target == null)
+            {
+                Debug.LogWarning("Makinede rimStayPoint yok !!!");
+                return;
+            }
+
+            //Rim'i hedefe koy
+            carriedGeneric.transform.SetParent(target,true);
+            carriedGeneric.transform.SetPositionAndRotation(target.position, target.rotation);
+
+            //makinede sabit kalsın (elde değil !)
+            if(carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+                gc.SetCarried(true); //colider kapat + kinematic (makinede sabit)
+
+            carriedGeneric = null;
+            Debug.Log("Rim placed on machine (rimStayPoint).");    
+
+
+        }
+    }
+
+    void TryPickUpRimFromMachine()
+    {
+        //El boş olmalı
+        if(carriedGeneric != null || carriedWheel != null ) return;
+
+        //Makineye bakıyor muyuz diye kontrol ediyoruz
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+        return;
+
+        var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+        if(machine == null) return;
+
+        Transform rimPoint = machine.GetRimStayPoint();
+        if(rimPoint == null) return ; 
+
+        //RimStayPoint altında rim var mı ?
+        if (rimPoint.childCount == 0) return;
+
+        // İlk çocuğu rim kabul ediyoruz (istersen isimle kontrol ekleriz)
+        GameObject rimObj = rimPoint.GetChild(0).gameObject;
+
+        // İstersen garanti: adı rim mi?
+        if (!rimObj.name.ToLower().Contains("rim"))
+            return;
+
+        carriedGeneric = rimObj;
+
+        // Makineden ayır
+        carriedGeneric.transform.SetParent(null, true);
+
+        // Ele alınca fizik kapat (senin sistem)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        // Eldeki noktaya al
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Rim picked up from machine.");
+
+        }
 }
