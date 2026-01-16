@@ -44,8 +44,17 @@ public class PlayerWheelCarrier : MonoBehaviour
 
         if(carriedGeneric != null)
         {
-            TryPlaceRimOnMachine();
+            bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+            if(isRim)
+            {
+                TryPlaceRimOnMachine();
+            }
+            else
+            {
+                TryMountTireOnMachine();
+            }
             return;
+            
         }
 
         //Elimde WHEEL VARSA DAVRANIŞŞ
@@ -68,6 +77,8 @@ public class PlayerWheelCarrier : MonoBehaviour
             }
             
         }
+
+
     }
 
     void TryPickUpGeneric()
@@ -312,4 +323,25 @@ public class PlayerWheelCarrier : MonoBehaviour
         Debug.Log("Rim picked up from machine.");
 
         }
+        void TryMountTireOnMachine()
+{
+            // Elimdeki şey tyre olmalı
+            if (carriedGeneric == null) return;
+            if (carriedGeneric.name.ToLower().Contains("rim")) return;
+
+            // Makineye bakıyor muyuz? (placeLayer üzerinden)
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+            {
+                var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+                if (machine == null) return;
+
+                // Makine birleştirebildi mi?
+                bool ok = machine.TryMountTire(carriedGeneric);
+                if (ok)
+                {
+                    // Player artık taşımasın
+                    carriedGeneric = null;
+                }
+    }
+}
 }

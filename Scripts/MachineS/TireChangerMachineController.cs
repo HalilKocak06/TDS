@@ -19,6 +19,21 @@ public class TireChangerMachineController : MonoBehaviour
 
     public Transform GetRimStayPoint() => rimStayPoint;
 
+    // Split sonrası tekrar birleştirmek için cache
+    GameObject cachedWheelRoot; // currentWheel gameObject
+    Transform cachedRim;
+    Transform cachedTire;
+
+    Vector3 rimLocalPos;
+    Quaternion rimLocalRot;
+    Vector3 rimLocalScale;
+
+    Vector3 tireLocalPos;
+    Quaternion tireLocalRot;
+    Vector3 tireLocalScale;
+    
+    int cachedWheelLayer = -1;
+
     //PlayerWheelCarrier burayı çağıracak
     public bool TryAcceptWheel(WheelCarryable wheel)
     {
@@ -60,11 +75,30 @@ public class TireChangerMachineController : MonoBehaviour
             Debug.LogWarning("SplitWheel called but currentWheel is null");
             return;
         }
-
+        
         //Wheel içinde Tire ve rim bulalım
         var tire = currentWheel.transform.Find("Tyres");
         var rim = currentWheel.transform.Find("Rim");
 
+
+        //Orjinal local transformları saklıyoruz ki birleştirirken kullanacağız
+        rimLocalPos = rim.localPosition;
+        rimLocalRot = rim.localRotation;
+        rimLocalScale = rim.localScale;
+
+        tireLocalPos = tire.localPosition;
+        tireLocalRot = tire.localRotation;
+        tireLocalScale = tire.localScale;
+
+        // ✅ Cache: tekrar assemble edeceğiz
+        cachedWheelRoot = currentWheel.gameObject;
+        cachedRim = rim;
+        cachedTire = tire;
+        cachedWheelLayer = currentWheel.gameObject.layer;
+
+
+
+        
         if(tire == null || rim == null)
         {
             Debug.LogWarning("Wheel içinde Tire/Rim child bulunamadı. İsimler tam 'Tire' ve 'Rim' olmalı");
@@ -112,6 +146,80 @@ public class TireChangerMachineController : MonoBehaviour
         currentWheel = null;
 
     }
+
+    // ✅ YENI: lastik eldeyken E'ye basınca çağrılacak
+    public bool TryMountTire(GameObject tireObj)
+    {
+        if (IsWorking) return false;
+
+        if (tireObj == null) return false;
+        if (cachedWheelRoot == null) return false;
+        if (cachedRim == null) return false;
+
+        // Makinede rim var mı? (rimStayPoint altında olmalı)
+        if (rimStayPoint == null || cachedRim.parent != rimStayPoint)
+        {
+            Debug.LogWarning("Mount failed: Rim makinede değil (rimStayPoint altında bulunamadı).");
+            return false;
+        }
+
+        // Tire objesi gerçekten bizim cachedTire mı? (güvenlik için)
+        if (cachedTire == null || tireObj.transform != cachedTire)
+        {
+            Debug.LogWarning("Mount failed: Tire bu makineye ait cachedTire değil.");
+            return false;
+        }
+
+        // Wheel root’u geri aç
+        cachedWheelRoot.SetActive(true);
+
+        // Wheel root’u slot’a geri koy
+        ParentAndSnapKeepWorld(cachedWheelRoot.transform, wheelSlotPoint);
+
+        // Rim'i wheel altına geri al + local transformları geri bas
+        cachedRim.SetParent(cachedWheelRoot.transform, false);
+        cachedRim.localPosition = rimLocalPos;
+        cachedRim.localRotation = rimLocalRot;
+        cachedRim.localScale = rimLocalScale;
+
+        // Tire'ı wheel altına geri al + local transformları geri bas
+        cachedTire.SetParent(cachedWheelRoot.transform, false);
+        cachedTire.localPosition = tireLocalPos;
+        cachedTire.localRotation = tireLocalRot;
+        cachedTire.localScale = tireLocalScale;
+
+        // Layer’ları wheel layer’a geri al
+        if (cachedWheelLayer != -1)
+        {
+            SetLayerRecursively(cachedRim.gameObject, cachedWheelLayer);
+            SetLayerRecursively(cachedTire.gameObject, cachedWheelLayer);
+        }
+
+        // Rim/Tire physics’i tekrar kapat (wheel parçası oldular)
+        var rimPhys = cachedRim.GetComponentInChildren<SplitPhysicsToggle>(true);
+        if (rimPhys) rimPhys.SetOnMachine(true);
+
+        var tirePhys = cachedTire.GetComponentInChildren<SplitPhysicsToggle>(true);
+        if (tirePhys) tirePhys.SetOnMachine(true);
+
+        // WheelCarryable tekrar makinede “placed” olsun
+        var wc = cachedWheelRoot.GetComponent<WheelCarryable>();
+        if (wc != null)
+        {
+            wc.SetPlacedOnMachine(true);
+            // İstersen burada currentWheel = wc yapabilirsin (makine tekrar wheel görüyor olsun)
+            currentWheel = wc;
+        }
+
+        // Cache temizle (istersen sonraki split’e kadar saklayabilirsin; ben temiz bırakıyorum)
+        cachedWheelRoot = null;
+        cachedRim = null;
+        cachedTire = null;
+
+        Debug.Log("Mount success: Tire + Rim => Wheel reassembled!");
+        return true;
+    }
+
 
     void GiveTireToPlayer(GameObject tireObj)
     {
