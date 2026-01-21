@@ -75,13 +75,14 @@ public class TireChangerMachineController : MonoBehaviour
             Debug.LogWarning("SplitWheel called but currentWheel is null");
             return;
         }
-        
+
         //Wheel içinde Tire ve rim bulalım
-        var tire = currentWheel.transform.Find("Tyres");
-        var rim = currentWheel.transform.Find("Rim");
+        var tire = currentWheel.transform.Find("Tyres"); //Tyre objesini bulur
+        var rim = currentWheel.transform.Find("Rim"); // Rim objesini bulur
 
 
         //Orjinal local transformları saklıyoruz ki birleştirirken kullanacağız
+        //Bulduğumuz objelerden alıyoruz konumlarını 
         rimLocalPos = rim.localPosition;
         rimLocalRot = rim.localRotation;
         rimLocalScale = rim.localScale;
@@ -90,7 +91,7 @@ public class TireChangerMachineController : MonoBehaviour
         tireLocalRot = tire.localRotation;
         tireLocalScale = tire.localScale;
 
-        // ✅ Cache: tekrar assemble edeceğiz
+        //  Cache: tekrar assemble edeceğiz
         cachedWheelRoot = currentWheel.gameObject;
         cachedRim = rim;
         cachedTire = tire;
@@ -147,7 +148,7 @@ public class TireChangerMachineController : MonoBehaviour
 
     }
 
-    // ✅ YENI: lastik eldeyken E'ye basınca çağrılacak
+    //  lastik eldeyken E'ye basınca çağrılacak
     public bool TryMountTire(GameObject tireObj)
     {
         if (IsWorking) return false;
@@ -163,12 +164,14 @@ public class TireChangerMachineController : MonoBehaviour
             return false;
         }
 
-        // Tire objesi gerçekten bizim cachedTire mı? (güvenlik için)
-        if (cachedTire == null || tireObj.transform != cachedTire)
-        {
-            Debug.LogWarning("Mount failed: Tire bu makineye ait cachedTire değil.");
-            return false;
-        }
+        // // Tire objesi gerçekten bizim cachedTire mı? (güvenlik için)
+        // if (cachedTire == null || tireObj.transform != cachedTire)
+        //KAPATTIK BURAYI // {
+        //     Debug.LogWarning("Mount failed: Tire bu makineye ait cachedTire değil.");
+        //     return false;
+        // }
+
+        
 
         // Wheel root’u geri aç
         cachedWheelRoot.SetActive(true);
