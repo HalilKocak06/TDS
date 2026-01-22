@@ -19,6 +19,8 @@ public class StorageTireSpawner : MonoBehaviour
     [SerializeField] bool forceGenericLayer=true;
     [SerializeField] string genericLayerName = "Generic";
     [SerializeField] bool giveToPlayerHand = false;
+    [SerializeField] List<GameObject> tires = new List<GameObject>();
+    [SerializeField] int maxLimit = 1;
 
 
     // Update is called once per frame
@@ -43,12 +45,19 @@ public class StorageTireSpawner : MonoBehaviour
             return null;
         }
 
+        // if (tires.Count == maxLimit)
+        // {
+        //     return;
+        // }
+
         //1)Instantiate
         GameObject tire = Instantiate(
             newTirePrefab,
             spawnLocate.position,
             spawnLocate.rotation
         );
+
+        
 
         var spt = tire.GetComponentInChildren<SplitPhysicsToggle>(true);
         if (spt != null)

@@ -15,6 +15,8 @@ public class WheelCarryable : MonoBehaviour
     Collider[] cols; //collider array list teker,jant, lastik collider olduğu için
     WheelController wheel;  //wheelcontroller sınıfı bu tekeer sökülebilir mi bilgisini WheelController'a bağımlı
 
+    public bool IsBalanced {get; private set;}
+
     void Awake()
     {
         rb = GetComponentInChildren<Rigidbody>();
@@ -55,5 +57,10 @@ public class WheelCarryable : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
+    }
+
+    public void SetBalanced(bool value)
+    {
+        IsBalanced = value;
     }
 }

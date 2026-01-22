@@ -14,6 +14,7 @@ public class PlayerWheelCarrier : MonoBehaviour
     [SerializeField] Vector3 carryEulerOffset = new Vector3(0f, 250f, 0f); //*
 
     [SerializeField] LayerMask genericLayer;
+    [SerializeField] LayerMask balanceMachineLayer;
 
     WheelCarryable carriedWheel;
 
@@ -60,6 +61,12 @@ public class PlayerWheelCarrier : MonoBehaviour
         //Elimde WHEEL VARSA DAVRANIŞŞ
         if(carriedWheel != null)
         {
+            //önce balans makinesine koymayı denioyruz
+            if (TryPlaceWheelOnBalanceMachine())
+                return;
+
+
+
             TryPlaceOrDrop();
             return;
         }
@@ -78,6 +85,10 @@ public class PlayerWheelCarrier : MonoBehaviour
             
         }
 
+        if (carriedWheel == null && carriedGeneric == null)
+        {
+            TryPickUpWheelFromBalanceMachine();
+        }
 
     }
 
@@ -344,4 +355,45 @@ public class PlayerWheelCarrier : MonoBehaviour
                 }
     }
 }
+
+    bool TryPlaceWheelOnBalanceMachine()
+    {
+        if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
+        return false;
+
+        var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
+        if(machine == null) return false;
+
+        bool ok = machine.TryAcceptWheel(carriedWheel);
+        if(!ok) return false;
+
+        carriedWheel = null;
+
+        //otomatik çalışsın
+        machine.TryStartBalancing();
+
+        Debug.Log("Wheel placed on balance machine");
+        return true;   
+    }
+
+    void TryPickUpWheelFromBalanceMachine()
+    {
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
+        return;
+
+        var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
+        if(machine == null) return;
+
+        var wheel = machine.TryReleaseWheel();
+        if(wheel == null) return;
+
+        carriedWheel = wheel ;
+        wheel.SetCarried(true);
+
+        wheel.transform.SetParent(carryPoint);
+        wheel.transform.localPosition = Vector3.zero;
+        wheel.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Balanced wheel picked up");
+    }
 }
