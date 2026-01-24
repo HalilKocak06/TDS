@@ -19,13 +19,22 @@ public class BalanceMachineController : MonoBehaviour
     {
         if(IsWorking) return false;
         if(wheel == null) return false;
-        if(currentWheel != null) return false;
+        if(currentWheel != null) return false; 
+        
+        if(balanceWheelPoint == null)
+        {
+            Debug.LogWarning("BalanceMachine : balanceWheelPoint atanmamış");
+            return false;
+        }
 
         currentWheel = wheel;
 
-        //Tekeri makineye ışınlıyoruz yani balanceWheelPoint'e
-        ParentAndSnapKeepWorld(wheel.transform, balanceWheelPoint);
-        wheel.SetPlacedOnMachine(true);
+        currentWheel.SetPlacedOnMachine(true);
+
+        var t = currentWheel.transform;
+        t.SetParent(balanceWheelPoint, false);
+        t.localPosition = Vector3.zero;
+        t.localRotation = Quaternion.identity;
 
         return true;
     }

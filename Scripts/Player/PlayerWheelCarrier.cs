@@ -38,6 +38,13 @@ public class PlayerWheelCarrier : MonoBehaviour
                 return;
             }
 
+            if ( carriedWheel != null)
+            {
+                //SAFE DROP 
+                DropWheel();
+            }
+
+
         }
 
         //E ile al / yerleştir
@@ -64,8 +71,6 @@ public class PlayerWheelCarrier : MonoBehaviour
             //önce balans makinesine koymayı denioyruz
             if (TryPlaceWheelOnBalanceMachine())
                 return;
-
-
 
             TryPlaceOrDrop();
             return;
@@ -174,19 +179,6 @@ public class PlayerWheelCarrier : MonoBehaviour
             return;
         }
 
-        //Yoksa yere bırak: kameranın önüne düşecek.
-        Vector3 dropPos = cam.transform.position + cam.transform.forward *1.2f;
-        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit groundHit, 2f))
-            dropPos = groundHit.point + Vector3.up * 0.05f;
-
-        carriedWheel.transform.SetParent(null);
-        carriedWheel.transform.position = dropPos;
-        carriedWheel.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
-
-        carriedWheel.SetCarried(false);
-        carriedWheel= null;
-
-        Debug.Log("Wheel Dropped");    
     }
 
     public void ForcePickUpExternalObject(GameObject obj)
@@ -395,5 +387,32 @@ public class PlayerWheelCarrier : MonoBehaviour
         wheel.transform.localRotation = Quaternion.identity;
 
         Debug.Log("Balanced wheel picked up");
+    }
+
+    public void DropWheel()
+    {
+        Vector3 dropPos = cam.transform.position + cam.transform.forward * 1.2f;
+                if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit groundHit, 2f))
+                    dropPos = groundHit.point;
+
+                var col = carriedWheel.GetComponentInChildren<Collider>();
+                float up = 0.25f;
+                if(col != null) up = Mathf.Max(0.25f, col.bounds.extents.y, + 0.05f);
+                dropPos += Vector3.up * up ;
+
+                carriedWheel.SetCarried(true);
+
+                carriedWheel.transform.SetParent(null);
+                carriedWheel.transform.position = dropPos;
+                carriedWheel.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+
+                Physics.SyncTransforms(); //fizik değişikliklerini yapar yani transformları
+
+                //şimdi fiziği açıyoruz
+                carriedWheel.SetCarried(false);
+
+                carriedWheel = null;
+                Debug.Log("Wheel Dropped with !G!");
+                return;
     }
 }
