@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class WheelCarryable : MonoBehaviour
 {
-    Rigidbody rb; //rigidboy referans
+    Rigidbody[] rbs; //rigidboy referans
     Collider[] cols; //collider array list teker,jant, lastik collider olduğu için
     WheelController wheel;  //wheelcontroller sınıfı bu tekeer sökülebilir mi bilgisini WheelController'a bağımlı
 
@@ -19,7 +19,7 @@ public class WheelCarryable : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponentInChildren<Rigidbody>();
+        rbs = GetComponentsInChildren<Rigidbody>();
         cols = GetComponentsInChildren<Collider>(); // Teker modeli genelde çok parçalıdır. Tek collider değil → hepsini kapatman gerekir
 
         wheel = GetComponent<WheelController>();
@@ -31,17 +31,41 @@ public class WheelCarryable : MonoBehaviour
 
     public void SetCarried(bool carried)
     {
-        //Colliderları kapat aç elimizdeyken çarpışmasın
-        foreach (var collider in cols) collider.enabled = !carried;
- 
-        if (rb) //📌 Null-safe yaklaşım 
+        // eldeyken herşeyi kapatmak lazım
+        if(carried)
         {
-            rb.isKinematic = carried; //True olduğunda - Fizik motoru bu objeyi artık yönetmez
-            rb.useGravity = !carried;
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-
+            foreach (var c in cols) c.enabled = false;
+            foreach (var r in rbs)
+            {
+                r.isKinematic = true;
+                r.useGravity = false;
+                r.velocity = Vector3.zero;
+                r.angularVelocity = Vector3.zero;
+            }
+            return;
         }
+        // elde değilken:
+    // SADECE root fizik açılacak, child fizik kapalı kalacak (assembled varsayımı)
+    foreach (var r in rbs)
+    {
+        bool isRoot = (r.gameObject == gameObject);
+
+        r.isKinematic = !isRoot;
+        r.useGravity  = isRoot;
+
+        r.velocity = Vector3.zero;
+        r.angularVelocity = Vector3.zero;
+    }
+
+    foreach (var c in cols)
+    {
+        bool isRoot = (c.gameObject == gameObject);
+        c.enabled = isRoot;
+    }
+
+    // ayrıca rim/tyre SplitPhysicsToggle varsa komple disablela (ek güvenlik)
+    foreach (var s in GetComponentsInChildren<SplitPhysicsToggle>(true))
+        s.DisableAll();
     }
 
 
@@ -50,7 +74,7 @@ public class WheelCarryable : MonoBehaviour
     {
         foreach (var collider in cols) collider.enabled = !placed;
 
-        if(rb)
+        foreach (var rb in rbs)
         {
             rb.isKinematic = placed;
             rb.useGravity = !placed;
