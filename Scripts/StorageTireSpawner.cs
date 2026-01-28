@@ -57,6 +57,13 @@ public class StorageTireSpawner : MonoBehaviour
             spawnLocate.rotation
         );
 
+        // Identity oluşturmak
+        //Burası önemli bir daha bak başka zaman (26 ocakta yazıldı)
+        var id = tire.GetComponent<WheelPartIdentity>();
+        if(id == null) id = tire.AddComponent<WheelPartIdentity>();
+        id.kind = WheelPartKind.Tire;
+        id.jobId = 0;
+
         
 
         var spt = tire.GetComponentInChildren<SplitPhysicsToggle>(true);

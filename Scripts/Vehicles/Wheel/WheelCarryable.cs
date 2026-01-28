@@ -72,7 +72,15 @@ public class WheelCarryable : MonoBehaviour
     //Bu kod bloğu teker makineye yerleştirildiğinde fiziğini kapatır ve sabitler , makineden  alındığında ise tekrar fiziği açar.
     public void SetPlacedOnMachine(bool placed)
     {
-        foreach (var collider in cols) collider.enabled = !placed;
+        foreach (var collider in cols)
+        {
+            bool isroot = (collider.gameObject == gameObject);
+            
+            if(placed)
+                collider.enabled = isroot;
+            else
+                collider.enabled = true;    
+        }
 
         foreach (var rb in rbs)
         {

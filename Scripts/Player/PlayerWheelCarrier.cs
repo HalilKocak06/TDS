@@ -400,7 +400,7 @@ public class PlayerWheelCarrier : MonoBehaviour
                 if(col != null) up = Mathf.Max(0.25f, col.bounds.extents.y, + 0.05f);
                 dropPos += Vector3.up * up ;
 
-                carriedWheel.SetCarried(true);
+                carriedWheel.SetCarried(true); //Fiziği kapatıyoruz.
 
                 carriedWheel.transform.SetParent(null);
                 carriedWheel.transform.position = dropPos;
