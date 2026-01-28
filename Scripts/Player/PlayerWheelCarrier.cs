@@ -72,14 +72,14 @@ public class PlayerWheelCarrier : MonoBehaviour
             if (TryPlaceWheelOnBalanceMachine())
                 return;
 
-            TryPlaceOrDrop();
+            TryPlaceOrDrop(); // Sökme takma makinesine koyuyoruz burada.
             return;
         }
 
         TryPickUpWheel();
         if(carriedWheel == null)
         {
-            //önce makinden rim almaya çalışacağız.
+            //önce SÖkme-takma makinden rim almaya çalışacağız.
             TryPickUpRimFromMachine();
 
             // hala hiçbir şey almadıysak yerden generic dene
@@ -350,22 +350,36 @@ public class PlayerWheelCarrier : MonoBehaviour
 
     bool TryPlaceWheelOnBalanceMachine()
     {
-        if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
-        return false;
+                if (carriedWheel == null)
+            {
+                Debug.LogWarning("BALANCE: carriedWheel NULL (elde wheel yok)");
+                return false;
+            }
 
-        var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
-        if(machine == null) return false;
+            if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
+            {
+                Debug.LogWarning("BALANCE: Raycast HIT YOK (layer/collider/mesafe)");
+                return false;
+            }
 
-        bool ok = machine.TryAcceptWheel(carriedWheel);
-        if(!ok) return false;
+            Debug.Log($"BALANCE: Hit {hit.collider.name} layer={LayerMask.LayerToName(hit.collider.gameObject.layer)}");
 
-        carriedWheel = null;
+            var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
+            if (machine == null)
+            {
+                Debug.LogWarning("BALANCE: BalanceMachineController bulunamadı (parent zincirinde yok)");
+                return false;
+            }
 
-        //otomatik çalışsın
-        machine.TryStartBalancing();
+            bool ok = machine.TryAcceptWheel(carriedWheel);
+            Debug.Log($"BALANCE: TryAcceptWheel -> {ok} (IsWorking={machine.IsWorking})");
 
-        Debug.Log("Wheel placed on balance machine");
-        return true;   
+            if (!ok) return false;
+
+            carriedWheel = null;
+            machine.TryStartBalancing();
+            Debug.Log("BALANCE: placed OK");
+            return true;
     }
 
     void TryPickUpWheelFromBalanceMachine()
@@ -397,7 +411,7 @@ public class PlayerWheelCarrier : MonoBehaviour
 
                 var col = carriedWheel.GetComponentInChildren<Collider>();
                 float up = 0.25f;
-                if(col != null) up = Mathf.Max(0.25f, col.bounds.extents.y, + 0.05f);
+                if(col != null) up = Mathf.Max(0.25f, col.bounds.extents.y + 0.05f);
                 dropPos += Vector3.up * up ;
 
                 carriedWheel.SetCarried(true); //Fiziği kapatıyoruz.

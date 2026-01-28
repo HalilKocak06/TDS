@@ -27,14 +27,13 @@ public class BalanceMachineController : MonoBehaviour
             return false;
         }
 
-        currentWheel = wheel;
+        currentWheel = wheel; //Teker objesi
 
         currentWheel.SetPlacedOnMachine(true);
 
-        var t = currentWheel.transform;
-        t.SetParent(balanceWheelPoint, false);
-        t.localPosition = Vector3.zero;
-        t.localRotation = Quaternion.identity;
+        ParentAndSnapKeepWorld(currentWheel.transform, balanceWheelPoint);
+
+        Debug.Log("BalanceMachine: wheel Accepted & snapped");
 
         return true;
     }
@@ -74,6 +73,7 @@ public class BalanceMachineController : MonoBehaviour
     {
         child.SetParent(parent, true);
         child.SetPositionAndRotation(parent.position, parent.rotation);
+        child.localScale =Vector3.one;
     }
 
 }
