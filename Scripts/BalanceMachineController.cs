@@ -71,9 +71,21 @@ public class BalanceMachineController : MonoBehaviour
 
     static void ParentAndSnapKeepWorld(Transform child, Transform parent)
     {
+        Vector3 worldPos = child.position;
+        Quaternion worldRot = child.rotation;
+        Vector3 worldScale = child.lossyScale;
+        
+
         child.SetParent(parent, true);
         child.SetPositionAndRotation(parent.position, parent.rotation);
-        child.localScale =Vector3.one;
+
+        Vector3 parentLossy = parent.lossyScale;
+        child.localScale = new Vector3(
+            worldScale.x / parentLossy.x,
+            worldScale.y / parentLossy.y,
+            worldScale.z / parentLossy.z
+
+        );
     }
 
 }
