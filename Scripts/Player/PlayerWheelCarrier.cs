@@ -15,6 +15,7 @@ public class PlayerWheelCarrier : MonoBehaviour
 
     [SerializeField] LayerMask genericLayer;
     [SerializeField] LayerMask balanceMachineLayer;
+    [SerializeField] LayerMask carMountLayer;
 
     WheelCarryable carriedWheel;
 
@@ -71,6 +72,8 @@ public class PlayerWheelCarrier : MonoBehaviour
             //önce balans makinesine koymayı denioyruz
             if (TryPlaceWheelOnBalanceMachine())
                 return;
+            if(TryMountWheelOnCar())
+                return;    
 
             TryPlaceOrDrop(); // Sökme takma makinesine koyuyoruz burada.
             return;
@@ -428,5 +431,24 @@ public class PlayerWheelCarrier : MonoBehaviour
                 carriedWheel = null;
                 Debug.Log("Wheel Dropped with !G!");
                 return;
+    }
+
+    bool TryMountWheelOnCar()
+    {
+        if(carriedWheel == null) return false;
+
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, carMountLayer))
+            return false;
+
+        var mount = hit.collider.GetComponentInParent<CarWheelMountPoint>();
+        if (mount == null) return false;
+
+        bool ok = mount.TryMountToCar(carriedWheel);
+        if(!ok) return false;
+
+        carriedWheel = null;
+
+        Debug.Log("Wheel mounted on car");
+        return true;    
     }
 }
