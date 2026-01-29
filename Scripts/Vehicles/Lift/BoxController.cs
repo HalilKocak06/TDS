@@ -6,17 +6,15 @@ public class BoxController : MonoBehaviour
 {
   
   [SerializeField] LiftController lift; //obje lift kontrolü
-  [SerializeField] Transform player;
-  [SerializeField] float interactDistance = 2.5f;
-
-    void Update()
+  
+    public void Interact()
     {
-        if(Vector3.Distance(player.position, transform.position) <= interactDistance)
+        if(lift== null)
         {
-            if(Input.GetKeyDown(KeyCode.E))
-            {
-                lift.ToggleLift();
-            }
+            Debug.LogWarning("boxkontrtoller: lift refarans yok");
+            return;
         }
+
+        lift.ToggleLift();
     }
 }
