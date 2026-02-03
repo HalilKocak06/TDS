@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoltRemover : MonoBehaviour
 {
     [SerializeField] Camera cam; //Hangi kamerayı atarız
-    [SerializeField] float boltDistance = 5.5f; // bijon farkı
+    [SerializeField] float boltDistance = 0.5f; // bijon farkı
     [SerializeField] LayerMask boltLayer; //bijon Layer'i
     [SerializeField] PlayerToolController toolController; //tool control sınıfı.
 
@@ -14,6 +14,8 @@ public class BoltRemover : MonoBehaviour
     [SerializeField] bool requireLiftUp = true; //Burada lift kalkık mı değil mi sorgulayacağoız. // Bu bir oyun kuralı anahtarı.true → Lift yukarı değilse bijon sökülemez
 
     [SerializeField] float removeCooldown = 0.25f; // süre
+    [SerializeField] Transform rayOrigin;
+    
     float t;
 
 
@@ -41,9 +43,17 @@ public class BoltRemover : MonoBehaviour
             if(!lift.isUp) return; //Eğer lift aşağıdaysa returnluyoruz.
         }
 
-        Debug.DrawRay(cam.transform.position, cam.transform.forward * boltDistance, Color.red, 0.2f);
+        if(rayOrigin == null)
+        {
+            Debug.LogWarning("BoltRemover: rayOrigin (uç nokta) atanmadı!");
+        }
 
-        if (Physics.Raycast(cam.transform.position, cam.transform.forward,
+        Vector3 origin = rayOrigin.position;
+        Vector3 dir = rayOrigin.forward;
+
+        // Debug.DrawRay(origin, dir * boltDistance, Color.red, 0.2f);
+
+        if (Physics.Raycast(origin, dir,
         out RaycastHit hit, boltDistance, boltLayer))
         {
             // Debug.Log("HIT (maskesiz): " + hit.collider.name + " layer=" + LayerMask.LayerToName(hit.collider.gameObject.layer));
