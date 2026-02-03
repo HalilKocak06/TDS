@@ -10,16 +10,16 @@ public class WheelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(IsUnlocked) return;
-
         int removed = 0 ;
         foreach( var n in lugNuts)
             if (n != null && n.IsRemoved) removed ++;
 
-        if(removed == lugNuts.Length)
+        bool shouldUnlock = (removed == lugNuts.Length);
+
+        if(IsUnlocked != shouldUnlock)
         {
-            IsUnlocked = true;
-            Debug.Log("Wheel Unlocked"); 
-        }    
+            IsUnlocked = shouldUnlock;
+            Debug.Log(IsUnlocked ? "Wheel Unlocked" : "Wheel Locked");
+        }   
     }
 }

@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class BoltRemover : MonoBehaviour
 {
-    [SerializeField] Camera cam; //Hangi kamerayı atarız
+    public enum BoltMode {Remove, Install}
+    [Header("Ray(Wrench )")]
+    [SerializeField] Transform rayOrigin;
     [SerializeField] float boltDistance = 0.5f; // bijon farkı
     [SerializeField] LayerMask boltLayer; //bijon Layer'i
+
+    [SerializeField] Camera cam; //Hangi kamerayı atarız
+
+    [Header("Tools")]  
     [SerializeField] PlayerToolController toolController; //tool control sınıfı.
 
     [Header("Lift Gate")]
@@ -14,7 +20,10 @@ public class BoltRemover : MonoBehaviour
     [SerializeField] bool requireLiftUp = true; //Burada lift kalkık mı değil mi sorgulayacağoız. // Bu bir oyun kuralı anahtarı.true → Lift yukarı değilse bijon sökülemez
 
     [SerializeField] float removeCooldown = 0.25f; // süre
-    [SerializeField] Transform rayOrigin;
+
+    [Header("Timing")]
+    [SerializeField] BoltMode mode = BoltMode.Remove;
+    
     
     float t;
 
@@ -23,6 +32,19 @@ public class BoltRemover : MonoBehaviour
     void Update()
     {
         t += Time.deltaTime; 
+
+        //Mode Switch
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            mode = BoltMode.Remove;
+            Debug.Log("BOLT MODE : REMOVE");
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            mode = BoltMode.Install;
+            Debug.Log("BOLT MODE : INSTALL");
+        }
 
         if (!Input.GetMouseButtonDown(0)) return;  //SOl click
         
@@ -53,23 +75,20 @@ public class BoltRemover : MonoBehaviour
 
         // Debug.DrawRay(origin, dir * boltDistance, Color.red, 0.2f);
 
-        if (Physics.Raycast(origin, dir,
-        out RaycastHit hit, boltDistance, boltLayer))
-        {
-            // Debug.Log("HIT (maskesiz): " + hit.collider.name + " layer=" + LayerMask.LayerToName(hit.collider.gameObject.layer));
-            
+        if (!Physics.Raycast(origin, dir, out RaycastHit hit, boltDistance, boltLayer))
+            return;
 
-            var nut = hit.collider.GetComponentInParent<LugNut>();
-            if(nut != null && !nut.IsRemoved)
-            {
-                nut.Remove();
-                t = 0f;
-            }
+        var nut = hit.collider.GetComponentInParent<LugNut>();
+        if(nut == null) return;
+           
+        if (mode == BoltMode.Remove)
+        {
+            nut.Remove();
         }
-        else
-            {
-            // Debug.Log("HIT NOTHING (maskesiz)");
-            }
+        else //INSTALL MODE !!
+            nut.Install();
+
+        t=0f;    
 
 
     }
