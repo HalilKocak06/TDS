@@ -83,7 +83,9 @@ public class PlayerWheelCarrier : MonoBehaviour
         if(carriedWheel == null)
         {
             //önce SÖkme-takma makinden rim almaya çalışacağız.
+            
             TryPickUpRimFromMachine();
+
 
             // hala hiçbir şey almadıysak yerden generic dene
             if(carriedGeneric == null)
@@ -138,6 +140,14 @@ public class PlayerWheelCarrier : MonoBehaviour
             var wheel = hit.collider.GetComponentInParent<WheelCarryable>();
             if (wheel == null) return;
             if (!wheel.CanPickUp) return; //CanPickUp eğer sökülmemişsize bijonlar dön.
+
+            var machine = wheel.GetComponentInParent<BalanceMachineController>();
+            if (machine != null)
+            {
+                var released = machine.TryReleaseWheel();
+                if (released == null) return;
+                wheel = released;
+            }
 
             carriedWheel = wheel;
             carriedWheel.SetCarried(true);
@@ -404,6 +414,8 @@ public class PlayerWheelCarrier : MonoBehaviour
         wheel.transform.localRotation = Quaternion.identity;
 
         Debug.Log("Balanced wheel picked up");
+
+
     }
 
     public void DropWheel()

@@ -19,7 +19,7 @@ public class BalanceMachineController : MonoBehaviour
     {
         if(IsWorking) return false;
         if(wheel == null) return false;
-        if(currentWheel != null) return false; 
+        if(currentWheel != null) return false;
         
         if(balanceWheelPoint == null)
         {
@@ -62,10 +62,16 @@ public class BalanceMachineController : MonoBehaviour
 
     public WheelCarryable TryReleaseWheel()
     {
+        
         if (IsWorking ) return null;
 
         var wheel = currentWheel;
         currentWheel = null;
+        if (wheel != null)
+        {
+            // Ensure wheel is no longer considered fixed on the machine
+            wheel.SetPlacedOnMachine(false);
+        }
         return wheel;
     }
 
