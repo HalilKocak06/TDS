@@ -35,6 +35,19 @@ public class CarWheelMountPoint : MonoBehaviour
         return true;        
     }
 
+    public WheelCarryable TryReleaseFromCar()
+    {
+        if (CurrentWheel == null) return null;
+
+        var wheel = CurrentWheel;
+        CurrentWheel = null;
+
+        // Wheel no longer fixed on car
+        wheel.SetPlacedOnMachine(false);
+
+        return wheel;
+    }
+
     static void ParentAndSnapLocal(Transform child, Transform parent)
     {
         child.SetParent(parent, false);

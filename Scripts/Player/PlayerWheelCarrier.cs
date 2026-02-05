@@ -149,6 +149,14 @@ public class PlayerWheelCarrier : MonoBehaviour
                 wheel = released;
             }
 
+            var mountPoint = wheel.GetComponentInParent<CarWheelMountPoint>();
+            if (mountPoint != null)
+            {
+                var released = mountPoint.TryReleaseFromCar();
+                if (released == null) return;
+                wheel = released;
+            }
+
             carriedWheel = wheel;
             carriedWheel.SetCarried(true);
 
