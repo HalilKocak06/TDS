@@ -61,4 +61,19 @@ public class DoorController : MonoBehaviour
             audioSource.PlayOneShot(closeDoorSound);
         }
     }
+
+    public void Open() //NPC kapı açılışına yarar
+    {
+        if (isOpen) return;
+        ToggleDoor(); //güvenlik için fonksiyon'dan çağırıyoruz ToggleDoor'u.
+    }
+
+    public void Close() // NPC Kapı kapanışına yarar.
+    {
+        if (!isOpen) return;
+        ToggleDoor();
+    }
+
+    public bool IsOpen => isOpen;
+    
 }
