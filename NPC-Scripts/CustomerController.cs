@@ -9,6 +9,9 @@ public class CustomerController : MonoBehaviour
     [Header("Arrive")]
     [SerializeField] float arriveEpsilon = 0.08f; // "tam durdu" toleransı
     [SerializeField] float speedDampTime = 0.12f; // anim smoothing
+    [SerializeField] float lookTurnSpeed = 7f; // Oyuncuya baksın diye.
+    Transform player; //player objesinin yeri.
+    bool greetedOnce; //true/false selamlaşma yapıldı mı diye.
 
     NavMeshAgent agent; //navmesh objesi
     Animator anim; //animasyon objesi
@@ -59,7 +62,23 @@ public class CustomerController : MonoBehaviour
             {
                 // Burada agent’ı zorla 0’a çakmıyoruz; sadece anim’i 0’a oturtuyoruz.
                 state = State.WaitingPlayer;
-                Invoke(nameof(LeaveShop), 4f);
+                // şimdilik debug dialogue
+                if (!greetedOnce)
+                {
+                 greetedOnce = true;
+                 Debug.Log("[NPC] Lastik istiyorum.");
+                }
+                // Invoke(nameof(LeaveShop), 4f);
+            }
+        }
+        if(state == State.WaitingPlayer && player != null)
+        {
+            Vector3 toPlayer = player.position - transform.position;
+            toPlayer.y = 0f; // sadece yatay dönüş aypıyoruz.
+            if (toPlayer.sqrMagnitude > 0.001f)
+            {
+                Quaternion targetRot = Quaternion.LookRotation(toPlayer);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, lookTurnSpeed *Time.deltaTime);
             }
         }
 
@@ -95,4 +114,27 @@ public class CustomerController : MonoBehaviour
 
         agent.SetDestination(exitPoint.position);
     }
+
+    public void SetPlayer(Transform playerTransform)
+    {
+        player = playerTransform;
+    }
+
+    public bool CanAccept()
+    {
+        return state == State.WaitingPlayer;
+    }
+
+    public void AcceptRequest()
+    {
+        if(!CanAccept()) return;
+
+        Debug.Log("[NPC] Tamam usta , lastikleri sökelim.");
+
+        var flow = FindObjectOfType<CustomerJobFlow>();
+        if (flow != null) flow.StartJobFor(this);
+
+    }
+
+
 }
