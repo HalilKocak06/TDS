@@ -7,16 +7,36 @@ public class CustomerController : MonoBehaviour
     public State state { get; private set; }
 
     [Header("Arrive")]
-    [SerializeField] float arriveEpsilon = 0.08f; // "tam durdu" toleransı
-    [SerializeField] float speedDampTime = 0.12f; // anim smoothing
+    [SerializeField] float arriveEpsilon = 0.08f;
+    [SerializeField] float speedDampTime = 0.12f;
 
     NavMeshAgent agent;
     Animator anim;
     Transform talkPoint;
     Transform exitPoint;
 
-    float animSpeed;        // Animator'a verdiğimiz Speed
-    float animSpeedVelRef;  // SmoothDamp ref
+    [Header("Facing (No Tag)")]
+    [SerializeField] Transform player;               // Spawner/Inspector set eder
+    [SerializeField] bool facePlayerWhileWaiting = true;
+    [SerializeField] float turnSpeed = 8f;
+
+    public enum TalkStage
+    {
+        None,
+        WaitingGreeting,   // Player tık bekliyoruz
+        CustomerAsked,     // “Lastik istiyorum” dedi
+        PlayerAccepted     // “Tamam abi” dedin
+    }
+
+    public TalkStage talkStage { get; private set; } = TalkStage.None;
+
+    [SerializeField] float replyDelay = 0.2f;
+    [SerializeField] float talkDistance = 2.5f; // çok uzaktaysa tık çalışmasın
+
+    bool busyTalking;
+
+    float animSpeed;
+    float animSpeedVelRef;
 
     void Awake()
     {
@@ -30,17 +50,26 @@ public class CustomerController : MonoBehaviour
         exitPoint = exit;
     }
 
+    public void SetPlayer(Transform playerTransform)
+    {
+        player = playerTransform;
+    }
+
     public void BeginEnterShop()
     {
         state = State.Entering;
+        talkStage = TalkStage.None;
+        busyTalking = false;
 
-        // Agent tuning (istersen inspector’dan da ayarla)
-        agent.autoBraking = true;
-        // agent.acceleration = 8f;
-        // agent.stoppingDistance = 0.9f;
+        if (agent)
+        {
+            agent.autoBraking = true;
+            agent.isStopped = false;
+            agent.updateRotation = true;
 
-        agent.isStopped = false;
-        agent.SetDestination(talkPoint.position);
+            if (talkPoint != null)
+                agent.SetDestination(talkPoint.position);
+        }
     }
 
     void Update()
@@ -49,44 +78,126 @@ public class CustomerController : MonoBehaviour
 
         if (state == State.Entering)
         {
-            // Asıl "vardım" koşulu: path hazır + remaining küçük + desiredVelocity çok küçük
             bool arrived =
+                agent != null &&
                 !agent.pathPending &&
                 agent.remainingDistance <= agent.stoppingDistance + arriveEpsilon &&
-                agent.desiredVelocity.sqrMagnitude < 0.01f; // neredeyse durmak istiyor
+                agent.desiredVelocity.sqrMagnitude < 0.01f;
 
             if (arrived)
             {
-                // Burada agent’ı zorla 0’a çakmıyoruz; sadece anim’i 0’a oturtuyoruz.
-                state = State.WaitingPlayer;
+                OnReachedTalkPoint();
             }
         }
+
+        if (state == State.WaitingPlayer)
+        {
+            FacePlayer();
+        }
+    }
+
+    void OnReachedTalkPoint()
+    {
+        state = State.WaitingPlayer;
+
+        // ✅ artık rotasyonu biz yönetiyoruz (FacePlayer)
+        if (agent) agent.updateRotation = false;
+
+        // ✅ konuşma sırası tıkla başlasın
+        talkStage = TalkStage.WaitingGreeting;
+        busyTalking = false;
+    }
+
+    void FacePlayer()
+    {
+        if (!facePlayerWhileWaiting) return;
+        if (!player) return;
+
+        Vector3 dir = player.position - transform.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude < 0.0001f) return;
+
+        Quaternion target = Quaternion.LookRotation(dir, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, target, turnSpeed * Time.deltaTime);
     }
 
     void UpdateAnimatorSpeed()
     {
         if (!anim || !agent) return;
 
-        // 1) Hedef hız: normalde desiredVelocity (daha stabil)
         float target = agent.desiredVelocity.magnitude;
 
-        // 2) Hedefe çok yaklaştıysan Speed'i 0'a snap et (jitter'i bitirir)
         bool shouldSnapToZero =
             !agent.pathPending &&
             agent.remainingDistance <= agent.stoppingDistance + arriveEpsilon;
 
         if (shouldSnapToZero) target = 0f;
 
-        // 3) Yumuşat (senin istediğin "yavaş yavaş" iniş)
         animSpeed = Mathf.SmoothDamp(animSpeed, target, ref animSpeedVelRef, speedDampTime);
-
         anim.SetFloat("Speed", animSpeed);
     }
 
     public void LeaveShop()
     {
         state = State.Leaving;
-        agent.isStopped = false;
-        agent.SetDestination(exitPoint.position);
+        busyTalking = false;
+
+        if (agent)
+        {
+            agent.isStopped = false;
+            agent.updateRotation = true;
+
+            if (exitPoint != null)
+                agent.SetDestination(exitPoint.position);
+        }
+    }
+
+    // Player sol tıkla çağırır
+    public void OnPlayerGreetClicked()
+    {
+        // sadece talkPoint’te beklerken konuşsun
+        if (state != State.WaitingPlayer) return;
+        if (busyTalking) return;
+
+        // uzaksa konuşmasın (gerçekçilik)
+        if (player != null)
+        {
+            float d2 = (player.position - transform.position).sqrMagnitude;
+            if (d2 > talkDistance * talkDistance) return;
+        }
+
+        // güvenlik: yanlışlıkla None kalırsa
+        if (talkStage == TalkStage.None)
+            talkStage = TalkStage.WaitingGreeting;
+
+        if (talkStage == TalkStage.WaitingGreeting)
+        {
+            busyTalking = true;
+            Debug.Log("Hoşgeldin abi");
+            Invoke(nameof(SayNeedTire), replyDelay);
+        }
+        else if (talkStage == TalkStage.CustomerAsked)
+        {
+            busyTalking = true;
+            Debug.Log("Tamam abi");
+            talkStage = TalkStage.PlayerAccepted;
+            Invoke(nameof(EndTalkBusy), 0.05f);
+
+            // ✅ burada sonra: job başlat / lift çağır gelecek
+        }
+        // PlayerAccepted sonrası şimdilik ignore
+    }
+
+    void SayNeedTire()
+    {
+        Debug.Log("Kolay gelsin ustam Lastik istiyorum");
+        talkStage = TalkStage.CustomerAsked;
+        busyTalking = false;
+    }
+
+    void EndTalkBusy()
+    {
+        busyTalking = false;
     }
 }
