@@ -1,0 +1,474 @@
+
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class PlayerWheelCarrier : MonoBehaviour
+{
+    [SerializeField] Camera cam; //ana kamerayı yerleştiriyoruz.
+    [SerializeField] Transform carryPoint; //BU handpoint'i ekliyoruz ki buraya kamerayı ayarlasın diye.
+
+    [Header("Raycast")]
+    [SerializeField] float interactDistance = 5f; //Etkileşim mesafesi
+    [SerializeField] LayerMask wheelLayer; //Teker layeri
+    [SerializeField] LayerMask placeLayer; //
+    [SerializeField] Vector3 carryEulerOffset = new Vector3(0f, 250f, 0f); //*
+
+    [SerializeField] LayerMask genericLayer;
+    [SerializeField] LayerMask balanceMachineLayer;
+    [SerializeField] LayerMask carMountLayer;
+
+    WheelCarryable carriedWheel;
+
+    GameObject carriedGeneric;
+
+
+
+    void Start()
+    {
+        if(!cam) cam = Camera.main;
+    }
+
+    
+    void Update()
+    {
+         if (Input.GetKeyDown(KeyCode.G))
+        {
+            if(carriedGeneric != null)
+            {
+                DropGeneric();
+                return;
+            }
+
+            if ( carriedWheel != null)
+            {
+                //SAFE DROP 
+                DropWheel();
+            }
+
+
+        }
+
+        //E ile al / yerleştir
+        if(!Input.GetKeyDown(KeyCode.E)) return;
+
+        if(carriedGeneric != null)
+        {
+            bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+            if(isRim)
+            {
+                TryPlaceRimOnMachine();
+            }
+            else
+            {
+                TryMountTireOnMachine();
+            }
+            return;
+            
+        }
+
+        //Elimde WHEEL VARSA DAVRANIŞŞ
+        if(carriedWheel != null)
+        {
+            //önce balans makinesine koymayı denioyruz
+            if (TryPlaceWheelOnBalanceMachine())
+                return;
+            if(TryMountWheelOnCar())
+                return;    
+
+            TryPlaceOrDrop(); // Sökme takma makinesine koyuyoruz burada.
+            return;
+        }
+
+        TryPickUpWheel();
+        if(carriedWheel == null)
+        {
+            //önce SÖkme-takma makinden rim almaya çalışacağız.
+            
+            TryPickUpRimFromMachine();
+
+
+            // hala hiçbir şey almadıysak yerden generic dene
+            if(carriedGeneric == null)
+            {
+                TryPickUpGeneric();
+            }
+            
+        }
+
+        if (carriedWheel == null && carriedGeneric == null)
+        {
+            TryPickUpWheelFromBalanceMachine();
+        }
+
+    }
+
+    void TryPickUpGeneric()
+    {
+        //Generic layer'I burada raycast edeceğiz.
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, genericLayer))
+        {
+             // collider child’da olabilir → parent objeyi al
+        var go = hit.collider.GetComponentInParent<Transform>()?.gameObject;
+        if (go == null) return;
+
+        carriedGeneric = go;
+
+        // eldeyken fizik kapat (sürünme biter)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Generic picked up");
+
+        }
+    }
+
+    void TryPickUpWheel()
+    {
+         if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, wheelLayer))
+        {
+            var wheel = hit.collider.GetComponentInParent<WheelCarryable>();
+            if (wheel == null) return;
+            if (!wheel.CanPickUp) return; //CanPickUp eğer sökülmemişsize bijonlar dön.
+
+            var machine = wheel.GetComponentInParent<BalanceMachineController>();
+            if (machine != null)
+            {
+                var released = machine.TryReleaseWheel();
+                if (released == null) return;
+                wheel = released;
+            }
+
+            var mountPoint = wheel.GetComponentInParent<CarWheelMountPoint>();
+            if (mountPoint != null)
+            {
+                var released = mountPoint.TryReleaseFromCar();
+                if (released == null) return;
+                wheel = released;
+            }
+
+            carriedWheel = wheel;
+            carriedWheel.SetCarried(true);
+
+            var t = carriedWheel.transform;
+            t.SetParent(carryPoint);
+            t.localPosition = Vector3.zero;
+            t.localRotation = Quaternion.Euler(carryEulerOffset);
+
+            Debug.Log("Wheel Picked Up!!!!!! ---log message---");
+        }
+    }
+
+    void TryPlaceOrDrop()
+    {
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit , interactDistance, placeLayer))
+        {
+            var place = hit.collider.GetComponentInParent<WheelPlacePoint>();
+            if(place == null || place.slotPoint == null)
+            {
+                Debug.LogWarning("WheelPlacePoint veya SlotPoint yok!");
+            }
+
+            //SlotPoint'e  bağla koy.
+            carriedWheel.transform.SetParent(place.slotPoint);
+            carriedWheel.transform.localPosition = Vector3.zero;
+            carriedWheel.transform.localRotation = Quaternion.identity;
+
+            //Makinede sabitle
+            carriedWheel.SetPlacedOnMachine(true); //Yani burada bu fonksiyona giderek(WheelCarrable.cs)'e tekerin fiziğini kapatırız.
+
+            var machine = place.GetComponentInParent<TireChangerMachineController>();
+            if(machine != null)
+            {
+                machine.RegisterWheelAlreadyPlaced(carriedWheel);
+                Debug.Log("Machine notified: wheel registered.");
+            }
+            carriedWheel = null;
+
+
+            Debug.Log("Wheel placed on machine");
+            return;
+        }
+
+    }
+
+    public void ForcePickUpExternalObject(GameObject obj)
+    {
+        
+
+        carriedGeneric = obj; 
+
+        // eldeyken fizik kapat (sürünme biter)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Tire given to player hand");
+
+    }
+
+    void DropGeneric()
+    {
+        Vector3 dropPos = cam.transform.position + cam.transform.forward * 1.2f;
+
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit groundHit, 2f))
+            dropPos = groundHit.point + Vector3.up * 0.1f;
+
+        carriedGeneric.transform.SetParent(null, true);
+        carriedGeneric.transform.position = dropPos;
+        bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+        if(isRim)
+        {
+            carriedGeneric.transform.rotation = Quaternion.Euler(-90f, cam.transform.eulerAngles.y, 0f);
+        }
+        else
+        {
+            carriedGeneric.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+        }
+
+
+
+
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+        {
+            gc.SetCarried(false); // ✅ collider + rb geri açılır
+        }
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+        }
+
+        carriedGeneric = null;
+        Debug.Log("SADE LASTIK BAŞARILI BİR ŞEKİLDE YERE BIRAKILDI :::");
+
+    }
+
+    void TryPlaceRimOnMachine()
+    {
+        if(carriedGeneric == null) return;
+
+        bool isRim = carriedGeneric.name.ToLower().Contains("rim");
+        if(!isRim) return; // sadece Rim
+
+        if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+        {
+            var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+            if (machine == null) return;
+
+            Transform target = machine.GetRimStayPoint();
+            if(target == null)
+            {
+                Debug.LogWarning("Makinede rimStayPoint yok !!!");
+                return;
+            }
+
+            //Rim'i hedefe koy
+            carriedGeneric.transform.SetParent(target,true);
+            carriedGeneric.transform.SetPositionAndRotation(target.position, target.rotation);
+
+            //makinede sabit kalsın (elde değil !)
+            if(carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+                gc.SetCarried(true); //colider kapat + kinematic (makinede sabit)
+
+            carriedGeneric = null;
+            Debug.Log("Rim placed on machine (rimStayPoint).");    
+
+
+        }
+    }
+
+    void TryPickUpRimFromMachine()
+    {
+        //El boş olmalı
+        if(carriedGeneric != null || carriedWheel != null ) return;
+
+        //Makineye bakıyor muyuz diye kontrol ediyoruz
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+        return;
+
+        var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+        if(machine == null) return;
+
+        Transform rimPoint = machine.GetRimStayPoint();
+        if(rimPoint == null) return ; 
+
+        //RimStayPoint altında rim var mı ?
+        if (rimPoint.childCount == 0) return;
+
+        // İlk çocuğu rim kabul ediyoruz (istersen isimle kontrol ekleriz)
+        GameObject rimObj = rimPoint.GetChild(0).gameObject;
+
+        // İstersen garanti: adı rim mi?
+        if (!rimObj.name.ToLower().Contains("rim"))
+            return;
+
+        carriedGeneric = rimObj;
+
+        // Makineden ayır
+        carriedGeneric.transform.SetParent(null, true);
+
+        // Ele alınca fizik kapat (senin sistem)
+        if (carriedGeneric.TryGetComponent<GenericCarryable>(out var gc))
+            gc.SetCarried(true);
+        else if (carriedGeneric.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        // Eldeki noktaya al
+        carriedGeneric.transform.SetParent(carryPoint, false);
+        carriedGeneric.transform.localPosition = Vector3.zero;
+        carriedGeneric.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Rim picked up from machine.");
+
+        }
+        void TryMountTireOnMachine()
+{
+            // Elimdeki şey tyre olmalı
+            if (carriedGeneric == null) return;
+            if (carriedGeneric.name.ToLower().Contains("rim")) return;
+
+            // Makineye bakıyor muyuz? (placeLayer üzerinden)
+            if (Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, placeLayer))
+            {
+                var machine = hit.collider.GetComponentInParent<TireChangerMachineController>();
+                if (machine == null) return;
+
+                // Makine birleştirebildi mi?
+                bool ok = machine.TryMountTire(carriedGeneric);
+                if (ok)
+                {
+                    // Player artık taşımasın
+                    carriedGeneric = null;
+                }
+    }
+}
+
+    bool TryPlaceWheelOnBalanceMachine()
+    {
+                if (carriedWheel == null)
+            {
+                Debug.LogWarning("BALANCE: carriedWheel NULL (elde wheel yok)");
+                return false;
+            }
+
+            if (!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
+            {
+                Debug.LogWarning("BALANCE: Raycast HIT YOK (layer/collider/mesafe)");
+                return false;
+            }
+
+            Debug.Log($"BALANCE: Hit {hit.collider.name} layer={LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+
+            var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
+            if (machine == null)
+            {
+                Debug.LogWarning("BALANCE: BalanceMachineController bulunamadı (parent zincirinde yok)");
+                return false;
+            }
+
+            bool ok = machine.TryAcceptWheel(carriedWheel);
+            Debug.Log($"BALANCE: TryAcceptWheel -> {ok} (IsWorking={machine.IsWorking})");
+
+            if (!ok) return false;
+
+            carriedWheel = null;
+            machine.TryStartBalancing();
+            Debug.Log("BALANCE: placed OK");
+            return true;
+    }
+
+    void TryPickUpWheelFromBalanceMachine()
+    {
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, balanceMachineLayer))
+        return;
+
+        var machine = hit.collider.GetComponentInParent<BalanceMachineController>();
+        if(machine == null) return;
+
+        var wheel = machine.TryReleaseWheel();
+        if(wheel == null) return;
+
+        carriedWheel = wheel ;
+        wheel.SetCarried(true);
+
+        wheel.transform.SetParent(carryPoint);
+        wheel.transform.localPosition = Vector3.zero;
+        wheel.transform.localRotation = Quaternion.identity;
+
+        Debug.Log("Balanced wheel picked up");
+
+
+    }
+
+    public void DropWheel()
+    {
+        Vector3 dropPos = cam.transform.position + cam.transform.forward * 1.2f;
+                if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit groundHit, 2f))
+                    dropPos = groundHit.point;
+
+                var col = carriedWheel.GetComponentInChildren<Collider>();
+                float up = 0.25f;
+                if(col != null) up = Mathf.Max(0.25f, col.bounds.extents.y + 0.05f);
+                dropPos += Vector3.up * up ;
+
+                carriedWheel.SetCarried(true); //Fiziği kapatıyoruz.
+
+                carriedWheel.transform.SetParent(null);
+                carriedWheel.transform.position = dropPos;
+                carriedWheel.transform.rotation = Quaternion.Euler(0f, cam.transform.eulerAngles.y, 0f);
+
+                Physics.SyncTransforms(); //fizik değişikliklerini yapar yani transformları
+
+                //şimdi fiziği açıyoruz
+                carriedWheel.SetCarried(false);
+
+                carriedWheel = null;
+                Debug.Log("Wheel Dropped with !G!");
+                return;
+    }
+
+    bool TryMountWheelOnCar()
+    {
+        if(carriedWheel == null) return false;
+
+        if(!Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit hit, interactDistance, carMountLayer))
+            return false;
+
+        var mount = hit.collider.GetComponentInParent<CarWheelMountPoint>();
+        if (mount == null) return false;
+
+        bool ok = mount.TryMountToCar(carriedWheel);
+        if(!ok) return false;
+
+        carriedWheel = null;
+
+        Debug.Log("Wheel mounted on car");
+        return true;    
+    }
+}
