@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using Unity.VisualScripting;
 
 public class CarWheelMountPoint : MonoBehaviour
 {
@@ -8,8 +10,32 @@ public class CarWheelMountPoint : MonoBehaviour
     [SerializeField] Transform wheelMountPointCar;
     [SerializeField] bool keepWorldScale = true;
 
+    [UnitHeaderInspectable("Slot Info")]
+    [SerializeField] string slotName = "FL";
+    public string SlotName => slotName;
+
+    public event Action<CarWheelMountPoint> OnChanged; //Job manager dinleyecek.
+
     public WheelCarryable CurrentWheel {get; private set;}
     public bool HashWheel => CurrentWheel != null;
+
+    public TireIdentity GetMountedTireIdentity()
+    {
+        if(CurrentWheel == null) return null;
+        
+        return CurrentWheel.GetComponentInChildren<TireIdentity>(true);
+    }
+
+    public bool AreLugNutsTight()
+    {
+        if(CurrentWheel == null) return false;
+
+        var wc = CurrentWheel.GetComponent<WheelController>();
+        if(wc == null) return false;
+
+        return wc.AreLugNutsTight;
+    }
+
 
     public bool TryMountToCar(WheelCarryable wheel)
     {
@@ -32,6 +58,13 @@ public class CarWheelMountPoint : MonoBehaviour
             ParentAndSnapLocal(wheel.transform, wheelMountPointCar);
 
         Debug.Log("CarWheelMountPoint: Wheel mounted!");
+        
+        var tid = GetMountedTireIdentity();
+        Debug.Log($"[Mount] {slotName} -> {(tid != null ? tid.stringDisplayName : "NO TireIdentity")}");
+        
+        // JobManager'a haber ver
+        OnChanged?.Invoke(this);
+        
         return true;        
     }
 
@@ -44,6 +77,10 @@ public class CarWheelMountPoint : MonoBehaviour
 
         // Wheel no longer fixed on car
         wheel.SetPlacedOnMachine(false);
+
+        // release log + event
+        Debug.Log($"[Mount] {slotName} -> RELEASED");
+        OnChanged?.Invoke(this);
 
         return wheel;
     }

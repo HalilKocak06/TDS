@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,6 +20,12 @@ public class CustomerController : MonoBehaviour
     [SerializeField] Transform player;               // Spawner/Inspector set eder
     [SerializeField] bool facePlayerWhileWaiting = true;
     [SerializeField] float turnSpeed = 8f;
+
+    [Header("Job")]
+    [SerializeField] TireJobManager jobManager;
+    TireOrder pendingOrder;
+    bool jobStarted;
+
 
     public enum TalkStage
     {
@@ -42,6 +49,10 @@ public class CustomerController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
+
+        if (jobManager == null)
+            jobManager = FindFirstObjectByType<TireJobManager>();
+
     }
 
     public void Init(Transform talk, Transform exit)
@@ -185,14 +196,39 @@ public class CustomerController : MonoBehaviour
             talkStage = TalkStage.PlayerAccepted;
             Invoke(nameof(EndTalkBusy), 0.05f);
 
-            // ✅ burada sonra: job başlat / lift çağır gelecek
+            if(!jobStarted)
+            {
+                jobStarted = true;
+                
+                if(jobManager == null)
+                    jobManager = FindFirstObjectByType<TireJobManager>();
+
+                if(jobManager != null && pendingOrder !=null)
+                {
+                    Debug.Log($"[Player] Tamam abi, başlıyorum -> {pendingOrder.Display}");
+                    jobManager.StartJob(pendingOrder);
+                }
+                else
+                {
+                    Debug.LogWarning("[Customer] JobManager veya pendingOrder yok!");
+                }    
+            }
         }
         // PlayerAccepted sonrası şimdilik ignore
     }
 
     void SayNeedTire()
     {
-        Debug.Log("Kolay gelsin ustam Lastik istiyorum");
+        pendingOrder = new TireOrder
+        {
+            size = new TireSize(195,55,16),
+            season = TireSeason.Summer,
+            condition = TireCondition.New,
+            quantity = 4
+        };
+
+
+        Debug.Log($"Kolay gelsin ustam {pendingOrder.Display} istiyorum");
         talkStage = TalkStage.CustomerAsked;
         busyTalking = false;
     }

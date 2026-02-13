@@ -7,6 +7,8 @@ public class WheelController : MonoBehaviour
     [SerializeField] LugNut[] lugNuts; //Bijonları buraya sürükle.
     public bool IsUnlocked { get; private set;} 
 
+    public bool AreLugNutsTight => !IsUnlocked;
+
     // Update is called once per frame
     void Update()
     {

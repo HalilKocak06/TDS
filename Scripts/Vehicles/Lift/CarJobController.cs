@@ -11,6 +11,7 @@ public class CarJobController : MonoBehaviour
     [SerializeField] Transform liftParkingSpot; //Arabanın duracağı nokta
 
     GameObject currentCar; //sahnedeki araba için kullandığımı bir referans . (bu başka bir obje de olabilir sadece referans)
+    public GameObject CurrentCar => currentCar; // DIşarıdan okumamıza yarıyor. 
 
     // Update is called once per frame
     void Update()
@@ -25,10 +26,10 @@ public class CarJobController : MonoBehaviour
         }
     }
 
-    public void SpawnCarAtLift()
+    public GameObject SpawnCarAtLift()
     {
         //Araba var ise spawn etme
-        if (currentCar != null)  return;
+        if (currentCar != null)  return currentCar;
 
         currentCar = Instantiate( //Bu tam olarak yeni bir kopya oluşturur.
             carPrefab, //bu kopyanın oluşacaği obje
@@ -42,6 +43,9 @@ public class CarJobController : MonoBehaviour
         //localleri sıfırlayalım ki tam noktaya otursun
         currentCar.transform.localPosition = Vector3.zero;
         currentCar.transform.localRotation = Quaternion.identity;
+        Debug.Log("[CarJob] Car spawned -> " + currentCar.name);
+
+        return currentCar;
     }
 
     public void RemoveCar()
