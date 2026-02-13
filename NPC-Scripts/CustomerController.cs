@@ -108,6 +108,7 @@ public class CustomerController : MonoBehaviour
         busyTalking = false;
     }
 
+    //Müşteri player'a döner .
     void FacePlayer()
     {
         if (!facePlayerWhileWaiting) return;
