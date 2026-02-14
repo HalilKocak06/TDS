@@ -12,6 +12,7 @@ public class TireJobManager : MonoBehaviour
     TireOrder activeOrder;
     CarWheelMountPoint[] mountPoints;
     bool completed;
+    
 
     void Awake()
 {

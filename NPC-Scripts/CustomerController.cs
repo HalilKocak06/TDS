@@ -214,6 +214,30 @@ public class CustomerController : MonoBehaviour
                 }    
             }
         }
+
+        else if (talkStage == TalkStage.PlayerAccepted)
+            {
+                if (jobManager == null)
+                    jobManager = FindFirstObjectByType<TireJobManager>();
+
+                if (jobManager == null)
+                {
+                    Debug.LogWarning("[VALIDATE] JobManager yok!");
+                    return;
+                }
+
+                bool done = jobManager.Validate();
+
+                if (done)
+                {
+                    Debug.Log("[Customer] İş tamamlandı, çıkıyorum.");
+                    LeaveShop();
+                }
+                else
+                {
+                    Debug.Log("[Customer] İş henüz tamamlanmadı.");
+                }
+            }
         // PlayerAccepted sonrası şimdilik ignore
     }
 
