@@ -12,24 +12,23 @@ public class TireJobManager : MonoBehaviour
     TireOrder activeOrder;
     CarWheelMountPoint[] mountPoints;
     bool completed;
-    
+
 
     void Awake()
-{
-    // Aynı GameObject üzerinde varsa direkt al
-    if (carJob == null)
-        carJob = GetComponent<CarJobController>();
-
-    // Sahnedeki herhangi bir yerdeyse bul
-    if (carJob == null)
-        carJob = FindFirstObjectByType<CarJobController>();
-
+    {
+        //carJob burada bulunmaz -> Bay inject edecek.
     // TireSpawner da boş kalırsa bul
     if (tireSpawner == null)
         tireSpawner = FindFirstObjectByType<StorageTireSpawner>();
 
-    Debug.Log($"[JOB] Awake refs -> carJob={(carJob!=null)} tireSpawner={(tireSpawner!=null)}");
-}
+        Debug.Log($"[JOB] Awake refs -> carJob={(carJob!=null)} tireSpawner={(tireSpawner!=null)}");
+    }
+
+    public void BindBay(CarJobController carJobController)
+    {
+        carJob = carJobController;
+        Debug.Log($"[JOB] BindBay OK -> carJob={(carJob != null)}");
+    }
 
     void Start()
     {

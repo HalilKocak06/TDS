@@ -12,6 +12,9 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] Transform exitPoint;
 
     [SerializeField] Transform playerTransform;
+    
+    [SerializeField] ShopCoordinator coordinator;
+
 
     CustomerController current;
 
@@ -28,7 +31,7 @@ public class CustomerSpawner : MonoBehaviour
         current = go.GetComponent<CustomerController>();
         if(current == null) current = go.AddComponent<CustomerController>();
 
-        current.Init(talkPoint, exitPoint);
+        current.Init(talkPoint, exitPoint, coordinator);
         current.SetPlayer(playerTransform);
         current.BeginEnterShop();
     }

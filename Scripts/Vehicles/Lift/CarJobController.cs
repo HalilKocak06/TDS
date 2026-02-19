@@ -55,4 +55,14 @@ public class CarJobController : MonoBehaviour
         Destroy(currentCar);
         currentCar = null;
     }
+
+    public void DespawnCar()
+    {
+        if(currentCar == null) return;
+
+        Destroy(currentCar);
+        currentCar = null;
+
+        Debug.Log("[CARJOB] Car despawned");
+    }
 }
