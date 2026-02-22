@@ -10,6 +10,14 @@ public class ShopCoordinator : MonoBehaviour
     //Bay bekleyen müşteriler (Deal accepted ama bay yok)
     readonly Queue<CustomerController> waitingQueue = new Queue<CustomerController>();
 
+    CustomerController waitingSpotOccupant;
+
+    public enum DealResult
+    {
+        AssignedNow,
+        QueuedNoBay
+    }
+
     void Awake()
     {
         foreach(var b in bays)
@@ -21,29 +29,48 @@ public class ShopCoordinator : MonoBehaviour
         }
     }
 
+    public bool TryReserveWaitingSpot(CustomerController c)
+    {
+        if(c == null) return false;
+
+        if(waitingSpotOccupant != null && waitingSpotOccupant != c)
+            return false;
+
+        waitingSpotOccupant = c;
+        return true;    
+    }
+
+    public void ReleaseWaitingSpot(CustomerController c)
+    {
+        if(waitingSpotOccupant == c)
+            waitingSpotOccupant = null;
+    }
+
     /// <summary>
     /// Player "Tamam abi" dediğinde çağrılacak.
     /// Bay varsa atar ve iş başlatır. Bay yoksa kuyruğa laır
     /// </summary>
     
-    public void DealAccepted(CustomerController customer, TireOrder order)
+    public DealResult DealAccepted(CustomerController customer, TireOrder order)
     {
         if(customer == null || order == null )
         {
             Debug.LogWarning("[Coordinator] DealAccepted missing args!");
-            return;
+            return DealResult.QueuedNoBay;
         }
 
         var bay = FindFreeBay();
         if (bay != null)
         {
             AssignAndStart(customer, order, bay);
+            return DealResult.AssignedNow;
         }
         else
         {
             waitingQueue.Enqueue(customer);
             customer.SetWaitingForBay(true);
             Debug.Log("[Coordinator] no free bay -> customer queued.");
+            return DealResult.QueuedNoBay;
         }
     }
 
@@ -73,6 +100,8 @@ public class ShopCoordinator : MonoBehaviour
 
         //4 Customer tarafında "job başladı" flag'i
         customer.NotifyJobStarted();
+
+        customer.OnBayAssigned();
     }
 
 

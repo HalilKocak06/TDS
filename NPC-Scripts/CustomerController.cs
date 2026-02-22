@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +15,10 @@ public class CustomerController : MonoBehaviour
     Animator anim;
     Transform talkPoint;
     Transform exitPoint;
+
+    Transform outsidePoint;
+
+    Transform waitingPoint;
 
     [Header("Facing")]
     [SerializeField] Transform player;
@@ -41,6 +46,9 @@ public class CustomerController : MonoBehaviour
     float animSpeed;
     float animSpeedVelRef;
 
+    public event Action<CustomerController> OnFreedTalkPoint;
+    bool isInWaitingArea;
+
 
     void Awake()
     {
@@ -48,9 +56,11 @@ public class CustomerController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
     }
 
-    public void Init(Transform talk, Transform exit, ShopCoordinator coord)
+    public void Init(Transform talk, Transform outside, Transform waiting, Transform exit, ShopCoordinator coord)
     {
         talkPoint = talk;
+        outsidePoint = outside;
+        waitingPoint = waiting;
         exitPoint = exit;
         coordinator = coord;
     }
@@ -97,22 +107,26 @@ public class CustomerController : MonoBehaviour
                 agent.remainingDistance <= agent.stoppingDistance + arriveEpsilon &&
                 agent.desiredVelocity.sqrMagnitude < 0.01f;
 
-            if (arrived) OnReachedTalkPoint();
+            if (arrived)
+            {
+                //Waiting area'ya geldiyse idle gibi dursun
+                if(isInWaitingArea)
+                {
+                    state = State.WaitingPlayer; // idle anim + facePlayer
+                    if(agent) agent.updateRotation = false;
+                }
+                else
+                {
+                    //Talk'a geldiğinde asıl konuşma statei
+                    OnReachedTalkPoint();
+                }
+            }
         }
 
 
         //NPC - DÜkkanda bekliyor
         if (state == State.WaitingPlayer)
             FacePlayer();
-
-        // // NPC dükkandan ayrılıyor.
-        // if (state == State.Leaving && !departureFinalized)
-        // {
-        //     if(HasArrived())
-        //     {
-        //         FinalizeDeparture();
-        //     }
-        // }
     }
 
     void OnTriggerEnter(Collider other)
@@ -135,6 +149,8 @@ public class CustomerController : MonoBehaviour
     {
         Debug.Log("FİNALİZEDEPARTURE GİRİLDİ ");
         departureFinalized = true;
+
+        coordinator?.ReleaseWaitingSpot(this); //waitingSpot'u temizliyoruz.
 
         //1-Bay'i boşaltıyoruz + arabayı siliyoruz
         if(assignedBay != null)
@@ -246,8 +262,20 @@ public class CustomerController : MonoBehaviour
                 }
 
                 Debug.Log($"[Player] Tamam abi -> bay istiyorum: {pendingOrder.Display}");
-                coordinator.DealAccepted(this, pendingOrder);
+                var result = coordinator.DealAccepted(this, pendingOrder);
+
+                if(coordinator.TryReserveWaitingSpot(this))
+                {
+                    GoToWaitingPoint();
+                }
+                else
+                {
+                    //talkta kalır ve talk slotu boşlatılmaz.
+                    Debug.Log("[Customer] waitingPoint dolu -> talkPointte kaliyorum");
+                }
+                
             }
+
         }
         else if (talkStage == TalkStage.PlayerAccepted)
         {
@@ -293,4 +321,83 @@ public class CustomerController : MonoBehaviour
     }
 
     void EndTalkBusy() => busyTalking = false;
+
+    public void GoToOutsidePoint()
+    {
+        state = State.Entering; //"yürüyor" gibi kullanıyoruz
+        talkStage = TalkStage.None;
+        busyTalking = false;
+        isInWaitingArea = false;
+
+        if(agent && outsidePoint != null)
+        {
+            agent.isStopped = false;
+            agent.updateRotation = true;
+            agent.SetDestination(outsidePoint.position);
+        }
+    }
+
+    public void GoToTalkPoint()
+    {
+        state = State.Entering;
+        talkStage = TalkStage.None;
+        busyTalking = false;
+        isInWaitingArea = false;
+
+        if(agent && talkPoint != null)
+        {
+            agent.isStopped= false;
+            agent.updateRotation = true;
+            agent.SetDestination(talkPoint.position);
+        }
+    }
+
+    void GoToWaitingPoint()
+    {
+        //deal accepted sonrası konuşma bitti -> talk boşalsın
+        isInWaitingArea = true;
+
+        //talkPoint boşaldı eventi
+        OnFreedTalkPoint?.Invoke(this);
+
+        //artık talkpointte beklemeyecek
+        state = State.Entering; //yine yürüme state'i gibi kullanıyoruz
+        busyTalking = false;
+
+        if(agent && waitingPoint != null)
+        {
+            agent.isStopped = false;
+            agent.updateRotation = true;
+            agent.SetDestination(waitingPoint.position);
+        }
+    }
+
+    public void OnBayAssigned()
+    {
+        //zaten waiting'deyse gerek yok
+        if(isInWaitingArea) return;
+
+        //waiting spot boşsa reserve edip waiting'e yürü
+        if(coordinator != null && coordinator.TryReserveWaitingSpot(this))
+        {
+            GoToWaitingPoint(); //talk slot boşalır.
+        }
+    }
+
+    public void GoToSpecificPoint(Transform t)
+    {
+        state = State.Entering;
+        talkStage = TalkStage.None;
+        busyTalking = false;
+        isInWaitingArea = false;
+
+        if(agent && t != null)
+        {
+            agent.isStopped=false;
+            agent.updateRotation = true;
+            agent.SetDestination(t.position);
+        }
+    }
+
+    
 }
