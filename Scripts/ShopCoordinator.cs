@@ -58,6 +58,18 @@ public class ShopCoordinator : MonoBehaviour
             Debug.LogWarning("[Coordinator] DealAccepted missing args!");
             return DealResult.QueuedNoBay;
         }
+        
+        if(EconomyManager.I != null)
+        {
+            if(!EconomyManager.I.TryAcceptCustomerOrder(order, out int quote))
+            {
+                Debug.Log("[Coordinator] Reject: not enough stock -> customer leaving.");
+                customer.LeaveShop(); // şimdilik direkt gitsin
+                return DealResult.QueuedNoBay; // (istersen sonra RejectedNoStock ekleriz)
+            }
+                customer.SetQuoteTotal(quote);
+
+        }
 
         var bay = FindFreeBay();
         if (bay != null)

@@ -16,6 +16,7 @@ public class PlayerToolController : MonoBehaviour
 
     public bool HasImpactWrench => heldTool != null; //Başka scriptler “elde tool var mı?” kontrolünü heldTool’a direkt bakmadan yapsın diye. Şu an tek tool olduğundan heldTool != null yeterli.
 
+    [SerializeField] GameObject crosshairUI; // Canvas/CrossHair objesi
 
     void Awake() // Unityde component aktif olur olmaz çalışır.
     {
@@ -40,6 +41,7 @@ public class PlayerToolController : MonoBehaviour
         if (heldTool != null) return; //Eğer elde hiçbir şey yok ise returnluyoruz.
 
         heldTool = toolObject; //toolObject heldTool 'a aktarıyoruz
+        if (crosshairUI) crosshairUI.SetActive(false);
         heldPickUpItem = heldTool.GetComponent<PickUpItem>(); //heldTool'un componentini aktarıyoruz...
 
         heldTool.transform.SetParent(handPoint); //Burada heldTool'u handPoint'in childi yapıyoruz ki beraber gezebilsin.
@@ -94,6 +96,7 @@ public class PlayerToolController : MonoBehaviour
         }
 
         heldTool = null; //ele alınan objeyi sıfırlıyoruzz
+        if (crosshairUI) crosshairUI.SetActive(true);
         heldPickUpItem = null;
     }
 
@@ -109,6 +112,7 @@ public class PlayerToolController : MonoBehaviour
 
         heldTool = null;
         heldPickUpItem = null;
+        if (crosshairUI) crosshairUI.SetActive(true);
     }
 
     void EnablePhysics(bool standMode = false)

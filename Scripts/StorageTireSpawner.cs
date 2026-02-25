@@ -38,6 +38,8 @@ public class StorageTireSpawner : MonoBehaviour
 
     static int _uidCounter = 1000;
 
+    [SerializeField] TireCatalogS0 catalog;
+
 
 
     // Update is called once per frame
@@ -137,25 +139,18 @@ public class StorageTireSpawner : MonoBehaviour
     {
         var wanted = new TireSize(width, aspect, rim);
 
-        bool found =false;
-        foreach ( var s in availableSizes)
+        if (catalog != null && catalog.sizes != null && catalog.sizes.Count > 0)
         {
-            if(s.width == wanted.width && s.aspect == wanted.aspect && s.rim == wanted.rim)
-            {
-                found = true;
-                wanted = s;
-                break;
-            }
+        bool ok = false;
+        foreach (var e in catalog.sizes)
+        {
+            if (e.width == width && e.aspect == aspect && e.rim == rim) { ok = true; break; }
+        }
+        if (!ok)
+            Debug.LogWarning($"[Spawner] Requested size NOT in catalog: {wanted} (spawning anyway)");
         }
 
-        if (!found)
-        {
-        Debug.LogWarning($"[Spawner] Requested size NOT in available list: {wanted}");
-        return null;
-        }
-
-        //Eğer lastik doğru ebatı bulunduysa spawn
-        return SpawnNewTire(wanted,season, condition);
+    return SpawnNewTire(wanted, season, condition);
     }
 
     

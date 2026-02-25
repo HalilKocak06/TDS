@@ -49,6 +49,10 @@ public class CustomerController : MonoBehaviour
     public event Action<CustomerController> OnFreedTalkPoint;
     bool isInWaitingArea;
 
+    int quoteTotal;
+    public void SetQuoteTotal(int total) => quoteTotal = total;
+    public int GetQuoteTotal() => quoteTotal;
+
 
     void Awake()
     {
@@ -295,6 +299,7 @@ public class CustomerController : MonoBehaviour
 
             if (done)
             {
+                EconomyManager.I?.PayForCompletedJob(GetPendingOrder(), GetQuoteTotal());
                 Debug.Log("[Customer] İş tamamlandı, çıkıyorum.");
                 LeaveShop();
             }
@@ -307,13 +312,10 @@ public class CustomerController : MonoBehaviour
 
     void SayNeedTire()
     {
-        pendingOrder = new TireOrder
-        {
-            size = new TireSize(195, 55, 16),
-            season = TireSeason.Summer,
-            condition = TireCondition.New,
-            quantity = 4
-        };
+        if(EconomyManager.I != null && EconomyManager.I.TryCreateRandomOrder(out var o))
+            pendingOrder = o;
+        else
+            pendingOrder = new TireOrder { size = new TireSize(195,55,16), season = TireSeason.Summer, condition=TireCondition.New, quantity=4};
 
         Debug.Log($"Kolay gelsin ustam {pendingOrder.Display} istiyorum");
         talkStage = TalkStage.CustomerAsked;
