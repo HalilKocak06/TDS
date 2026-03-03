@@ -1,0 +1,213 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+
+    <!-- Tam ekran arka plan (tıklanabilir overlay, şeffaf) -->
+    <ui:VisualElement name="overlay" style="flex-grow: 1; background-color: rgba(0,0,0,0);">
+
+        <!-- ═══════════════ PENCERE ═══════════════ -->
+        <ui:VisualElement name="window" style="
+            position: absolute;
+            left: 120px; top: 60px;
+            width: 860px; height: 580px;
+            flex-direction: column;
+            background-color: rgb(255, 253, 247);
+            border-radius: 14px;
+            border-left-width: 1px; border-right-width: 1px;
+            border-top-width: 1px; border-bottom-width: 1px;
+            border-color: rgb(210, 200, 178);
+            overflow: hidden;
+        ">
+
+            <!-- ── TITLE BAR (sürükleme tutamacı) ── -->
+            <ui:VisualElement name="title-bar" style="
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                height: 38px;
+                background-color: rgb(200, 168, 75);
+                padding-left: 16px; padding-right: 10px;
+                flex-shrink: 0;
+            ">
+                <!-- Sol: İkon + Başlık -->
+                <ui:VisualElement name="title-left" style="flex-direction: row; align-items: center;">
+                    <ui:VisualElement name="title-icon" style="
+                        width: 16px; height: 16px;
+                        background-color: rgb(13, 15, 20);
+                        border-radius: 3px;
+                        margin-right: 10px;
+                    "/>
+                    <ui:Label name="title-text" text="DİYALOG SİSTEMİ" style="
+                        font-size: 12px;
+                        -unity-font-style: bold;
+                        color: rgb(13, 15, 20);
+                        letter-spacing: 1.5px;
+                    "/>
+                </ui:VisualElement>
+
+                <!-- Sağ: Pencere kontrol butonları -->
+                <ui:VisualElement name="title-controls" style="flex-direction: row; align-items: center;">
+                    <ui:Button name="btn-minimize" text="−" style="
+                        width: 24px; height: 24px;
+                        background-color: rgb(235, 200, 90);
+                        border-radius: 12px;
+                        border-left-width: 0; border-right-width: 0;
+                        border-top-width: 0; border-bottom-width: 0;
+                        font-size: 14px; -unity-font-style: bold;
+                        color: rgb(13, 15, 20);
+                        margin-right: 6px;
+                        padding-top: 0; padding-bottom: 2px;
+                        padding-left: 0; padding-right: 0;
+                    "/>
+                    <ui:Button name="btn-close" text="✕" style="
+                        width: 24px; height: 24px;
+                        background-color: rgb(220, 80, 60);
+                        border-radius: 12px;
+                        border-left-width: 0; border-right-width: 0;
+                        border-top-width: 0; border-bottom-width: 0;
+                        font-size: 11px; -unity-font-style: bold;
+                        color: rgb(255, 255, 255);
+                        padding-top: 0; padding-bottom: 0;
+                        padding-left: 0; padding-right: 0;
+                    "/>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- ── PENCERE İÇERİĞİ ── -->
+            <ui:VisualElement name="window-body" style="flex-direction: column; flex-grow: 1; overflow: hidden;">
+
+                <!-- CONTENT -->
+                <ui:VisualElement name="content" style="flex-direction: row; flex-grow: 1; padding-top: 12px; padding-bottom: 12px; padding-left: 14px; padding-right: 14px;">
+
+                    <!-- ══════════════ SOL PANEL ══════════════ -->
+                    <ui:VisualElement name="dialog-panel" style="flex-grow: 1; flex-direction: column; background-color: rgb(255, 253, 247); border-radius: 12px; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 178); margin-right: 12px;">
+
+                        <!-- Musteri Basligi -->
+                        <ui:VisualElement name="customer-header" style="flex-direction: row; justify-content: space-between; align-items: center; background-color: rgb(250, 246, 236); padding-top: 12px; padding-bottom: 12px; padding-left: 18px; padding-right: 18px; border-top-left-radius: 12px; border-top-right-radius: 12px; border-bottom-width: 1px; border-bottom-color: rgb(210, 200, 178);">
+
+                            <ui:VisualElement name="customer-left" style="flex-direction: row; align-items: center;">
+                                <ui:VisualElement name="avatar" style="width: 38px; height: 38px; background-color: rgb(160, 110, 40); border-radius: 19px; justify-content: center; align-items: center; margin-right: 12px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-color: rgb(200, 155, 70);">
+                                    <ui:Label name="avatar-text" text="01" style="font-size: 12px; -unity-font-style: bold; color: rgb(255, 245, 210);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="customer-info" style="flex-direction: column;">
+                                    <ui:Label name="customer-title" text="MÜŞTERİ #01" style="font-size: 14px; -unity-font-style: bold; color: rgb(55, 40, 15);" />
+                                    <ui:Label name="customer-status" text="Aktif Görüşme" style="font-size: 10px; color: rgb(80, 160, 80); margin-top: 2px;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="daily-badge" style="background-color: rgb(255, 248, 225); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(200, 170, 90); border-radius: 8px; padding-top: 6px; padding-bottom: 6px; padding-left: 14px; padding-right: 14px; align-items: center;">
+                                <ui:Label text="BUGÜNKÜ TOPLAM" style="font-size: 9px; -unity-font-style: bold; color: rgb(170, 140, 70);" />
+                                <ui:Label name="daily-count" text="1 MÜŞTERİ" style="font-size: 13px; -unity-font-style: bold; color: rgb(140, 100, 20);" />
+                            </ui:VisualElement>
+
+                        </ui:VisualElement>
+
+                        <!-- Musteri Mesaji -->
+                        <ui:VisualElement name="dialog-area" style="flex-direction: column; padding-top: 16px; padding-bottom: 12px; padding-left: 18px; padding-right: 18px; flex-grow: 1;">
+                            <ui:VisualElement name="message-row" style="flex-direction: row; align-items: flex-start;">
+                                <ui:VisualElement name="msg-avatar" style="width: 30px; height: 30px; background-color: rgb(225, 210, 175); border-radius: 15px; justify-content: center; align-items: center; margin-right: 10px; flex-shrink: 0; border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(195, 170, 120);">
+                                    <ui:Label text="M" style="font-size: 12px; -unity-font-style: bold; color: rgb(110, 75, 20);" />
+                                </ui:VisualElement>
+                                <ui:VisualElement name="customer-bubble" style="background-color: rgb(235, 245, 255); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(190, 210, 235); border-top-right-radius: 10px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; padding-top: 10px; padding-bottom: 10px; padding-left: 14px; padding-right: 14px;">
+                                    <ui:Label name="customer-message-text" text="Merhaba, bu ürünün fiyatı hakkında bilgi alabilir miyim?" style="font-size: 12px; color: rgb(40, 55, 80); white-space: normal;" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                        <!-- Ayirici -->
+                        <ui:VisualElement style="height: 1px; background-color: rgb(215, 205, 182); margin-left: 18px; margin-right: 18px;" />
+
+                        <!-- Cevap Secenekleri -->
+                        <ui:VisualElement name="replies-section" style="margin-top: 10px; margin-bottom: 10px; margin-left: 18px; margin-right: 18px; background-color: rgb(250, 247, 238); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 175); border-radius: 10px; padding-top: 12px; padding-bottom: 12px; padding-left: 14px; padding-right: 14px;">
+
+                            <ui:Label text="HAZIR CEVAPLAR" style="font-size: 9px; -unity-font-style: bold; color: rgb(175, 155, 100); margin-bottom: 8px;" />
+
+                            <ui:VisualElement name="reply-1" style="flex-direction: row; align-items: center; background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 198, 168); border-radius: 7px; padding-top: 9px; padding-bottom: 9px; padding-left: 12px; padding-right: 12px; margin-bottom: 6px;">
+                                <ui:VisualElement name="radio-dot-1" style="width: 14px; height: 14px; border-radius: 7px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-color: rgb(190, 165, 100); margin-right: 11px; flex-shrink: 0;" />
+                                <ui:Label name="reply-text-1" text="Evet, fiyat hakkında size yardımcı olabilirim." style="font-size: 12px; color: rgb(60, 45, 20); flex-grow: 1; white-space: normal;" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="reply-2" style="flex-direction: row; align-items: center; background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 198, 168); border-radius: 7px; padding-top: 9px; padding-bottom: 9px; padding-left: 12px; padding-right: 12px; margin-bottom: 6px;">
+                                <ui:VisualElement name="radio-dot-2" style="width: 14px; height: 14px; border-radius: 7px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-color: rgb(190, 165, 100); margin-right: 11px; flex-shrink: 0;" />
+                                <ui:Label name="reply-text-2" text="Şu anki stok durumu ve piyasa fiyatını belirteyim." style="font-size: 12px; color: rgb(60, 45, 20); flex-grow: 1; white-space: normal;" />
+                            </ui:VisualElement>
+
+                            <ui:VisualElement name="reply-3" style="flex-direction: row; align-items: center; background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 198, 168); border-radius: 7px; padding-top: 9px; padding-bottom: 9px; padding-left: 12px; padding-right: 12px;">
+                                <ui:VisualElement name="radio-dot-3" style="width: 14px; height: 14px; border-radius: 7px; border-left-width: 2px; border-right-width: 2px; border-top-width: 2px; border-bottom-width: 2px; border-color: rgb(190, 165, 100); margin-right: 11px; flex-shrink: 0;" />
+                                <ui:Label name="reply-text-3" text="Bu ürün için özel bir teklif sunabilirim." style="font-size: 12px; color: rgb(60, 45, 20); flex-grow: 1; white-space: normal;" />
+                            </ui:VisualElement>
+
+                        </ui:VisualElement>
+
+                        <!-- Fiyat Girisi -->
+                        <ui:VisualElement name="price-section" style="margin-top: 0px; margin-bottom: 14px; margin-left: 18px; margin-right: 18px; background-color: rgb(250, 247, 238); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 175); border-radius: 10px; padding-top: 12px; padding-bottom: 12px; padding-left: 14px; padding-right: 14px;">
+                            <ui:Label text="TEKLİF FİYATI GİR" style="font-size: 9px; -unity-font-style: bold; color: rgb(175, 155, 100); margin-bottom: 8px;" />
+                            <ui:VisualElement name="price-row" style="flex-direction: row; align-items: center;">
+                                <ui:TextField name="price-input" style="flex-grow: 1; height: 40px; margin-right: 8px; background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(200, 185, 145); border-radius: 7px;" />
+                                <ui:Button name="btn-confirm" text="ONAYLA" style="background-color: rgb(155, 105, 30); color: rgb(255, 245, 210); -unity-font-style: bold; font-size: 12px; border-radius: 7px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-top: 9px; padding-bottom: 9px; padding-left: 18px; padding-right: 18px; height: 40px; margin-right: 6px;" />
+                                <ui:Button name="btn-next" text="İLERİ" style="background-color: rgb(70, 130, 80); color: rgb(230, 255, 230); -unity-font-style: bold; font-size: 12px; border-radius: 7px; border-left-width: 0; border-right-width: 0; border-top-width: 0; border-bottom-width: 0; padding-top: 9px; padding-bottom: 9px; padding-left: 18px; padding-right: 18px; height: 40px;" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                    </ui:VisualElement>
+
+                    <!-- ══════════════ SAG PANEL ══════════════ -->
+                    <ui:VisualElement name="info-panel" style="width: 200px; flex-direction: column; flex-shrink: 0;">
+
+                        <!-- Stok Karti -->
+                        <ui:VisualElement name="stock-card" style="background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 178); border-radius: 12px; padding-top: 14px; padding-bottom: 14px; padding-left: 16px; padding-right: 16px; margin-bottom: 10px;">
+                            <ui:Label text="STOK SAYISI" style="font-size: 9px; -unity-font-style: bold; color: rgb(175, 155, 100); margin-bottom: 4px;" />
+                            <ui:VisualElement style="flex-direction: row; align-items: flex-end; margin-bottom: 8px;">
+                                <ui:Label name="stock-value" text="247" style="font-size: 34px; -unity-font-style: bold; color: rgb(55, 40, 15);" />
+                                <ui:Label text=" adet" style="font-size: 12px; color: rgb(175, 155, 100); padding-bottom: 6px;" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="stock-bar-bg" style="height: 5px; background-color: rgb(215, 205, 182); border-radius: 3px;">
+                                <ui:VisualElement name="stock-bar-fill" style="height: 5px; border-radius: 3px; background-color: rgb(80, 150, 80); width: 70%;" />
+                            </ui:VisualElement>
+                            <ui:Label name="stock-status" text="Stok sağlıklı" style="font-size: 10px; color: rgb(80, 160, 80); margin-top: 4px;" />
+                        </ui:VisualElement>
+
+                        <!-- Piyasa Fiyati Karti -->
+                        <ui:VisualElement name="market-card" style="background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 178); border-radius: 12px; padding-top: 14px; padding-bottom: 14px; padding-left: 16px; padding-right: 16px; margin-bottom: 10px;">
+                            <ui:Label text="PİYASA FİYATI" style="font-size: 9px; -unity-font-style: bold; color: rgb(175, 155, 100); margin-bottom: 4px;" />
+                            <ui:Label name="market-price" text="₺1.240" style="font-size: 30px; -unity-font-style: bold; color: rgb(140, 95, 15);" />
+                            <ui:Label name="price-delta" text="▲ %3.2" style="font-size: 11px; color: rgb(80, 160, 80); margin-top: 2px;" />
+                        </ui:VisualElement>
+
+                        <!-- Gunluk Ozet Karti -->
+                        <ui:VisualElement name="summary-card" style="background-color: rgb(255, 253, 247); border-left-width: 1px; border-right-width: 1px; border-top-width: 1px; border-bottom-width: 1px; border-color: rgb(210, 200, 178); border-radius: 12px; padding-top: 14px; padding-bottom: 14px; padding-left: 16px; padding-right: 16px; flex-grow: 1;">
+                            <ui:Label text="GÜNLÜK ÖZET" style="font-size: 9px; -unity-font-style: bold; color: rgb(175, 155, 100); margin-bottom: 10px;" />
+                            <ui:VisualElement style="height: 1px; background-color: rgb(215, 205, 182); margin-bottom: 8px;" />
+
+                            <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 8px;">
+                                <ui:Label text="Toplam Görüşme" style="font-size: 11px; color: rgb(140, 120, 75);" />
+                                <ui:Label name="total-calls" text="0" style="font-size: 11px; -unity-font-style: bold; color: rgb(55, 40, 15);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-direction: row; justify-content: space-between; margin-bottom: 8px;">
+                                <ui:Label text="Onaylanan Fiyat" style="font-size: 11px; color: rgb(140, 120, 75);" />
+                                <ui:Label name="confirmed-price" text="—" style="font-size: 11px; -unity-font-style: bold; color: rgb(140, 95, 15);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement style="flex-direction: row; justify-content: space-between;">
+                                <ui:Label text="Seçilen Cevap" style="font-size: 11px; color: rgb(140, 120, 75);" />
+                                <ui:Label name="selected-reply" text="—" style="font-size: 11px; -unity-font-style: bold; color: rgb(70, 130, 80);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+
+                    </ui:VisualElement>
+
+                </ui:VisualElement>
+
+                <!-- STATUS BAR -->
+                <ui:VisualElement name="status-bar" style="flex-direction: row; justify-content: space-between; align-items: center; height: 24px; background-color: rgb(235, 228, 210); border-top-width: 1px; border-top-color: rgb(210, 200, 178); padding-left: 16px; padding-right: 16px; flex-shrink: 0;">
+                    <ui:Label name="status-text" text="Sistem hazır." style="font-size: 10px; color: rgb(160, 140, 90);" />
+                    <ui:Label text="v1.0.0" style="font-size: 10px; color: rgb(195, 180, 140);" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+            <!-- /window-body -->
+
+        </ui:VisualElement>
+        <!-- /window -->
+
+    </ui:VisualElement>
+    <!-- /overlay -->
+
+</ui:UXML>

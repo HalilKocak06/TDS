@@ -39,6 +39,8 @@ public class FirstPersonController : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     // Start is called before the first frame update
+
+    [SerializeField] private DialogSystemController dialogUI;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -66,6 +68,8 @@ public class FirstPersonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dialogUI != null && dialogUI.IsOpen)
+            return;
         Look();
         Move();
 

@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+
 
 public class CustomerClickInteractor : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class CustomerClickInteractor : MonoBehaviour
     [Header("Layer filter (optional)")]
     [SerializeField] bool useLayerMask = false; // ✅ şimdilik kapalı (debug için)
     [SerializeField] LayerMask customerLayer;
+    [SerializeField] private DialogSystemController dialogUI;
 
     void Awake()
     {
@@ -17,6 +20,10 @@ public class CustomerClickInteractor : MonoBehaviour
 
     void Update()
     {
+        if(dialogUI != null && dialogUI.IsOpen)
+            return;
+
+
         if (Input.GetMouseButtonDown(0))
         {
             TryClickCustomer();
@@ -49,8 +56,11 @@ public class CustomerClickInteractor : MonoBehaviour
             Debug.Log("[Click] HIT object has NO CustomerController in parents.");
             return;
         }
+       
 
         Debug.Log("[Click] CustomerController FOUND -> calling OnPlayerGreetClicked()");
         customer.OnPlayerGreetClicked();
+        dialogUI.Show();
+        
     }
 }

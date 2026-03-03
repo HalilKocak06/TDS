@@ -225,6 +225,9 @@ public class CustomerController : MonoBehaviour
 
     public void OnPlayerGreetClicked()
     {
+        if(DialogueManager.I != null && DialogueManager.I.IsOpen) //Kısacası burası dialog açıldığında 2 tıkla ilerlemesin diye yapılan bir çalışma.
+            return;
+
         if (state != State.WaitingPlayer) return;
         if (busyTalking) return;
 
@@ -399,6 +402,12 @@ public class CustomerController : MonoBehaviour
             agent.updateRotation = true;
             agent.SetDestination(t.position);
         }
+    }
+
+    public void StartDialogue()
+    {
+        if(DialogueManager.I == null) return;
+            DialogueManager.I.BeginWithCustomer(this);
     }
 
     
