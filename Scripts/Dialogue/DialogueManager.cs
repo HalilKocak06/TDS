@@ -27,7 +27,8 @@ public class DialogueManager : MonoBehaviour
         CustomerWantsTire,
         Negotiation,
         Accepted,
-        Rejected
+        Rejected,
+        JobStatus
     }
 
     TalkState state = TalkState.None;
@@ -86,8 +87,6 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        state = TalkState.Greeting;
-
         LockPlayer(true);
         ui.Show();
 
@@ -97,9 +96,30 @@ public class DialogueManager : MonoBehaviour
             ui.RefreshEconomyPanel(order);
 
         ui.SetOfferUIVisible(false);
+        ui.ClearChoices();
+
+        if(currentCustomer.IsInServiceProcess())
+        {
+            OpenJobStatusDialogue();
+            return;
+        }
+
+        //sipariş yoksa oluşturuyoruz
+        if(currentCustomer.GetPendingOrder() == null)
+        {
+            if (EconomyManager.I != null && EconomyManager.I.TryCreateRandomOrder(out TireOrder newOrder))
+            {
+                currentCustomer.SetPendingOrder(newOrder);
+            }
+            else
+            {
+                Debug.LogWarning("[DialogueManager] Pending order oluşturulamadı.");
+            }
+        }
+
+        state = TalkState.Greeting;
 
         ui.SetNpcLine("Selamlar kolay gelsin ustam.");
-        ui.ClearChoices();
         ui.AddChoice("Sağ ol abi, nasıl yardımcı olalım?", OnPlayerPolite);
         ui.AddChoice("Eyvallah, söyle bakalım.", OnPlayerCasual);
     }
@@ -306,6 +326,92 @@ public class DialogueManager : MonoBehaviour
         }
 
         End();
+    }
+
+    void OpenJobStatusDialogue()
+    {
+        state = TalkState.JobStatus;
+        ui.SetOfferUIVisible(false);
+        ui.ClearChoices();
+        //Ortada müşteri yoksa bu çıkar.
+        if(currentCustomer == null)
+        {
+            ui.SetNpcLine("Ortada müşteri yok ustam.");
+            ui.AddChoice("Kapat", End);
+            return;
+        }
+        //Suradaki adamla böyle konuşuyoz.
+        if(currentCustomer.isInWaitinForBay())
+        {
+            ui.SetNpcLine("Ustam sıra bekliyorum , lift boşalınca alacağız değil mi ?");
+            ui.AddChoice("Aynen abi, sıradasın", End);
+            ui.AddChoice("İptal edelim istersen" , RejectServiceInProgress);
+            return;
+        }
+
+        ui.SetNpcLine("Ne durumda araba ustam ?");
+        ui.AddChoice("Abi bitti", TryFinishJob);
+        ui.AddChoice("Daha bitmedi abi az kaldı", End);
+    }
+
+    void TryFinishJob()
+    {
+        if(currentCustomer == null)
+        {
+            ui.SetNpcLine("Müşteri bulunamadı");
+            ui.ClearChoices();
+            ui.AddChoice("Kapat", End);
+            return;
+        }
+
+        TireOrder order = currentCustomer.GetPendingOrder();
+        if (order == null)
+        {
+
+        ui.SetNpcLine("Sipariş bilgisi yok.");
+        ui.ClearChoices();
+        ui.AddChoice("Kapat", End);
+        return;
+
+        }
+
+        bool done  = false;
+        done = currentCustomer.TryCompleteJobFromDialogue();
+
+        if (done)
+        {
+
+        ui.SetNpcLine("Eyvallah ustam, eline sağlık.");
+        ui.ClearChoices();
+        ui.AddChoice("Güle güle kullan abi.", End);
+
+        }
+        else
+        {
+
+        ui.SetNpcLine("Ustam iş daha tam bitmemiş gibi duruyor.");
+        ui.ClearChoices();
+        ui.AddChoice("Tamam abi, kontrol edeyim.", End);
+
+        }
+
+
+
+    }
+
+    void RejectServiceInProgress()
+    {
+
+    ui.SetNpcLine("Tamam ustam, ben sonra geleyim.");
+    ui.ClearChoices();
+    ui.AddChoice("Görüşürüz.", () =>
+    {
+        if (currentCustomer != null)
+            currentCustomer.LeaveShop();
+
+        End();
+    });
+    
     }
 
 

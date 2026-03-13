@@ -80,6 +80,12 @@ public class CustomerController : MonoBehaviour
     public TireOrder GetPendingOrder() => pendingOrder;
 
     public void NotifyJobStarted() => jobStarted = true;
+    public bool HasJobStarted() => jobStarted;
+
+    public bool isInWaitinForBay() => waitingForBay;
+
+    public bool HasPendingOrder() => pendingOrder != null;
+
 
     public void BeginEnterShop()
     {
@@ -286,30 +292,7 @@ public class CustomerController : MonoBehaviour
         }
         else if (talkStage == TalkStage.PlayerAccepted)
         {
-            if (waitingForBay)
-            {
-                Debug.Log("[Customer] Lift dolu, sırada bekliyorum...");
-                return;
-            }
-
-            if (jobManager == null)
-            {
-                Debug.LogWarning("[VALIDATE] JobManager yok! (Bay atanmamış olabilir)");
-                return;
-            }
-
-            bool done = jobManager.Validate();
-
-            if (done)
-            {
-                EconomyManager.I?.PayForCompletedJob(GetPendingOrder(), GetQuoteTotal());
-                Debug.Log("[Customer] İş tamamlandı, çıkıyorum.");
-                LeaveShop();
-            }
-            else
-            {
-                Debug.Log("[Customer] İş henüz tamamlanmadı.");
-            }
+            TryCompleteJobFromDialogue();
         }
     }
 
@@ -452,5 +435,37 @@ public class CustomerController : MonoBehaviour
         return true;
         }
 
+    public bool IsInServiceProcess()
+    {
+        return jobStarted || waitingForBay;
+    }
+
+    public bool TryCompleteJobFromDialogue()
+    {
+        if(waitingForBay)
+        {
+            Debug.Log("[Customer] lift dolu , sırada bekliyorum...");
+            return false;
+        }
+
+        if(jobManager == null)
+        {
+            Debug.LogWarning("[Validate] JobManager yok! (Bay atanmamış olabilir)");
+            return false;
+        }
+
+        bool done = jobManager.Validate();
+
+        if(done)
+        {
+            EconomyManager.I?.PayForCompletedJob(GetPendingOrder(), GetQuoteTotal());
+            Debug.Log("[Customer] İş tamamlandı , çıkıyorum");
+            LeaveShop();
+            return true;
+        }
+
+        Debug.Log("[Customer] İş henüz tamamlanmadı.");
+        return false;
+    }
     
 }
