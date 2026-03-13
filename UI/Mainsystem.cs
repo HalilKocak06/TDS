@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 /// <summary>
 /// DialogSystemController — UIDocument'e bağlayın.
 /// UXML: DialogSystem-Tam.uxml baz alınarak yazılmıştır.
-/// Bu sürüm, DialogueManager ile konuşacak runtime UI API'sini içerir.
+/// Inspector'dan stockCount, marketPrice, changePercent, costPrice ve
+/// customerMessages listesini doldurun.
 /// </summary>
 [RequireComponent(typeof(UIDocument))]
-public class DialogSystemController : MonoBehaviour
+public class mainSystem : MonoBehaviour
 {
     // ── Inspector Alanları ─────────────────────────────────────────────
     [Header("Stok & Fiyat")]
-    [SerializeField] private int stockCount = 247;
-    [SerializeField] private int maxStock = 500;
-    [SerializeField] private float marketPrice = 1240f;
+    [SerializeField] private int   stockCount    = 247;
+    [SerializeField] private int   maxStock      = 500;
+    [SerializeField] private float marketPrice   = 1240f;
     [SerializeField] private float changePercent = 3.2f;
-    [SerializeField] private float costPrice = 0f;
+    [SerializeField] private float costPrice     = 0f;
 
-    [Header("Müşteri Mesajları (fallback)")]
+    [Header("Müşteri Mesajları (sırayla gelir)")]
     [SerializeField] private List<string> customerMessages = new()
     {
         "Merhaba, bu ürünün fiyatı hakkında bilgi alabilir miyim?",
@@ -31,111 +31,84 @@ public class DialogSystemController : MonoBehaviour
     [Header("Pencere Başlangıç Konumu")]
     [SerializeField] private Vector2 windowStartPos = new Vector2(120f, 60f);
 
-    // ── NEW: DialogueManager ile haberleşme eventleri ─────────────────
-    public event Action OnCloseClicked;
-    public event Action<int> OnOfferSubmitted;
-
     // ── Durum ──────────────────────────────────────────────────────────
-    private int _customerIndex = 1;
+    private int _customerIndex   = 1;
     private int _totalCallsToday = 0;
-    private int _selectedReply = 0;
+    private int _selectedReply   = 0;
 
     // ── Pencere Sürükleme ─────────────────────────────────────────────
-    private bool _isDragging;
+    private bool    _isDragging;
     private Vector2 _dragStartMouse;
     private Vector2 _dragStartWindowPos;
 
     // ── Minimize ──────────────────────────────────────────────────────
     private bool _isMinimized;
 
-    // ── NEW: Choice callback storage ───────────────────────────────────
-    private readonly Action[] _choiceActions = new Action[3];
-
     // ── UI Element Referansları ────────────────────────────────────────
     private VisualElement _window;
     private VisualElement _windowBody;
 
-    private Label _customerTitle;
-    private Label _avatarText;
-    private Label _customerStatus;
-    private Label _dailyCount;
-    private Label _customerMessageText;
+    private Label         _customerTitle;
+    private Label         _avatarText;
+    private Label         _customerStatus;
+    private Label         _dailyCount;
+    private Label         _customerMessageText;
 
     private VisualElement _reply1;
     private VisualElement _reply2;
     private VisualElement _reply3;
 
-    // ── NEW: reply text label cache ────────────────────────────────────
-    private Label _reply1Text;
-    private Label _reply2Text;
-    private Label _reply3Text;
+    private TextField     _priceInput;
 
-    private TextField _priceInput;
-
-    // ── NEW: confirm button cache ──────────────────────────────────────
-    private Button _confirmButton;
-    private Button _closeButton;
-    private Button _minimizeButton;
-
-    private Label _stockValue;
+    private Label         _stockValue;
     private VisualElement _stockBarFill;
-    private Label _stockStatus;
+    private Label         _stockStatus;
 
-    private Label _marketPriceLabel;
-    private Label _priceDeltaLabel;
+    private Label         _marketPriceLabel;
+    private Label         _priceDeltaLabel;
 
-    private Label _costPriceLabel;
-    private Label _costDeltaLabel;
+    private Label         _costPriceLabel;
+    private Label         _costDeltaLabel;
 
-    private Label _statusText;
+    private Label         _statusText;
 
     public bool IsOpen { get; private set; }
 
     // ── Awake ──────────────────────────────────────────────────────────
     private void Awake()
     {
-        var doc = GetComponent<UIDocument>();
+        var doc  = GetComponent<UIDocument>();
         var root = doc.rootVisualElement;
 
-        _window = root.Q<VisualElement>("window");
+        _window     = root.Q<VisualElement>("window");
         _windowBody = root.Q<VisualElement>("window-body");
 
         _window.style.left = windowStartPos.x;
-        _window.style.top = windowStartPos.y;
+        _window.style.top  = windowStartPos.y;
 
-        _customerTitle = root.Q<Label>("customer-title");
-        _avatarText = root.Q<Label>("avatar-text");
-        _customerStatus = root.Q<Label>("customer-status");
-        _dailyCount = root.Q<Label>("daily-count");
+        _customerTitle       = root.Q<Label>("customer-title");
+        _avatarText          = root.Q<Label>("avatar-text");
+        _customerStatus      = root.Q<Label>("customer-status");
+        _dailyCount          = root.Q<Label>("daily-count");
         _customerMessageText = root.Q<Label>("customer-message-text");
 
         _reply1 = root.Q<VisualElement>("reply-1");
         _reply2 = root.Q<VisualElement>("reply-2");
         _reply3 = root.Q<VisualElement>("reply-3");
 
-        // NEW: reply içindeki ilk label'ları bul
-        _reply1Text = _reply1?.Q<Label>();
-        _reply2Text = _reply2?.Q<Label>();
-        _reply3Text = _reply3?.Q<Label>();
-
         _priceInput = root.Q<TextField>("price-input");
 
-        _stockValue = root.Q<Label>("stock-value");
+        _stockValue   = root.Q<Label>("stock-value");
         _stockBarFill = root.Q<VisualElement>("stock-bar-fill");
-        _stockStatus = root.Q<Label>("stock-status");
+        _stockStatus  = root.Q<Label>("stock-status");
 
         _marketPriceLabel = root.Q<Label>("market-price");
-        _priceDeltaLabel = root.Q<Label>("price-delta");
+        _priceDeltaLabel  = root.Q<Label>("price-delta");
 
         _costPriceLabel = root.Q<Label>("cost-price");
         _costDeltaLabel = root.Q<Label>("cost-delta");
 
         _statusText = root.Q<Label>("status-text");
-
-        // NEW: button cache
-        _confirmButton = root.Q<Button>("btn-confirm");
-        _closeButton = root.Q<Button>("btn-close");
-        _minimizeButton = root.Q<Button>("btn-minimize");
 
         // Title Bar sürükleme
         var titleBar = root.Q<VisualElement>("title-bar");
@@ -144,26 +117,22 @@ public class DialogSystemController : MonoBehaviour
         titleBar.RegisterCallback<MouseUpEvent>(OnTitleBarMouseUp);
 
         // Pencere kontrol butonları
-        if (_minimizeButton != null) _minimizeButton.clicked += HandleMinimizeClicked;
-        if (_closeButton != null) _closeButton.clicked += HandleCloseClicked;
+        root.Q<Button>("btn-minimize").clicked += OnMinimizeClicked;
+        root.Q<Button>("btn-close").clicked    += OnCloseClicked;
 
-        // NEW: Choice click binding
-        if (_reply1 != null) _reply1.RegisterCallback<ClickEvent>(_ => InvokeChoice(0));
-        if (_reply2 != null) _reply2.RegisterCallback<ClickEvent>(_ => InvokeChoice(1));
-        if (_reply3 != null) _reply3.RegisterCallback<ClickEvent>(_ => InvokeChoice(2));
+        // Cevap seçimi
+        _reply1.RegisterCallback<ClickEvent>(_ => SelectReply(1));
+        _reply2.RegisterCallback<ClickEvent>(_ => SelectReply(2));
+        _reply3.RegisterCallback<ClickEvent>(_ => SelectReply(3));
 
         // Onayla butonu
-        if (_confirmButton != null) _confirmButton.clicked += HandleConfirmClicked;
+        root.Q<Button>("btn-confirm").clicked += OnConfirmClicked;
 
         // İlk çizim
         RefreshUI();
         UpdateStockUI();
         UpdateMarketPriceUI();
         UpdateCostUI();
-
-        // NEW: başlangıçta choice ve offer UI temizliği
-        ClearChoices();
-        SetOfferUIVisible(false);
 
         // Play başlarken kapalı — Show() ile açılır
         Hide();
@@ -176,8 +145,8 @@ public class DialogSystemController : MonoBehaviour
     private void OnTitleBarMouseDown(MouseDownEvent e)
     {
         if (e.button != 0) return;
-        _isDragging = true;
-        _dragStartMouse = new Vector2(e.mousePosition.x, e.mousePosition.y);
+        _isDragging         = true;
+        _dragStartMouse     = new Vector2(e.mousePosition.x, e.mousePosition.y);
         _dragStartWindowPos = new Vector2(_window.resolvedStyle.left, _window.resolvedStyle.top);
         _window.Q<VisualElement>("title-bar").CaptureMouse();
         e.StopPropagation();
@@ -188,7 +157,7 @@ public class DialogSystemController : MonoBehaviour
         if (!_isDragging) return;
         Vector2 delta = new Vector2(e.mousePosition.x, e.mousePosition.y) - _dragStartMouse;
         _window.style.left = Mathf.Max(0f, _dragStartWindowPos.x + delta.x);
-        _window.style.top = Mathf.Max(0f, _dragStartWindowPos.y + delta.y);
+        _window.style.top  = Mathf.Max(0f, _dragStartWindowPos.y + delta.y);
         e.StopPropagation();
     }
 
@@ -205,130 +174,68 @@ public class DialogSystemController : MonoBehaviour
     //  MİNİMİZE / KAPAT
     // ══════════════════════════════════════════════════════════════════
 
-    // CHANGED: isim çakışmasın diye Handle prefix
-    private void HandleMinimizeClicked()
+    private void OnMinimizeClicked()
     {
         _isMinimized = !_isMinimized;
         _windowBody.style.display = _isMinimized ? DisplayStyle.None : DisplayStyle.Flex;
         SetStatus(_isMinimized ? "Pencere küçültüldü." : "Pencere geri getirildi.");
     }
 
-    // CHANGED: event fırlatıyor
-    private void HandleCloseClicked()
+    private void OnCloseClicked()
     {
-        OnCloseClicked?.Invoke();
         Hide();
         Debug.Log("[DialogSystem] Pencere kapatıldı.");
     }
 
     public void OpenWindow()
     {
-        _window.style.display = DisplayStyle.Flex;
+        _window.style.display     = DisplayStyle.Flex;
         _windowBody.style.display = DisplayStyle.Flex;
-        _isMinimized = false;
+        _isMinimized              = false;
     }
 
     // ══════════════════════════════════════════════════════════════════
-    //  CHOICE SİSTEMİ
+    //  CEVAP SEÇİMİ
     // ══════════════════════════════════════════════════════════════════
 
-    // NEW: statik 3 slotu dinamik choice sistemi gibi kullanıyoruz
-    private void InvokeChoice(int index)
+    private void SelectReply(int index)
     {
-        _selectedReply = index + 1;
+        _selectedReply = index;
+        _reply1.RemoveFromClassList("selected");
+        _reply2.RemoveFromClassList("selected");
+        _reply3.RemoveFromClassList("selected");
 
-        _reply1?.RemoveFromClassList("selected");
-        _reply2?.RemoveFromClassList("selected");
-        _reply3?.RemoveFromClassList("selected");
+        if      (index == 1) _reply1.AddToClassList("selected");
+        else if (index == 2) _reply2.AddToClassList("selected");
+        else if (index == 3) _reply3.AddToClassList("selected");
 
-        if (index == 0) _reply1?.AddToClassList("selected");
-        else if (index == 1) _reply2?.AddToClassList("selected");
-        else if (index == 2) _reply3?.AddToClassList("selected");
-
-        SetStatus($"Cevap #{index + 1} seçildi.");
-
-        _choiceActions[index]?.Invoke();
-    }
-
-    // NEW
-    public void ClearChoices()
-    {
-        _choiceActions[0] = null;
-        _choiceActions[1] = null;
-        _choiceActions[2] = null;
-
-        SetChoiceSlot(_reply1, _reply1Text, false, "");
-        SetChoiceSlot(_reply2, _reply2Text, false, "");
-        SetChoiceSlot(_reply3, _reply3Text, false, "");
-
-        _selectedReply = 0;
-    }
-
-    // NEW
-    public void AddChoice(string label, Action onClick)
-    {
-        if (_reply1 != null && _reply1.style.display == DisplayStyle.None)
-        {
-            _choiceActions[0] = onClick;
-            SetChoiceSlot(_reply1, _reply1Text, true, label);
-            return;
-        }
-
-        if (_reply2 != null && _reply2.style.display == DisplayStyle.None)
-        {
-            _choiceActions[1] = onClick;
-            SetChoiceSlot(_reply2, _reply2Text, true, label);
-            return;
-        }
-
-        if (_reply3 != null && _reply3.style.display == DisplayStyle.None)
-        {
-            _choiceActions[2] = onClick;
-            SetChoiceSlot(_reply3, _reply3Text, true, label);
-            return;
-        }
-
-        Debug.LogWarning("[DialogSystem] Maksimum 3 choice destekleniyor.");
-    }
-
-    // NEW
-    private void SetChoiceSlot(VisualElement slot, Label label, bool visible, string text)
-    {
-        if (slot == null) return;
-
-        slot.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-        slot.RemoveFromClassList("selected");
-
-        if (label != null)
-            label.text = text;
+        SetStatus($"Cevap #{index} seçildi.");
     }
 
     // ══════════════════════════════════════════════════════════════════
     //  ONAYLA BUTONU
     // ══════════════════════════════════════════════════════════════════
 
-    // CHANGED: event fırlatıyor
-    private void HandleConfirmClicked()
+    private void OnConfirmClicked()
     {
-        if (_priceInput == null)
+        if (_selectedReply == 0)
         {
-            SetStatus("⚠  Price input bulunamadı.");
+            SetStatus("⚠  Lütfen önce bir cevap seçin.");
             return;
         }
 
-        string raw = (_priceInput.value ?? "").Trim().Replace(",", ".");
-
-        if (!float.TryParse(raw, NumberStyles.Any, CultureInfo.InvariantCulture, out float price) || price <= 0)
+        string raw = _priceInput.value.Trim().Replace(",", ".");
+        if (!float.TryParse(raw,
+                System.Globalization.NumberStyles.Any,
+                System.Globalization.CultureInfo.InvariantCulture,
+                out float price) || price <= 0)
         {
             SetStatus("⚠  Geçerli bir fiyat giriniz.");
             return;
         }
 
-        int intPrice = Mathf.RoundToInt(price);
-        OnOfferSubmitted?.Invoke(intPrice);
-
-        string priceStr = $"₺{intPrice:N0}";
-        SetStatus($"✓ Teklif gönderildi: {priceStr}");
+        string priceStr = $"₺{price:N0}";
+        SetStatus($"✓ Müşteri #{_customerIndex:D2} — Cevap #{_selectedReply}, {priceStr} onaylandı.");
     }
 
     // ══════════════════════════════════════════════════════════════════
@@ -338,8 +245,8 @@ public class DialogSystemController : MonoBehaviour
     private void RefreshUI()
     {
         _customerTitle.text = $"MÜŞTERİ #{_customerIndex:D2}";
-        _avatarText.text = _customerIndex.ToString("D2");
-        _dailyCount.text = $"{_customerIndex} MÜŞTERİ";
+        _avatarText.text    = _customerIndex.ToString("D2");
+        _dailyCount.text    = $"{_customerIndex} MÜŞTERİ";
 
         if (customerMessages.Count > 0)
         {
@@ -347,27 +254,20 @@ public class DialogSystemController : MonoBehaviour
             _customerMessageText.text = customerMessages[msgIdx];
         }
 
-        _reply1?.RemoveFromClassList("selected");
-        _reply2?.RemoveFromClassList("selected");
-        _reply3?.RemoveFromClassList("selected");
-
-        if (_priceInput != null)
-            _priceInput.SetValueWithoutNotify("");
+        _reply1.RemoveFromClassList("selected");
+        _reply2.RemoveFromClassList("selected");
+        _reply3.RemoveFromClassList("selected");
+        _priceInput.SetValueWithoutNotify("");
 
         SetStatus($"Müşteri #{_customerIndex:D2} görüşmeye hazır.");
     }
 
     private void UpdateStockUI()
     {
-        if (_stockValue != null)
-            _stockValue.text = stockCount.ToString();
+        _stockValue.text = stockCount.ToString();
 
         float ratio = Mathf.Clamp01((float)stockCount / maxStock);
-
-        if (_stockBarFill != null)
-            _stockBarFill.style.width = Length.Percent(ratio * 100f);
-
-        if (_stockStatus == null) return;
+        _stockBarFill.style.width = Length.Percent(ratio * 100f);
 
         _stockStatus.RemoveFromClassList("status-ok");
         _stockStatus.RemoveFromClassList("status-warn");
@@ -377,28 +277,25 @@ public class DialogSystemController : MonoBehaviour
         {
             _stockStatus.text = "Stok sağlıklı";
             _stockStatus.AddToClassList("status-ok");
-            if (_stockBarFill != null) _stockBarFill.style.backgroundColor = new Color(0.18f, 0.80f, 0.44f);
+            _stockBarFill.style.backgroundColor = new Color(0.18f, 0.80f, 0.44f);
         }
         else if (ratio > 0.2f)
         {
             _stockStatus.text = "Stok azalıyor";
             _stockStatus.AddToClassList("status-warn");
-            if (_stockBarFill != null) _stockBarFill.style.backgroundColor = new Color(0.95f, 0.61f, 0.07f);
+            _stockBarFill.style.backgroundColor = new Color(0.95f, 0.61f, 0.07f);
         }
         else
         {
             _stockStatus.text = "Kritik stok!";
             _stockStatus.AddToClassList("status-crit");
-            if (_stockBarFill != null) _stockBarFill.style.backgroundColor = new Color(0.91f, 0.30f, 0.24f);
+            _stockBarFill.style.backgroundColor = new Color(0.91f, 0.30f, 0.24f);
         }
     }
 
     private void UpdateMarketPriceUI()
     {
-        if (_marketPriceLabel != null)
-            _marketPriceLabel.text = $"₺{marketPrice:N0}";
-
-        if (_priceDeltaLabel == null) return;
+        _marketPriceLabel.text = $"₺{marketPrice:N0}";
 
         if (changePercent >= 0)
         {
@@ -420,20 +317,17 @@ public class DialogSystemController : MonoBehaviour
 
         _costPriceLabel.text = $"₺{costPrice:N0}";
 
-        if (_costPriceLabel == null || _costDeltaLabel == null)
-            return;
-
         if (costPrice > 0 && marketPrice > 0)
         {
             float pct = ((marketPrice - costPrice) / costPrice) * 100f;
             if (pct >= 0)
             {
-                _costDeltaLabel.text = $"▲ %{pct:F1} kâr";
+                _costDeltaLabel.text        = $"▲ %{pct:F1} kâr";
                 _costDeltaLabel.style.color = new StyleColor(new Color(0.31f, 0.63f, 0.31f));
             }
             else
             {
-                _costDeltaLabel.text = $"▼ %{Mathf.Abs(pct):F1} zarar";
+                _costDeltaLabel.text        = $"▼ %{Mathf.Abs(pct):F1} zarar";
                 _costDeltaLabel.style.color = new StyleColor(new Color(0.85f, 0.25f, 0.15f));
             }
         }
@@ -444,10 +338,7 @@ public class DialogSystemController : MonoBehaviour
     }
 
     private void SetStatus(string msg)
-    {
-        if (_statusText != null)
-            _statusText.text = $"[{DateTime.Now:HH:mm:ss}]  {msg}";
-    }
+        => _statusText.text = $"[{DateTime.Now:HH:mm:ss}]  {msg}";
 
     // ══════════════════════════════════════════════════════════════════
     //  HARİCİ API
@@ -461,7 +352,7 @@ public class DialogSystemController : MonoBehaviour
 
     public void SetMarketPrice(float price, float change)
     {
-        marketPrice = price;
+        marketPrice   = price;
         changePercent = change;
         UpdateMarketPriceUI();
     }
@@ -472,23 +363,8 @@ public class DialogSystemController : MonoBehaviour
         UpdateCostUI();
     }
 
-    // NEW: DialogueManager uyum API
-    public void SetNpcLine(string message)
-    {
-        SetCurrentCustomerMessage(message);
-    }
-
     public void SetCurrentCustomerMessage(string message)
-    {
-        if (_customerMessageText != null)
-            _customerMessageText.text = message;
-    }
-
-    // NEW: şu an ayrı wanted/stock/market label yapın yoksa no-op gibi davranır
-    public void SetInfo(string wanted, string stock, string market)
-    {
-        SetStatus($"Info -> wanted={wanted}, stock={stock}, market={market}");
-    }
+        => _customerMessageText.text = message;
 
     public void NextCustomer()
     {
@@ -501,33 +377,7 @@ public class DialogSystemController : MonoBehaviour
     public void SetWindowPosition(float x, float y)
     {
         _window.style.left = x;
-        _window.style.top = y;
-    }
-
-    // NEW
-    public void SetOfferUIVisible(bool visible)
-    {
-        if (_priceInput != null)
-            _priceInput.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-
-        if (_confirmButton != null)
-            _confirmButton.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-    }
-
-    // NEW
-    public void SetOfferPlaceholder(string text)
-    {
-        if (_priceInput != null)
-        {
-            _priceInput.tooltip = text;
-        }
-    }
-
-    // NEW
-    public void SetOfferText(string text)
-    {
-        if (_priceInput != null)
-            _priceInput.SetValueWithoutNotify(text ?? "");
+        _window.style.top  = y;
     }
 
     public void Show()
@@ -535,26 +385,26 @@ public class DialogSystemController : MonoBehaviour
         IsOpen = true;
         OpenWindow();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
-        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.visible   = true;
     }
 
     public void Hide()
     {
-        IsOpen = false;
+        IsOpen                = false;
         _window.style.display = DisplayStyle.None;
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        UnityEngine.Cursor.lockState      = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible        = false;
     }
 
     public void RefreshEconomyPanel(TireOrder order)
     {
-        if (order == null)
+        if(order == null)
         {
             Debug.LogWarning("[DialogSystem] RefreshEconomyPanel -> order null");
             return;
         }
 
-        if (EconomyManager.I == null)
+        if(EconomyManager.I == null)
         {
             Debug.LogWarning("[DialogSystem] RefreshEconomyPanel -> EconomyManager null");
             return;
@@ -572,8 +422,9 @@ public class DialogSystemController : MonoBehaviour
         SetCurrentCustomerMessage(BuildCustomerOrderMessage(order));
 
         SetStatus(
-            $"Ekonomi paneli güncellendi | stok={stock} | maliyet={unitCost} | piyasa={marketUnitPrice} | kâr=%{markupPercent}"
+        $"Ekonomi paneli güncellendi | stok={stock} | maliyet={unitCost} | piyasa={marketUnitPrice} | kâr=%{markupPercent}"
         );
+
     }
 
     public string BuildCustomerOrderMessage(TireOrder order)

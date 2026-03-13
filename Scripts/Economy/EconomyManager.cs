@@ -4,7 +4,7 @@ using System.Text;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EconomyManager : MonoBehaviour
+public partial class EconomyManager : MonoBehaviour
 {
     public static EconomyManager I { get; private set;} //constructor
 
@@ -34,6 +34,10 @@ public class EconomyManager : MonoBehaviour
     [SerializeField] int seedRandom = 12345;
     System.Random rng;
 
+    [Header("Cost Data")]
+    [SerializeField] TireCostCatalogS0 tireCostCatalog;
+    [SerializeField] int fallbackUnitCost = 50;
+
 
 
     void Awake()
@@ -53,9 +57,6 @@ public class EconomyManager : MonoBehaviour
         I = this;
         DontDestroyOnLoad(gameObject);
 
-        //DEmo başlangıç stoğu 
-        AddStock(new TireKey(195,55,16,TireSeason.Summer,TireCondition.New), 12);
-        AddStock(new TireKey(205,55,16, TireSeason.Summer, TireCondition.New),8);
 
         OnMoneyChanged?.Invoke(money);
         OnDayChanged?.Invoke(day);
@@ -66,7 +67,7 @@ public class EconomyManager : MonoBehaviour
     public int Day => day;
 
     public static TireKey ToKey(TireOrder order)
-        => new TireKey(order.size.width, order.size.aspect, order.size.rim, order.season, order.condition);
+        => new TireKey(order.size.width, order.size.aspect, order.size.rim, order.season, order.condition, order.brand);
 
 
    //MONEY
@@ -128,7 +129,7 @@ public class EconomyManager : MonoBehaviour
     }    
     //Pricing
     public int QuoteCustomerTotal(TireOrder order)
-        => (order.quantity * unitSell) + laborFee;
+        => CalculateTotalPrice(GetMarketUnitPrice(order), order.quantity);
 
     //Integration
     //DealACcepteed'ta çağıracağız : stok varsa düş yoksa reject
@@ -160,17 +161,19 @@ public class EconomyManager : MonoBehaviour
         {
             if(e == null) continue;
 
-            int qty = baseStockPerSku + Mathf.FloorToInt(e.demandWeight * extraStockScale / 10f);
+            int qty = 4;
 
-            if(qty < 1) qty = 1;
+            var kodemaxKey = new TireKey(e.width, e.aspect, e.rim, TireSeason.Summer, TireCondition.New, TireBrand.Kodemax);
+            var michealKey = new TireKey(e.width, e.aspect,  e.rim, TireSeason.Summer,TireCondition.New, TireBrand.Micheal);
 
-            var key = new TireKey(e.width, e.aspect, e.rim, TireSeason.Summer, TireCondition.New);
-            AddStock(key, qty);
+            AddStock(kodemaxKey, qty);
+            AddStock(michealKey,qty);
         }
 
         Debug.Log($"[Economy] Seeded initial stock from catalog. Count={catalog.sizes.Count}");
     }
 
+    public WorldSeason currentWorldSeason = WorldSeason.Summer;
     public bool TryCreateRandomOrder(out TireOrder order)
     {
         order = null;
@@ -179,16 +182,197 @@ public class EconomyManager : MonoBehaviour
         var pick = catalog.PickWeighted(rng);
         if(pick == null) return false;
 
+        var wantedSeason = DemandRng.PickWantedTireSeason(currentWorldSeason, rng);
+
+        var wantedBrand = DemandRng.PickWantedBrand(wantedSeason, rng);
+
         order = new TireOrder
         {
             size = new TireSize(pick.width, pick.aspect, pick.rim),
-            season = TireSeason.Summer,
+            season = wantedSeason,
             condition = TireCondition.New,
+            brand = wantedBrand,
             quantity = 4
         };
+
+                var key = ToKey(order);
+
+        int baseCost = GetUnitCost(order);
+        int marketUnitPrice = GetMarketUnitPrice(order);
+        int totalAtMarket = CalculateTotalPrice(marketUnitPrice, order.quantity);
+
+        Debug.Log(
+            $"[ECON TEST] ORDER -> {key} | qty={order.quantity} | baseCost={baseCost} | marketPrice={marketUnitPrice} | totalAtMarket={totalAtMarket}"
+        );
 
         return true;
     }
 
+    public string BuildWantedLabel(TireOrder order)
+    {
+        return $"{order.brand} {order.size.width}/{order.size.aspect}R{order.size.rim} {order.season}";
+    }
+
+    public int GetMarketMarkupPercent(TireOrder order)
+    {
+        int cost = GetUnitCost(order);
+        int market = GetMarketUnitPrice(order);
+
+        if (cost <= 0) return 0;
+
+        return Mathf.RoundToInt(((market - cost) / (float)cost) * 100f);
+    }
+
+
+
+
+}
+
+public partial class EconomyManager
+{
+    [Header("Market (V0)")]
+    [SerializeField] private int baseMarketPrice = 1250;
+    [SerializeField] private float monthlySwing = 0.03f; //+-%3
+
+    private int cachedMarketMonth = -1;
+    private float cachedMarketMultiplier = 1f;
+
+
+    // 2) Market price (şimdilik SKU’ya göre basit: base * sizeFactor * monthMultiplier)
+    public int GetMarketPrice(TireKey key, int monthIndex)
+    {
+        EnsureMarketMultiplier(monthIndex);
+
+        float sizeFactor = 1f + Mathf.Clamp((key.width - 195) / 100f, -0.2f, 0.4f)
+                             + Mathf.Clamp((key.rim - 16) / 10f, -0.1f, 0.3f);
+
+        float p = baseMarketPrice * sizeFactor * cachedMarketMultiplier;
+        return Mathf.Max(100, Mathf.RoundToInt(p));
+    }
+
+    private void EnsureMarketMultiplier(int monthIndex)
+    {
+        if (cachedMarketMonth == monthIndex) return;
+
+        // deterministic olsun diye day/seed vs ile besleyebilirsin.
+        // şimdilik random swing: 1 +- monthlySwing
+        float swing = UnityEngine.Random.Range(-monthlySwing, monthlySwing);
+        cachedMarketMultiplier = 1f + swing;
+        cachedMarketMonth = monthIndex;
+    }
+
+    // 3) Offer evaluation
+    public OfferEval EvaluateOffer(CustomerProfileSO profile, int offerUnitPrice, int marketUnitPrice, int offerTurnIndex)
+    {
+        if (profile == null) return OfferEval.Reject("profile missing");
+
+        if (profile.willNeverBuy)
+            return OfferEval.Reject("Sadece fiyat bakıyorum, almayacağım.");
+
+        // müşteri bandı: [market*(1+minDiscount) , market*(1+maxMarkup)]
+        int minAccept = Mathf.RoundToInt(marketUnitPrice * (1f + profile.minDiscount));
+        int maxAccept = Mathf.RoundToInt(marketUnitPrice * (1f + profile.maxMarkup));
+
+        // turn limiti
+        if (offerTurnIndex >= profile.maxOfferTurns)
+            return OfferEval.Reject("Yeterince konuştuk, ben çıkıyorum.");
+
+        if (offerUnitPrice < minAccept)
+            return OfferEval.Counter(
+                counterUnitPrice: minAccept,
+                reason: $"Bu fiyata olmaz. En az {minAccept} olursa konuşuruz."
+            );
+
+        if (offerUnitPrice > maxAccept)
+            return OfferEval.Counter(
+                counterUnitPrice: maxAccept,
+                reason: $"Pahalı geldi. {maxAccept} olursa alırım."
+            );
+
+        return OfferEval.Accept("Tamam, anlaştık.");
+    }
+
+    // Pazarlık sonucu STOĞU REZERVE ET (para job sonrası alınır)
+    public bool TryReserveStock(TireKey key, int qty)
+        => TryRemoveStock(key, qty);
+
+    // Pazarlık sonucu ödeme (job bitince)
+    public void PayForCompletedJobByDeal(int totalPrice, string reason)
+        => AddMoney(totalPrice, reason);
+
+    public int GetUnitCost(TireKey key)
+    {
+        if(tireCostCatalog!= null && tireCostCatalog.TryGetCost(key, out int cost))
+        {
+            return cost;
+        }
+
+        Debug.LogWarning($"[Economy] Cost not found for {key}, using fallback.");
+
+        return fallbackUnitCost;
+    }
+
+    public int GetUnitCost(TireOrder order)
+    {
+        return GetUnitCost(ToKey(order));
+    }
+
+    public int GetOrderProductCost(TireOrder order)
+    {
+        int unitCost = GetUnitCost(order);
+
+        return unitCost * order.quantity;
+    }
+
+    public int GetOrderGrossProfit(TireOrder order, int unitSellPrice)
+    {
+
+        int revenue = (unitSellPrice * order.quantity) ;
+
+        int productCost = GetOrderProductCost(order);
+
+        return revenue - productCost;
+
+    }    
+
+    public int GetStockForOrder(TireOrder order)
+    {
+        return GetStock(ToKey(order));
+    }
+
+    public int GetMarketUnitPrice(TireOrder order)
+    {
+        int cost = GetUnitCost(order);
+        return Mathf.Max(cost, Mathf.RoundToInt(cost * 1.20f));
+    }
+
+    public int CalculateTotalPrice(int unitPrice, int quantity)
+    {
+        return (unitPrice * quantity) ;
+    }
+
+    public int GetMarketTotalPrice(TireOrder order)
+    {
+        return CalculateTotalPrice(GetMarketUnitPrice(order), order.quantity);
+    }
+
+}
+
+public readonly struct OfferEval
+{
+    public readonly bool accepted;
+    public readonly bool rejected;
+    public readonly bool counter;
+    public readonly int counterUnitPrice;
+    public readonly string message;
+
+    private OfferEval(bool a, bool r, bool c, int cu, string m)
+    { accepted = a; rejected = r; counter = c; counterUnitPrice = cu; message = m; }
+
+    public static OfferEval Accept(string msg) => new OfferEval(true, false, false, 0, msg);
+    public static OfferEval Reject(string msg) => new OfferEval(false, true, false, 0, msg);
+    public static OfferEval Counter(int counterUnitPrice, string reason) => new OfferEval(false, false, true, counterUnitPrice, reason);
+
+    
 
 }

@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager I {get; private set;}
+    public static DialogueManager I { get; private set; }
+
     float blockInputUntil;
 
     [Header("Refs")]
-    [SerializeField] DialogueUIController ui;
+    [SerializeField] DialogSystemController ui;
 
     [Header("Player Lock")]
     [SerializeField] MonoBehaviour playerMovementScriptToDisable;
 
     CustomerController currentCustomer;
 
-    public bool IsOpen{ get; private set;}
+    public bool IsOpen { get; private set; }
 
     enum TalkState
     {
@@ -31,47 +29,76 @@ public class DialogueManager : MonoBehaviour
 
     TalkState state = TalkState.None;
 
-    string wantedFake = "215/40R17";
-    int stockFake = 8;
-    int marketFake = 150;
-
     void Awake()
     {
-        if( I != null && I != this ) { Destroy(gameObject); return ;}
+        if (I != null && I != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         I = this;
 
-        if(ui)
+        if (ui != null)
         {
             ui.OnCloseClicked += End;
             ui.OnOfferSubmitted += HandleOffer;
         }
+        else
+        {
+            Debug.LogWarning("[DialogueManager] UI reference missing.");
+        }
     }
+
     public bool CanUIInteract => Time.unscaledTime >= blockInputUntil;
 
     public void BeginWithCustomer(CustomerController customer)
     {
-        IsOpen = true;
-        blockInputUntil = Time.unscaledTime + 0.10f;
-        if(ui == null)
+        if (customer == null)
         {
-            Debug.LogWarning("[DialogueManager] UI ref missing!");
+            Debug.LogWarning("[DialogueManager] BeginWithCustomer -> customer null");
             return;
         }
 
+        if (ui == null)
+        {
+            Debug.LogWarning("[DialogueManager] BeginWithCustomer -> ui null");
+            return;
+        }
+
+        IsOpen = true;
+        blockInputUntil = Time.unscaledTime + 0.10f;
         currentCustomer = customer;
+
+        // Sipariş yoksa oluştur
+        if (currentCustomer.GetPendingOrder() == null)
+        {
+            if (EconomyManager.I != null && EconomyManager.I.TryCreateRandomOrder(out TireOrder newOrder))
+            {
+                currentCustomer.SetPendingOrder(newOrder);
+            }
+            else
+            {
+                Debug.LogWarning("[DialogueManager] Pending order oluşturulamadı.");
+            }
+        }
+
         state = TalkState.Greeting;
 
         LockPlayer(true);
         ui.Show();
 
+        // Başlangıçta ekonomi panelini doldur
+        TireOrder order = GetCurrentOrder();
+        if (order != null)
+            ui.RefreshEconomyPanel(order);
+
         ui.SetOfferUIVisible(false);
-        ui.SetInfo("-","-","-");
 
         ui.SetNpcLine("Selamlar kolay gelsin ustam.");
         ui.ClearChoices();
-        ui.AddChoice("Sağ ol abi, nasil yardimci olalim?", OnPlayerPolite);
-        ui.AddChoice("Eyvallah, söyle bakalim", OnPlayerCasual);
-
+        ui.AddChoice("Sağ ol abi, nasıl yardımcı olalım?", OnPlayerPolite);
+        ui.AddChoice("Eyvallah, söyle bakalım.", OnPlayerCasual);
     }
 
     void OnPlayerPolite()
@@ -79,11 +106,10 @@ public class DialogueManager : MonoBehaviour
         state = TalkState.PlayerResponded;
         ui.SetOfferUIVisible(false);
 
-        ui.SetNpcLine("Bir lastik işim var ustam");
+        ui.SetNpcLine("Bir lastik işim var ustam.");
         ui.ClearChoices();
-
-        ui.AddChoice("Tamam abi , hangi ebat?", GoToCustomerWantsTire);
-        ui.AddChoice("Bugünlük kapaliyiz", RejectEarly);        
+        ui.AddChoice("Tamam abi, hangi ebat?", GoToCustomerWantsTire);
+        ui.AddChoice("Bugünlük kapalıyız.", RejectEarly);
     }
 
     void OnPlayerCasual()
@@ -93,69 +119,91 @@ public class DialogueManager : MonoBehaviour
 
         ui.SetNpcLine("Ustam 4 lastik değiştireceğiz.");
         ui.ClearChoices();
-
         ui.AddChoice("Tamam abi, hangi ebat?", GoToCustomerWantsTire);
         ui.AddChoice("Bugünlük kapalıyız.", RejectEarly);
     }
-
-    
 
     void GoToCustomerWantsTire()
     {
         state = TalkState.CustomerWantsTire;
         ui.SetOfferUIVisible(false);
 
-        ui.SetNpcLine($"{wantedFake} istiyorum . 4 adet");
-        ui.SetInfo(wantedFake, stockFake.ToString(), marketFake.ToString());
+        TireOrder order = GetCurrentOrder();
+        if (order == null)
+        {
+            ui.SetNpcLine("Ustam bir gariplik oldu, siparişi çıkaramadım.");
+            ui.ClearChoices();
+            ui.AddChoice("Kapat", End);
+            return;
+        }
+
+        // Burada ekonomi paneli ve müşteri mesajı gerçek order'dan dolacak
+        ui.RefreshEconomyPanel(order);
 
         ui.ClearChoices();
         ui.AddChoice("Pazarlığa girelim.", GoToNegotiation);
-        ui.AddChoice("Piyasa olur, yapalım.", AutoAcceptAtMarket);
-        ui.AddChoice("Yok abi elimizde bu ebat", RejectNoStockFake);
+        ui.AddChoice("Piyasa olur, yapalım.", AcceptAtMarket);
     }
 
     void GoToNegotiation()
     {
         state = TalkState.Negotiation;
 
-        ui.SetNpcLine($"Piyasa {marketFake}. Sen kaç diyorsun?");
+        TireOrder order = GetCurrentOrder();
+        if (order == null)
+        {
+            ui.SetNpcLine("Sipariş bilgisi yok.");
+            return;
+        }
+
+        int marketUnitPrice = EconomyManager.I.GetMarketUnitPrice(order);
+
+        ui.SetNpcLine($"Piyasa {marketUnitPrice}. Sen kaç diyorsun?");
         ui.ClearChoices();
 
         ui.SetOfferUIVisible(true);
         ui.SetOfferPlaceholder("Teklif (örn: 130)");
-        ui.SetOfferText(""); // input temizlensin
+        ui.SetOfferText("");
 
         ui.AddChoice("Vazgeçtim.", End);
     }
 
     void HandleOffer(int offer)
     {
-        if(state != TalkState.Negotiation) return;
+        if (state != TalkState.Negotiation)
+            return;
 
-        //market =150 , kabul min = 135
-        int acceptMin = Mathf.RoundToInt(marketFake * 0.90f);
+        TireOrder order = GetCurrentOrder();
+        if (order == null)
+        {
+            ui.SetNpcLine("Sipariş bilgisi yok.");
+            return;
+        }
 
-        if(offer >= acceptMin)
+        int marketUnitPrice = EconomyManager.I.GetMarketUnitPrice(order);
+        int acceptMin = Mathf.RoundToInt(marketUnitPrice * 0.90f);
+
+        if (offer >= acceptMin)
         {
             state = TalkState.Accepted;
             ui.SetOfferUIVisible(false);
 
-            ui.SetNpcLine($"Tamam ustam , {offer} olsun . Anlaştık");
+            ui.SetNpcLine($"Tamam ustam, {offer} olsun. Anlaştık.");
             ui.ClearChoices();
-            ui.AddChoice("Başlayalım", End);
+            ui.AddChoice("Başlayalım.", End);
             return;
         }
 
         state = TalkState.Rejected;
         ui.SetOfferUIVisible(true);
 
-        int counter = Mathf.Clamp(marketFake - 5 , 1, 999999);
-        ui.SetNpcLine($"{offer} olmaz ustam, çok düşük. {counter} yapalım.");
+        int counter = Mathf.Clamp(marketUnitPrice - 5, 1, 999999);
 
+        ui.SetNpcLine($"{offer} olmaz ustam, çok düşük. {counter} yapalım.");
         ui.ClearChoices();
+
         ui.AddChoice($"{counter} tamam.", () =>
         {
-            // müşteri teklifini kabul ediyormuş gibi davran
             state = TalkState.Accepted;
             ui.SetOfferUIVisible(false);
 
@@ -167,31 +215,29 @@ public class DialogueManager : MonoBehaviour
         ui.AddChoice("Tekrar teklif vereyim.", () =>
         {
             state = TalkState.Negotiation;
-            ui.SetNpcLine($"Piyasa {marketFake}. Sen kaç diyorsun?");
-            // input açık kalsın, kullanıcı yeni sayı girsin
+            ui.SetNpcLine($"Piyasa {marketUnitPrice}. Sen kaç diyorsun?");
         });
 
         ui.AddChoice("O zaman olmaz, güle güle.", End);
     }
 
-    void AutoAcceptAtMarket()
+    void AcceptAtMarket()
     {
+        TireOrder order = GetCurrentOrder();
+        if (order == null)
+        {
+            ui.SetNpcLine("Sipariş bilgisi yok.");
+            return;
+        }
+
+        int marketUnitPrice = EconomyManager.I.GetMarketUnitPrice(order);
+
         state = TalkState.Accepted;
         ui.SetOfferUIVisible(false);
 
-        ui.SetNpcLine("Tamam ustam, piyasa fiyatından verelim. Anlaştık.");
+        ui.SetNpcLine($"Tamam ustam, tanesi {marketUnitPrice}. Anlaştık.");
         ui.ClearChoices();
         ui.AddChoice("Başlayalım.", End);
-    }
-
-    void RejectNoStockFake()
-    {
-        state = TalkState.Rejected;
-        ui.SetOfferUIVisible(false);
-
-        ui.SetNpcLine("Hadi ya… o zaman başka yere gideyim.");
-        ui.ClearChoices();
-        ui.AddChoice("Kusura bakma abi.", End);
     }
 
     void RejectEarly()
@@ -206,14 +252,15 @@ public class DialogueManager : MonoBehaviour
 
     public void End()
     {
-        if (ui) ui.Hide();
+        IsOpen = false;
+
+        if (ui != null)
+            ui.Hide();
+
         LockPlayer(false);
 
         currentCustomer = null;
         state = TalkState.None;
-
-        IsOpen = false;
-        ui.Hide();
     }
 
     void LockPlayer(bool locked)
@@ -223,5 +270,13 @@ public class DialogueManager : MonoBehaviour
 
         if (playerMovementScriptToDisable != null)
             playerMovementScriptToDisable.enabled = !locked;
+    }
+
+    TireOrder GetCurrentOrder()
+    {
+        if (currentCustomer == null)
+            return null;
+
+        return currentCustomer.GetPendingOrder();
     }
 }

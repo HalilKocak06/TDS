@@ -49,11 +49,11 @@ public class StorageTireSpawner : MonoBehaviour
         
 
         var size = new TireSize(debugWidth, debugAspect, debugRim);
-        SpawnNewTire(size, debugSeason, debugCondition);
+        SpawnNewTire(size, debugSeason, debugCondition,TireBrand.Micheal);
 
     }
 
-    public GameObject SpawnNewTire(TireSize size, TireSeason season, TireCondition condition)
+    public GameObject SpawnNewTire(TireSize size, TireSeason season, TireCondition condition, TireBrand brand)
     {
         if (newTirePrefab == null)
         {
@@ -84,7 +84,7 @@ public class StorageTireSpawner : MonoBehaviour
         if(tireId == null) tireId = tire.AddComponent<TireIdentity>();
 
         int uid = ++_uidCounter;
-        tireId.Init(size, season, condition, uid);
+        tireId.Init(size, season, condition, brand, uid);
 
         Debug.Log($"[Spawner] Spawned: {tireId.stringDisplayName} (uid={uid}) -> {tire.name}");
 
@@ -135,7 +135,7 @@ public class StorageTireSpawner : MonoBehaviour
             SetLayerRecursively(child.gameObject, layer);
     }
 
-    public GameObject SpawnRequestedTire(int width, int aspect, int rim, TireSeason season, TireCondition condition)
+    public GameObject SpawnRequestedTire(int width, int aspect, int rim, TireSeason season, TireCondition condition, TireBrand brand)
     {
         var wanted = new TireSize(width, aspect, rim);
 
@@ -150,7 +150,19 @@ public class StorageTireSpawner : MonoBehaviour
             Debug.LogWarning($"[Spawner] Requested size NOT in catalog: {wanted} (spawning anyway)");
         }
 
-    return SpawnNewTire(wanted, season, condition);
+    return SpawnNewTire(wanted, season, condition, brand);
+
+    }
+
+    public GameObject SpawnFromOrder(TireOrder order)
+    {
+        if(order == null)
+        {
+            Debug.LogWarning("[SPAWNER] SpawnFromOrder: order null");
+            return null;
+        }
+
+        return SpawnNewTire(order.size, order.season, order.condition, order.brand);
     }
 
     

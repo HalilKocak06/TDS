@@ -410,5 +410,11 @@ public class CustomerController : MonoBehaviour
             DialogueManager.I.BeginWithCustomer(this);
     }
 
+    public void SetPendingOrder(TireOrder order)
+    {
+
+        pendingOrder = order;
+    }
+
     
 }

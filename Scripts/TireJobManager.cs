@@ -96,7 +96,8 @@ public class TireJobManager : MonoBehaviour
                 activeOrder.size.aspect,
                 activeOrder.size.rim,
                 activeOrder.season,
-                activeOrder.condition
+                activeOrder.condition,
+                activeOrder.brand
             );
         }
 

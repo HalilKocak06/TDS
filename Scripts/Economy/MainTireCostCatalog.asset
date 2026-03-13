@@ -1,0 +1,3585 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37429ab10c6a8494093262624e967805, type: 3}
+  m_Name: MainTireCostCatalog
+  m_EditorClassIdentifier: 
+  entries:
+  - width: 195
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 110
+  - width: 195
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 66
+  - width: 195
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 127
+  - width: 195
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 76
+  - width: 195
+    aspect: 55
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 132
+  - width: 205
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 100
+  - width: 205
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 60
+  - width: 205
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 115
+  - width: 205
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 69
+  - width: 205
+    aspect: 55
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 120
+  - width: 215
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 125
+  - width: 215
+    aspect: 55
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 75
+  - width: 215
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 215
+    aspect: 55
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 86
+  - width: 215
+    aspect: 55
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 205
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 205
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 205
+    aspect: 55
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 215
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 215
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 215
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 215
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 215
+    aspect: 55
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 225
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 225
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 225
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 173
+  - width: 225
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 104
+  - width: 225
+    aspect: 55
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 235
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 235
+    aspect: 55
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 235
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 173
+  - width: 235
+    aspect: 55
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 104
+  - width: 235
+    aspect: 55
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 215
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 215
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 215
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 215
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 215
+    aspect: 55
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 225
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 225
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 225
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 225
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 225
+    aspect: 55
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 235
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 235
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 235
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 235
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 235
+    aspect: 55
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 245
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 160
+  - width: 245
+    aspect: 55
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 96
+  - width: 245
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 184
+  - width: 245
+    aspect: 55
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 110
+  - width: 245
+    aspect: 55
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 192
+  - width: 205
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 205
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 205
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 205
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 205
+    aspect: 55
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 215
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 215
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 215
+    aspect: 55
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 235
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 160
+  - width: 235
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 96
+  - width: 235
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 184
+  - width: 235
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 110
+  - width: 235
+    aspect: 55
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 192
+  - width: 255
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 175
+  - width: 255
+    aspect: 55
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 105
+  - width: 255
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 201
+  - width: 255
+    aspect: 55
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 121
+  - width: 255
+    aspect: 55
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 210
+  - width: 255
+    aspect: 55
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 255
+    aspect: 55
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 108
+  - width: 255
+    aspect: 55
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 207
+  - width: 255
+    aspect: 55
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 124
+  - width: 255
+    aspect: 55
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 216
+  - width: 195
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 125
+  - width: 195
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 75
+  - width: 195
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 195
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 86
+  - width: 195
+    aspect: 60
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 120
+  - width: 205
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 72
+  - width: 205
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 138
+  - width: 205
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 83
+  - width: 205
+    aspect: 60
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 215
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 215
+    aspect: 60
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 215
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 215
+    aspect: 60
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 215
+    aspect: 60
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 215
+    aspect: 60
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 125
+  - width: 215
+    aspect: 60
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 75
+  - width: 215
+    aspect: 60
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 215
+    aspect: 60
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 86
+  - width: 215
+    aspect: 60
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 225
+    aspect: 60
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 225
+    aspect: 60
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 225
+    aspect: 60
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 225
+    aspect: 60
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 225
+    aspect: 60
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 225
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 225
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 225
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 173
+  - width: 225
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 104
+  - width: 225
+    aspect: 60
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 235
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 235
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 235
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 235
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 235
+    aspect: 60
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 255
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 255
+    aspect: 60
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 255
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 255
+    aspect: 60
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 255
+    aspect: 60
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 205
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 125
+  - width: 205
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 75
+  - width: 205
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 205
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 86
+  - width: 205
+    aspect: 65
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 215
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 215
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 215
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 215
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 215
+    aspect: 65
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 225
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 225
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 225
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 225
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 225
+    aspect: 65
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 235
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 235
+    aspect: 65
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 235
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 235
+    aspect: 65
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 235
+    aspect: 65
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 215
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 215
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 215
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 173
+  - width: 215
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 104
+  - width: 215
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 225
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 225
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 225
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 225
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 225
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 235
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 235
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 235
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 235
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 235
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 245
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 245
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 245
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 245
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 245
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 255
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 255
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 255
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 255
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 255
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 265
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 265
+    aspect: 65
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 265
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 265
+    aspect: 65
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 265
+    aspect: 65
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 195
+    aspect: 50
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 125
+  - width: 195
+    aspect: 50
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 75
+  - width: 195
+    aspect: 50
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 144
+  - width: 195
+    aspect: 50
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 86
+  - width: 195
+    aspect: 50
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 205
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 205
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 205
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 205
+    aspect: 50
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 215
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 215
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 215
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 215
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 215
+    aspect: 50
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 225
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 225
+    aspect: 50
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 225
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 225
+    aspect: 50
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 225
+    aspect: 50
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 215
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 215
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 215
+    aspect: 50
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 225
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 160
+  - width: 225
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 96
+  - width: 225
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 184
+  - width: 225
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 110
+  - width: 225
+    aspect: 50
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 192
+  - width: 235
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 235
+    aspect: 50
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 235
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 235
+    aspect: 50
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 235
+    aspect: 50
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 225
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 225
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 225
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 225
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 225
+    aspect: 50
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 235
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 235
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 235
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 235
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 235
+    aspect: 50
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 255
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 255
+    aspect: 50
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 255
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 255
+    aspect: 50
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 255
+    aspect: 50
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 255
+    aspect: 50
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 255
+    aspect: 50
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 255
+    aspect: 50
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 219
+  - width: 255
+    aspect: 50
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 131
+  - width: 255
+    aspect: 50
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 228
+  - width: 195
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 195
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 195
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 195
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 195
+    aspect: 45
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 205
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 205
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 205
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 205
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 205
+    aspect: 45
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 215
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 215
+    aspect: 45
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 215
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 45
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 45
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 205
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 205
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 205
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 205
+    aspect: 45
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 215
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 215
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 215
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 215
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 215
+    aspect: 45
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 225
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 225
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 225
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 225
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 225
+    aspect: 45
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 235
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 140
+  - width: 235
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 84
+  - width: 235
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 161
+  - width: 235
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 97
+  - width: 235
+    aspect: 45
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 168
+  - width: 245
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 245
+    aspect: 45
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 245
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 245
+    aspect: 45
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 245
+    aspect: 45
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 215
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 215
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 215
+    aspect: 45
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 225
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 225
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 225
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 173
+  - width: 225
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 104
+  - width: 225
+    aspect: 45
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 235
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 235
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 235
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 235
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 235
+    aspect: 45
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 245
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 160
+  - width: 245
+    aspect: 45
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 96
+  - width: 245
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 184
+  - width: 245
+    aspect: 45
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 110
+  - width: 245
+    aspect: 45
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 192
+  - width: 225
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 175
+  - width: 225
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 105
+  - width: 225
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 201
+  - width: 225
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 121
+  - width: 225
+    aspect: 45
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 210
+  - width: 235
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 180
+  - width: 235
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 108
+  - width: 235
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 207
+  - width: 235
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 124
+  - width: 235
+    aspect: 45
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 216
+  - width: 245
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 245
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 245
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 219
+  - width: 245
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 131
+  - width: 245
+    aspect: 45
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 228
+  - width: 255
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 195
+  - width: 255
+    aspect: 45
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 255
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 224
+  - width: 255
+    aspect: 45
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 255
+    aspect: 45
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 234
+  - width: 215
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 200
+  - width: 215
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 120
+  - width: 215
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 230
+  - width: 215
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 138
+  - width: 215
+    aspect: 45
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 240
+  - width: 235
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 195
+  - width: 235
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 235
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 224
+  - width: 235
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 235
+    aspect: 45
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 234
+  - width: 245
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 205
+  - width: 245
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 123
+  - width: 245
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 236
+  - width: 245
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 141
+  - width: 245
+    aspect: 45
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 246
+  - width: 255
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 215
+  - width: 255
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 129
+  - width: 255
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 247
+  - width: 255
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 148
+  - width: 255
+    aspect: 45
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 258
+  - width: 275
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 225
+  - width: 275
+    aspect: 45
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 275
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 259
+  - width: 275
+    aspect: 45
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 155
+  - width: 275
+    aspect: 45
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 270
+  - width: 205
+    aspect: 40
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 130
+  - width: 205
+    aspect: 40
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 78
+  - width: 205
+    aspect: 40
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 150
+  - width: 205
+    aspect: 40
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 90
+  - width: 205
+    aspect: 40
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 156
+  - width: 215
+    aspect: 40
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 135
+  - width: 215
+    aspect: 40
+    rim: 16
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 81
+  - width: 215
+    aspect: 40
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 40
+    rim: 16
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 40
+    rim: 16
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 162
+  - width: 205
+    aspect: 40
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 145
+  - width: 205
+    aspect: 40
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 87
+  - width: 205
+    aspect: 40
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 167
+  - width: 205
+    aspect: 40
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 100
+  - width: 205
+    aspect: 40
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 174
+  - width: 215
+    aspect: 40
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 155
+  - width: 215
+    aspect: 40
+    rim: 17
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 93
+  - width: 215
+    aspect: 40
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 178
+  - width: 215
+    aspect: 40
+    rim: 17
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 107
+  - width: 215
+    aspect: 40
+    rim: 17
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 186
+  - width: 205
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 205
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 205
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 205
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 205
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 215
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 215
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 215
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 215
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 215
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 225
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 165
+  - width: 225
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 99
+  - width: 225
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 225
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 225
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 198
+  - width: 235
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 235
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 235
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 235
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 235
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 245
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 175
+  - width: 245
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 105
+  - width: 245
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 201
+  - width: 245
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 121
+  - width: 245
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 210
+  - width: 255
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 185
+  - width: 255
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 111
+  - width: 255
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 213
+  - width: 255
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 128
+  - width: 255
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 222
+  - width: 275
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 275
+    aspect: 40
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 275
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 219
+  - width: 275
+    aspect: 40
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 131
+  - width: 275
+    aspect: 40
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 228
+  - width: 225
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 195
+  - width: 225
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 225
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 224
+  - width: 225
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 225
+    aspect: 40
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 234
+  - width: 235
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 185
+  - width: 235
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 111
+  - width: 235
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 213
+  - width: 235
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 128
+  - width: 235
+    aspect: 40
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 222
+  - width: 245
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 185
+  - width: 245
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 111
+  - width: 245
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 213
+  - width: 245
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 128
+  - width: 245
+    aspect: 40
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 222
+  - width: 255
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 195
+  - width: 255
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 255
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 224
+  - width: 255
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 255
+    aspect: 40
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 234
+  - width: 275
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 205
+  - width: 275
+    aspect: 40
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 123
+  - width: 275
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 236
+  - width: 275
+    aspect: 40
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 141
+  - width: 275
+    aspect: 40
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 246
+  - width: 245
+    aspect: 40
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 200
+  - width: 245
+    aspect: 40
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 120
+  - width: 245
+    aspect: 40
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 230
+  - width: 245
+    aspect: 40
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 138
+  - width: 245
+    aspect: 40
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 240
+  - width: 255
+    aspect: 40
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 205
+  - width: 255
+    aspect: 40
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 123
+  - width: 255
+    aspect: 40
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 236
+  - width: 255
+    aspect: 40
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 141
+  - width: 255
+    aspect: 40
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 246
+  - width: 255
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 215
+  - width: 255
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 129
+  - width: 255
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 247
+  - width: 255
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 148
+  - width: 255
+    aspect: 40
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 258
+  - width: 265
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 220
+  - width: 265
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 132
+  - width: 265
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 253
+  - width: 265
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 152
+  - width: 265
+    aspect: 40
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 264
+  - width: 275
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 205
+  - width: 275
+    aspect: 40
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 123
+  - width: 275
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 236
+  - width: 275
+    aspect: 40
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 141
+  - width: 275
+    aspect: 40
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 246
+  - width: 275
+    aspect: 40
+    rim: 22
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 240
+  - width: 275
+    aspect: 40
+    rim: 22
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 144
+  - width: 275
+    aspect: 40
+    rim: 22
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 276
+  - width: 275
+    aspect: 40
+    rim: 22
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 166
+  - width: 275
+    aspect: 40
+    rim: 22
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 288
+  - width: 215
+    aspect: 35
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 170
+  - width: 215
+    aspect: 35
+    rim: 18
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 102
+  - width: 215
+    aspect: 35
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 196
+  - width: 215
+    aspect: 35
+    rim: 18
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 215
+    aspect: 35
+    rim: 18
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 204
+  - width: 215
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 175
+  - width: 215
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 105
+  - width: 215
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 201
+  - width: 215
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 121
+  - width: 215
+    aspect: 35
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 210
+  - width: 255
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 185
+  - width: 255
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 111
+  - width: 255
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 213
+  - width: 255
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 128
+  - width: 255
+    aspect: 35
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 222
+  - width: 245
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 190
+  - width: 245
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 114
+  - width: 245
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 219
+  - width: 245
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 131
+  - width: 245
+    aspect: 35
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 228
+  - width: 275
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 195
+  - width: 275
+    aspect: 35
+    rim: 19
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 117
+  - width: 275
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 224
+  - width: 275
+    aspect: 35
+    rim: 19
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 135
+  - width: 275
+    aspect: 35
+    rim: 19
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 234
+  - width: 245
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 200
+  - width: 245
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 120
+  - width: 245
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 230
+  - width: 245
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 138
+  - width: 245
+    aspect: 35
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 240
+  - width: 255
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 205
+  - width: 255
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 123
+  - width: 255
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 236
+  - width: 255
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 141
+  - width: 255
+    aspect: 35
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 246
+  - width: 265
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 210
+  - width: 265
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 126
+  - width: 265
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 242
+  - width: 265
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 145
+  - width: 265
+    aspect: 35
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 252
+  - width: 275
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 200
+  - width: 275
+    aspect: 35
+    rim: 20
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 120
+  - width: 275
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 230
+  - width: 275
+    aspect: 35
+    rim: 20
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 138
+  - width: 275
+    aspect: 35
+    rim: 20
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 240
+  - width: 255
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 220
+  - width: 255
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 132
+  - width: 255
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 253
+  - width: 255
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 152
+  - width: 255
+    aspect: 35
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 264
+  - width: 265
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 245
+  - width: 265
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 147
+  - width: 265
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 282
+  - width: 265
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 169
+  - width: 265
+    aspect: 35
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 294
+  - width: 275
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 255
+  - width: 275
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 153
+  - width: 275
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 293
+  - width: 275
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 176
+  - width: 275
+    aspect: 35
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 306
+  - width: 285
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 265
+  - width: 285
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 159
+  - width: 285
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 305
+  - width: 285
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 183
+  - width: 285
+    aspect: 35
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 318
+  - width: 295
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 0
+    unitCost: 280
+  - width: 295
+    aspect: 35
+    rim: 21
+    season: 0
+    condition: 0
+    brand: 1
+    unitCost: 168
+  - width: 295
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 0
+    unitCost: 322
+  - width: 295
+    aspect: 35
+    rim: 21
+    season: 2
+    condition: 0
+    brand: 1
+    unitCost: 193
+  - width: 295
+    aspect: 35
+    rim: 21
+    season: 1
+    condition: 0
+    brand: 0
+    unitCost: 336

@@ -23,6 +23,10 @@ public class DialogueUIController : MonoBehaviour
     [SerializeField] TextMeshProUGUI wantedText;
     [SerializeField] TextMeshProUGUI stockText;
     [SerializeField] TextMeshProUGUI marketText;
+    [SerializeField] TextMeshProUGUI costText;
+    [SerializeField] TextMeshProUGUI marketHintText;
+    [SerializeField] TextMeshProUGUI costHintText;
+
 
     [Header("Choice Prefab")]
     [SerializeField] Button choiceButtonPrefab; // TMP'li Button prefab
@@ -191,4 +195,43 @@ public class DialogueUIController : MonoBehaviour
             offerErrorText.gameObject.SetActive(false);
         }
     }
+
+    public void SetEconomyInfo(
+        string wanted,
+        int stock,
+        int marketUnitPrice,
+        int costUnitPrice,
+        string marketHint = "",
+        string costHint = "")
+    {
+        if(wantedText) wantedText.text = $"İstenen: {wanted}";
+        if (stockText) stockText.text = stock.ToString();
+        if (marketText) marketText.text = $"₺{marketUnitPrice}";
+        if (costText) costText.text = $"₺{costUnitPrice}";
+        if (marketHintText) marketHintText.text = marketHint;
+        if (costHintText) costHintText.text = costHint;
+
+    }
+
+    public void RefreshEconomyPanel(TireOrder order)
+    {
+        if (order == null) return;
+        if (EconomyManager.I == null) return;
+
+        int stock = EconomyManager.I.GetStockForOrder(order);
+        int cost = EconomyManager.I.GetUnitCost(order);
+        int market = EconomyManager.I.GetMarketUnitPrice(order);
+        int markupPct = EconomyManager.I.GetMarketMarkupPercent(order);
+        string wanted = EconomyManager.I.BuildWantedLabel(order);
+
+        SetEconomyInfo(
+            wanted: wanted,
+            stock: stock,
+            marketUnitPrice: market,
+            costUnitPrice: cost,
+            marketHint: "▲ %20",
+            costHint: $"▲ %{markupPct} kâr"
+        );
+    }    
+
 }

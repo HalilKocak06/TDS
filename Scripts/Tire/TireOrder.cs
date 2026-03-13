@@ -8,5 +8,7 @@ public class TireOrder
     public TireCondition condition;
     public int quantity;
 
-    public string Display => $"{size} • {season} • {condition} x{quantity}";
+    public TireBrand brand;
+
+    public string Display => $"{brand}  {size} • {season} • {condition} x{quantity}";
 }
