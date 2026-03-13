@@ -416,5 +416,41 @@ public class CustomerController : MonoBehaviour
         pendingOrder = order;
     }
 
+    public bool ConfirmDealAndStartJob(int quoteTotal)
+    {
+        if(jobStarted)
+        {
+            Debug.LogWarning("[Customer] Job zaten başlamiş");
+            return false;
+        }
+
+        if(coordinator == null)
+        {
+            Debug.LogWarning("[Customer] Coordinator yok!");
+            return false;
+        }
+
+        if (pendingOrder == null)
+        {
+            Debug.LogWarning("[Customer] pendingOrder yok!");
+            return false;
+        }
+
+        SetQuoteTotal(quoteTotal); //yani total ücret
+
+        var result = coordinator.DealAccepted(this, pendingOrder); //Bu 2.tık
+
+        if (coordinator.TryReserveWaitingSpot(this))
+        {
+            GoToWaitingPoint();
+        }
+        else
+        {
+            Debug.Log("[Customer] waitingPoint dolu -> talkPoint'te kalıyor.");
+        }
+
+        return true;
+        }
+
     
 }

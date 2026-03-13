@@ -16,6 +16,9 @@ public class DialogueManager : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
+    int agreedTotalPrice;
+    bool dealAccepted;
+
     enum TalkState
     {
         None,
@@ -190,7 +193,11 @@ public class DialogueManager : MonoBehaviour
 
             ui.SetNpcLine($"Tamam ustam, {offer} olsun. Anlaştık.");
             ui.ClearChoices();
-            ui.AddChoice("Başlayalım.", End);
+
+            agreedTotalPrice = (offer * order.quantity);
+            dealAccepted = true;
+
+            ui.AddChoice("Başlayalım.", ConfirmAndEnd);
             return;
         }
 
@@ -207,9 +214,12 @@ public class DialogueManager : MonoBehaviour
             state = TalkState.Accepted;
             ui.SetOfferUIVisible(false);
 
+            agreedTotalPrice = (counter * order.quantity);
+            dealAccepted = true;
+
             ui.SetNpcLine($"Anlaştık ustam, {counter}.");
             ui.ClearChoices();
-            ui.AddChoice("Başlayalım.", End);
+            ui.AddChoice("Başlayalım.", ConfirmAndEnd);
         });
 
         ui.AddChoice("Tekrar teklif vereyim.", () =>
@@ -218,7 +228,7 @@ public class DialogueManager : MonoBehaviour
             ui.SetNpcLine($"Piyasa {marketUnitPrice}. Sen kaç diyorsun?");
         });
 
-        ui.AddChoice("O zaman olmaz, güle güle.", End);
+        ui.AddChoice("O zaman olmaz, güle güle.", ConfirmAndEnd);
     }
 
     void AcceptAtMarket()
@@ -252,6 +262,7 @@ public class DialogueManager : MonoBehaviour
 
     public void End()
     {
+        //YANİ herşeye reset atıyoruz.
         IsOpen = false;
 
         if (ui != null)
@@ -261,6 +272,8 @@ public class DialogueManager : MonoBehaviour
 
         currentCustomer = null;
         state = TalkState.None;
+        agreedTotalPrice = 0; // sıfırlıyoruz res
+        dealAccepted = false;
     }
 
     void LockPlayer(bool locked)
@@ -279,4 +292,21 @@ public class DialogueManager : MonoBehaviour
 
         return currentCustomer.GetPendingOrder();
     }
+
+    void ConfirmAndEnd()
+    {
+        if(dealAccepted && currentCustomer != null)
+        {
+            bool started = currentCustomer.ConfirmDealAndStartJob(agreedTotalPrice);
+
+            if(!started)
+            {
+                Debug.LogWarning("[DialogueManager] deal kabul edildi ama job başlatılamadı.");
+            }
+        }
+
+        End();
+    }
+
+
 }

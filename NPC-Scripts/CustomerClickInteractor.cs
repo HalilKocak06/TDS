@@ -60,7 +60,7 @@ public class CustomerClickInteractor : MonoBehaviour
        
 
         Debug.Log("[Click] CustomerController FOUND -> calling OnPlayerGreetClicked()");
-        customer.OnPlayerGreetClicked();
+        // customer.OnPlayerGreetClicked();
         // dialogUI.Show();
         customer.StartDialogue();
         
