@@ -53,6 +53,8 @@ public class CustomerController : MonoBehaviour
     public void SetQuoteTotal(int total) => quoteTotal = total;
     public int GetQuoteTotal() => quoteTotal;
 
+    bool dealAccepted;
+
 
     void Awake()
     {
@@ -85,6 +87,7 @@ public class CustomerController : MonoBehaviour
     public bool isInWaitinForBay() => waitingForBay;
 
     public bool HasPendingOrder() => pendingOrder != null;
+    public bool HasAcceptedDeal() => dealAccepted;
 
 
     public void BeginEnterShop()
@@ -227,6 +230,8 @@ public class CustomerController : MonoBehaviour
             if (exitPoint != null)
                 agent.SetDestination(exitPoint.position);
         }
+
+        dealAccepted = false;
     }
 
     public void OnPlayerGreetClicked()
@@ -389,8 +394,16 @@ public class CustomerController : MonoBehaviour
 
     public void StartDialogue()
     {
-        if(DialogueManager.I == null) return;
-            DialogueManager.I.BeginWithCustomer(this);
+        if (DialogueManager.I == null)
+            return;
+
+        if (!CanStartDialogue())
+        {
+            Debug.Log($"[Customer] Dialogue blocked -> {name} state={state} waitingArea={isInWaitingArea} waitingForBay={waitingForBay}");
+            return;
+        }
+
+    DialogueManager.I.BeginWithCustomer(this);
     }
 
     public void SetPendingOrder(TireOrder order)
@@ -421,6 +434,8 @@ public class CustomerController : MonoBehaviour
 
         SetQuoteTotal(quoteTotal); //yani total ücret
 
+        dealAccepted = true;
+
         var result = coordinator.DealAccepted(this, pendingOrder); //Bu 2.tık
 
         if (coordinator.TryReserveWaitingSpot(this))
@@ -437,7 +452,7 @@ public class CustomerController : MonoBehaviour
 
     public bool IsInServiceProcess()
     {
-        return jobStarted || waitingForBay;
+        return dealAccepted || jobStarted || waitingForBay;
     }
 
     public bool TryCompleteJobFromDialogue()
@@ -466,6 +481,19 @@ public class CustomerController : MonoBehaviour
 
         Debug.Log("[Customer] İş henüz tamamlanmadı.");
         return false;
+    }
+
+    public bool CanStartDialogue()
+    {
+        if(state != State.WaitingPlayer)
+            return false;
+
+        //Servis sürecindeyse konuşabilsin
+        if(IsInServiceProcess())
+            return true;
+
+        return !isInWaitingArea;    
+
     }
     
 }

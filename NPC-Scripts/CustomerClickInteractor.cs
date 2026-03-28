@@ -62,6 +62,11 @@ public class CustomerClickInteractor : MonoBehaviour
         Debug.Log("[Click] CustomerController FOUND -> calling OnPlayerGreetClicked()");
         // customer.OnPlayerGreetClicked();
         // dialogUI.Show();
+        if(!customer.CanStartDialogue())
+        {
+            Debug.Log($"[Click] Dialogue blocked for {customer.name}");
+            return;
+        }
         customer.StartDialogue();
         
         

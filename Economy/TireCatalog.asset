@@ -1,0 +1,451 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a29889f6c87a848a055af3ca1685b2, type: 3}
+  m_Name: TireCatalog
+  m_EditorClassIdentifier: 
+  sizes:
+  - width: 195
+    aspect: 55
+    rim: 16
+    demandWeight: 12
+  - width: 205
+    aspect: 55
+    rim: 16
+    demandWeight: 30
+  - width: 215
+    aspect: 55
+    rim: 16
+    demandWeight: 5
+  - width: 205
+    aspect: 55
+    rim: 17
+    demandWeight: 12
+  - width: 215
+    aspect: 55
+    rim: 17
+    demandWeight: 12
+  - width: 225
+    aspect: 55
+    rim: 17
+    demandWeight: 5
+  - width: 235
+    aspect: 55
+    rim: 17
+    demandWeight: 5
+  - width: 215
+    aspect: 55
+    rim: 18
+    demandWeight: 12
+  - width: 225
+    aspect: 55
+    rim: 18
+    demandWeight: 12
+  - width: 235
+    aspect: 55
+    rim: 18
+    demandWeight: 12
+  - width: 245
+    aspect: 55
+    rim: 18
+    demandWeight: 1
+  - width: 205
+    aspect: 55
+    rim: 19
+    demandWeight: 12
+  - width: 215
+    aspect: 55
+    rim: 19
+    demandWeight: 1
+  - width: 235
+    aspect: 55
+    rim: 19
+    demandWeight: 1
+  - width: 255
+    aspect: 55
+    rim: 19
+    demandWeight: 1
+  - width: 255
+    aspect: 55
+    rim: 20
+    demandWeight: 1
+  - width: 195
+    aspect: 60
+    rim: 16
+    demandWeight: 1
+  - width: 205
+    aspect: 60
+    rim: 16
+    demandWeight: 12
+  - width: 215
+    aspect: 60
+    rim: 16
+    demandWeight: 1
+  - width: 215
+    aspect: 60
+    rim: 17
+    demandWeight: 12
+  - width: 225
+    aspect: 60
+    rim: 17
+    demandWeight: 1
+  - width: 225
+    aspect: 60
+    rim: 18
+    demandWeight: 1
+  - width: 235
+    aspect: 60
+    rim: 18
+    demandWeight: 1
+  - width: 255
+    aspect: 60
+    rim: 18
+    demandWeight: 1
+  - width: 205
+    aspect: 65
+    rim: 16
+    demandWeight: 1
+  - width: 215
+    aspect: 65
+    rim: 16
+    demandWeight: 1
+  - width: 225
+    aspect: 65
+    rim: 16
+    demandWeight: 1
+  - width: 235
+    aspect: 65
+    rim: 16
+    demandWeight: 1
+  - width: 215
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 225
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 235
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 245
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 255
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 265
+    aspect: 65
+    rim: 17
+    demandWeight: 1
+  - width: 195
+    aspect: 50
+    rim: 16
+    demandWeight: 1
+  - width: 205
+    aspect: 50
+    rim: 17
+    demandWeight: 5
+  - width: 215
+    aspect: 50
+    rim: 17
+    demandWeight: 5
+  - width: 225
+    aspect: 50
+    rim: 17
+    demandWeight: 5
+  - width: 215
+    aspect: 50
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 50
+    rim: 18
+    demandWeight: 1
+  - width: 235
+    aspect: 50
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 50
+    rim: 19
+    demandWeight: 1
+  - width: 235
+    aspect: 50
+    rim: 19
+    demandWeight: 12
+  - width: 255
+    aspect: 50
+    rim: 19
+    demandWeight: 1
+  - width: 255
+    aspect: 50
+    rim: 20
+    demandWeight: 1
+  - width: 195
+    aspect: 45
+    rim: 16
+    demandWeight: 1
+  - width: 205
+    aspect: 45
+    rim: 16
+    demandWeight: 1
+  - width: 215
+    aspect: 45
+    rim: 16
+    demandWeight: 1
+  - width: 205
+    aspect: 45
+    rim: 17
+    demandWeight: 5
+  - width: 215
+    aspect: 45
+    rim: 17
+    demandWeight: 1
+  - width: 225
+    aspect: 45
+    rim: 17
+    demandWeight: 30
+  - width: 235
+    aspect: 45
+    rim: 17
+    demandWeight: 1
+  - width: 245
+    aspect: 45
+    rim: 17
+    demandWeight: 1
+  - width: 215
+    aspect: 45
+    rim: 17
+    demandWeight: 1
+  - width: 215
+    aspect: 45
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 45
+    rim: 18
+    demandWeight: 5
+  - width: 235
+    aspect: 45
+    rim: 18
+    demandWeight: 12
+  - width: 245
+    aspect: 45
+    rim: 18
+    demandWeight: 5
+  - width: 225
+    aspect: 45
+    rim: 19
+    demandWeight: 1
+  - width: 235
+    aspect: 45
+    rim: 19
+    demandWeight: 1
+  - width: 245
+    aspect: 45
+    rim: 19
+    demandWeight: 1
+  - width: 255
+    aspect: 45
+    rim: 19
+    demandWeight: 1
+  - width: 215
+    aspect: 45
+    rim: 20
+    demandWeight: 1
+  - width: 235
+    aspect: 45
+    rim: 20
+    demandWeight: 1
+  - width: 245
+    aspect: 45
+    rim: 20
+    demandWeight: 1
+  - width: 255
+    aspect: 45
+    rim: 20
+    demandWeight: 1
+  - width: 275
+    aspect: 45
+    rim: 20
+    demandWeight: 1
+  - width: 205
+    aspect: 40
+    rim: 16
+    demandWeight: 1
+  - width: 215
+    aspect: 40
+    rim: 16
+    demandWeight: 1
+  - width: 205
+    aspect: 40
+    rim: 17
+    demandWeight: 1
+  - width: 215
+    aspect: 40
+    rim: 17
+    demandWeight: 1
+  - width: 215
+    aspect: 40
+    rim: 17
+    demandWeight: 1
+  - width: 205
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 215
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 40
+    rim: 18
+    demandWeight: 5
+  - width: 235
+    aspect: 40
+    rim: 18
+    demandWeight: 5
+  - width: 245
+    aspect: 40
+    rim: 18
+    demandWeight: 5
+  - width: 255
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 275
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 40
+    rim: 19
+    demandWeight: 1
+  - width: 235
+    aspect: 40
+    rim: 19
+    demandWeight: 5
+  - width: 245
+    aspect: 40
+    rim: 19
+    demandWeight: 5
+  - width: 255
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 275
+    aspect: 40
+    rim: 18
+    demandWeight: 1
+  - width: 225
+    aspect: 40
+    rim: 19
+    demandWeight: 1
+  - width: 235
+    aspect: 40
+    rim: 19
+    demandWeight: 5
+  - width: 245
+    aspect: 40
+    rim: 19
+    demandWeight: 5
+  - width: 255
+    aspect: 40
+    rim: 19
+    demandWeight: 5
+  - width: 275
+    aspect: 40
+    rim: 19
+    demandWeight: 1
+  - width: 245
+    aspect: 40
+    rim: 20
+    demandWeight: 5
+  - width: 255
+    aspect: 40
+    rim: 20
+    demandWeight: 1
+  - width: 255
+    aspect: 40
+    rim: 21
+    demandWeight: 1
+  - width: 265
+    aspect: 40
+    rim: 21
+    demandWeight: 1
+  - width: 275
+    aspect: 40
+    rim: 21
+    demandWeight: 5
+  - width: 275
+    aspect: 40
+    rim: 22
+    demandWeight: 1
+  - width: 215
+    aspect: 35
+    rim: 18
+    demandWeight: 1
+  - width: 215
+    aspect: 35
+    rim: 19
+    demandWeight: 1
+  - width: 255
+    aspect: 35
+    rim: 19
+    demandWeight: 1
+  - width: 245
+    aspect: 35
+    rim: 19
+    demandWeight: 1
+  - width: 275
+    aspect: 35
+    rim: 19
+    demandWeight: 1
+  - width: 245
+    aspect: 35
+    rim: 20
+    demandWeight: 1
+  - width: 255
+    aspect: 35
+    rim: 20
+    demandWeight: 1
+  - width: 265
+    aspect: 35
+    rim: 20
+    demandWeight: 1
+  - width: 275
+    aspect: 35
+    rim: 20
+    demandWeight: 5
+  - width: 255
+    aspect: 35
+    rim: 21
+    demandWeight: 1
+  - width: 265
+    aspect: 35
+    rim: 21
+    demandWeight: 1
+  - width: 275
+    aspect: 35
+    rim: 21
+    demandWeight: 1
+  - width: 285
+    aspect: 35
+    rim: 21
+    demandWeight: 1
+  - width: 295
+    aspect: 35
+    rim: 21
+    demandWeight: 1
