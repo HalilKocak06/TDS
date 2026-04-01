@@ -36,7 +36,7 @@ public class TireJobManager : MonoBehaviour
 
         var order = new TireOrder
         {
-            size = new TireSize(195, 55, 16),
+            size = new TireSize(225, 55, 18),
             season = TireSeason.Summer,
             condition = TireCondition.New,
             quantity = 4
@@ -59,7 +59,7 @@ public class TireJobManager : MonoBehaviour
             return;
         }
 
-        var car = carJob.SpawnCarAtLift();
+        var car = carJob.SpawnCarAtLift(activeOrder.size.rim);//Burada Jant inçini veriyor ki ona göre araba spawnlansın .
         if (car == null)
         {
             Debug.LogWarning("[JOB] Car spawn failed!");
