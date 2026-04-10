@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d758ddae3898aac47b2216e7e907e53b, type: 3}
+  m_Name: DialogGraph
+  m_EditorClassIdentifier: 
+  startNodeId: MP_F07_START
+  nodes:
+  - id: MP_F07_START
+    npcText: "Kolay gelsin\nLastik bakacakt\u0131m da ama \u015Fuanki lastikler felan
+      nas\u0131l hi\xE7 bilmiyorum."
+    choices:
+    - text: "Sa\u011Fol,  yard\u0131mc\u0131 olal\u0131m bi bakal\u0131m lastiklere(lastiklere
+        bak\u0131l\u0131yor\u2026)"
+      nextNodeId: MP_F07_ANALYSIS
+    - text: "Herhangi bir \u015Fikayetin var m\u0131 abi frenlemede , virajlarda
+        felan ?"
+      nextNodeId: MP_F07_FEELINGS
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_ANALYSIS
+    npcText: "Ne durumda abi lastikler i\u015F g\xF6r\xFCr m\xFC ?"
+    choices:
+    - text: "Bu lastikler zaten 6 y\u0131ll\u0131k bide baya bi kilometre yapm\u0131\u015Fs\u0131n
+        yani lastikler baya bitik."
+      nextNodeId: MP_F07_ANALYSIS2
+    - text: "Abi bu lastiklerin yanlar\u0131 felan \xE7atlam\u0131\u015F \xE7ok kullan\u0131lm\u0131\u015F
+        farketmi\u015Fsindir herhalde bunu."
+      nextNodeId: MP_F07_FEELINGS
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_FEELINGS
+    npcText: Evet frenlemede felan araba tutmuyor sanki yeri .
+    choices:
+    - text: "Yeni lastik verelim abi sana hangi markay\u0131 tercih ediyorsun ?"
+      nextNodeId: MP_F07_REVEAL
+    - text: "Arac\u0131 ne kadar kullan\u0131yorsun ?"
+      nextNodeId: MP_F07_ASK
+    - text: "Ebat neydi abi, ona g\xF6re bakal\u0131m."
+      nextNodeId: MP_F07_SIZE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_ANALYSIS2
+    npcText: Yeni Lastik diyorsun yani
+    choices:
+    - text: "Evet abi yeni lastik \u015Fart , hangi marka tercihin var senin ?"
+      nextNodeId: MP_F07_REVEAL
+    - text: "Ebat neydi abi, ona g\xF6re bakal\u0131m."
+      nextNodeId: MP_F07_SIZE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_SIZE
+    npcText: "225/50 R17 laz\u0131m abi.\r\nRuhsatta \xF6yle yaz\u0131yor ama sen
+      daha iyi bilirsin."
+    choices:
+    - text: "Tamam abi, o ebatta hangi markay\u0131 d\xFC\u015F\xFCn\xFCyorsun?"
+      nextNodeId: MP_F07_REVEAL
+    - text: "O ebatta g\xFCzel se\xE7enek \xE7\u0131kar abi, ne d\xFC\u015F\xFCn\xFCyorsun
+        marka olarak?"
+      nextNodeId: MP_F07_REVEAL
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_REVEAL
+    npcText: "Performans\u0131 y\xFCksek , g\xFCvenlirli\u011Fi y\xFCksek olsun en
+      iyisi olsun k\u0131sacas\u0131. Lasti\u011Fe de para ay\u0131rmak laz\u0131m
+      sonu\xE7 olarak can\u0131m\u0131z\u0131 ta\u015F\u0131yor."
+    choices:
+    - text: "Hakl\u0131s\u0131n abi , elimizde Micheal var haz\u0131rda ."
+      nextNodeId: MP_F07_MICHEAL
+    - text: "Elimizde Kodemax var fiyat performans \xFCr\xFCn\xFC"
+      nextNodeId: MP_F07_KODEMAX
+    - text: "Ebat\u0131 da netle\u015Ftirelim abi, yanl\u0131\u015F gitmeyelim."
+      nextNodeId: MP_F07_SIZE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_SIZE
+    npcText: "Arac\u0131 \u015Fehir i\xE7inde \xE7ok kullan\u0131yorum o y\xFCzden
+      g\xFCvenli , frenlemesini felan iyi bir lastik olmas\u0131 laz\u0131m.\r\nHer\u015Feye
+      para yeti\u015Ftiriyoruz lastik bizim i\xE7in \xF6nemli ne olur ne olmaz bi
+      far k\u0131r\u0131lsa d\xFCnya para."
+    choices:
+    - text: Hangi marka tercihi ediyorsun ?
+      nextNodeId: MP_F07_TYRE_DECISION
+    - text: "Ebat\u0131 da netle\u015Ftirelim abi, yanl\u0131\u015F gitmeyelim."
+      nextNodeId: MP_F07_SIZE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_TYRE_DECISION
+    npcText: "Farketmez ama iyi bir \u015Fey olsun Micheal felan da olabilir."
+    choices:
+    - text: "Elimizde haz\u0131r Micheal var ."
+      nextNodeId: MP_F07_MICHEAL
+    - text: "Elimizde Kodemax var Micheal\u2019\u0131n yan \xFCr\xFCn\xFC"
+      nextNodeId: MP_F07_KODEMAX
+    - text: "Ebat\u0131 da netle\u015Ftirelim abi \xF6nce."
+      nextNodeId: MP_F07_SIZE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_MICHEAL
+    npcText: Fiyat nedir abi ?
+    choices: []
+    isPriceNode: 1
+    isTerminal: 0
+  - id: MP_F07_KODEMAX
+    npcText: "Ben iyi bir lastik olsun kafam a\u011Fr\u0131mas\u0131n istiyorum."
+    choices:
+    - text: Tamam abi Micheal verelim.
+      nextNodeId: MP_F07_MICHEAL
+    - text: "Elimizde Micheal kalmam\u0131\u015F."
+      nextNodeId: MP_F07_EXIT
+    - text: "Kodemax da i\u015Fini g\xF6r\xFCr abi, seni \xFCzmez."
+      nextNodeId: MP_F07_KODEMAX_INSIST
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_KODEMAX_INSIST
+    npcText: "Yok abi ya... Madem de\u011Fi\u015Ftirece\u011Fim, bu sefer biraz daha
+      i\xE7ime sinecek bir \u015Fey olsun istiyorum. Sonra yine ke\u015Fke demek
+      istemiyorum."
+    choices:
+    - text: "Tamam abi o zaman Micheal konu\u015Fal\u0131m."
+      nextNodeId: MP_F07_MICHEAL
+    - text: "Micheal kalmad\u0131 abi, istersen sonra haber vereyim."
+      nextNodeId: MP_F07_EXIT
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_ACCEPTED
+    npcText: "Tamam abi. Yapal\u0131m o zaman."
+    choices:
+    - text: "Arac\u0131 i\xE7eri al."
+      nextNodeId: MP_F07_SERVICE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_SERVICE
+    npcText: "Ara\xE7 i\xE7eri al\u0131nd\u0131. \u0130\u015Flem ba\u015Fl\u0131yor."
+    choices:
+    - text: "\u0130\u015Flem tamamland\u0131."
+      nextNodeId: MP_F07_DONE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_DONE
+    npcText: "Eyvallah abi. \u0130\xE7ime sindi a\xE7\u0131k\xE7as\u0131, g\xFCzel
+      oldu. Eline sa\u011Fl\u0131k."
+    choices: []
+    isPriceNode: 0
+    isTerminal: 1
+  - id: MP_F07_REJECT
+    npcText: "Yok abi fiyat biraz y\xFCksek geldi bana.\r\nBir d\xFC\u015F\xFCneyim
+      ben bunu."
+    choices:
+    - text: "Biraz yard\u0131mc\u0131 olay\u0131m abi fiyatta."
+      nextNodeId: MP_F07_DISCOUNT
+    - text: Fiyat bu abi.
+      nextNodeId: MP_F07_FAIL
+    - text: "O zaman Kodemax da \xF6nerebilirim."
+      nextNodeId: MP_F07_KODEMAX
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_DISCOUNT
+    npcText: "Heh i\u015Fte abi, \u015Fimdi daha mant\u0131kl\u0131 oldu. Tamamd\u0131r,
+      yapal\u0131m."
+    choices:
+    - text: "Arac\u0131 i\xE7eri al."
+      nextNodeId: MP_F07_SERVICE
+    isPriceNode: 0
+    isTerminal: 0
+  - id: MP_F07_FAIL
+    npcText: "Tamam abi, sa\u011F ol yine de.\r\nBen biraz daha bakay\u0131m."
+    choices: []
+    isPriceNode: 0
+    isTerminal: 1
+  - id: MP_F07_EXIT
+    npcText: "Anlad\u0131m abi. O zaman ben bir d\xFC\u015F\xFCneyim, yine u\u011Frar\u0131m."
+    choices: []
+    isPriceNode: 0
+    isTerminal: 1
