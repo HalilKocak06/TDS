@@ -1,0 +1,2085 @@
+FLOW1 Kodemax_Premium
+
+[FLOW1_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastikler artık iyice kötü oldu gibi.
+
+Seçenekler:
+A = Bir bakalım lastiklerin durumuna. -> FLOW1_NODE_CHECK
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW1_NODE_SIZE
+
+
+[FLOW1_NODE_CHECK]
+Müşteri: Özellikle frenlemede falan eskisi gibi değil.
+Müşteri: Bir de araba yolda eskisi kadar iyi değil.
+
+Seçenekler:
+A = Bu lastikler zaten ömrünü doldurmuş, değişim şart. -> FLOW1_NODE_CONFIRM
+B = Lastik baya yıpranmış, çok uzatmadan değiştirmek daha doğru. -> FLOW1_NODE_CONFIRM
+
+
+[FLOW1_NODE_CONFIRM]
+Müşteri: Aynen abi benim kafam da o.
+Müşteri: Bir kere taktıralım, sonra da uğraştırmasın yeter.
+
+Seçenekler:
+A = Tamam abi, önce ebatı netleştirelim. -> FLOW1_NODE_SIZE
+
+
+[FLOW1_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Zaten o ölçü vardı üstünde.
+
+Seçenekler:
+A = Nasıl bir marka düşünüyorsun, üst segment mi daha dengeli bir şey mi? -> FLOW1_NODE_NEED
+B = Marka tarafında bir tercihin var mı? -> FLOW1_NODE_NEED
+
+
+[FLOW1_NODE_NEED]
+Müşteri: En ucuzu olsun diye bakmıyorum abi.
+Müşteri: Madem değişecek, düzgün bir şey olsun.
+Müşteri: Ama gidip de en pahalı lastiği almayalım şimdi.
+
+Seçenekler:
+A = Anladım, o zaman sana uygun iki seçenek var. -> FLOW1_NODE_REVEAL
+B = Tamam, bütçeyi de koruyup düzgün bir şey bakalım. -> FLOW1_NODE_REVEAL
+
+
+[FLOW1_NODE_REVEAL]
+Müşteri: Hangi markalar var elinizde?
+
+Seçenekler:
+A = Elimizde Micheal var, premium tarafta çok iyi lastik. -> FLOW1_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var, daha dengeli gider. -> FLOW1_NODE_KODEMAX_REACT
+
+
+[FLOW1_NODE_MICHEAL_REACT]
+Müşteri: Micheal tabii güzel lastik abi de...
+Müşteri: O tarafa çıkınca fiyat da baya oynuyordur şimdi.
+Müşteri: Ben o kadar açılmadan temiz bir şey çözmek istiyorum açıkçası.
+
+Seçenekler:
+A = O zaman Kodemax tarafı sana daha uygun abi. -> FLOW1_NODE_KODEMAX_TRUST
+B = Yine de istersen Micheal fiyatını söyleyeyim. -> FLOW1_NODE_MICHEAL_SOFT
+
+
+[FLOW1_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi tabii de,
+Müşteri: çok uçuyorsa benim tarafı aşar.
+Müşteri: Daha dengeli bir şey olursa o bana daha mantıklı.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım abi. -> FLOW1_NODE_KODEMAX_TRUST
+
+
+[FLOW1_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl abi?
+Müşteri: Bizi idare eder mi?
+
+Seçenekler:
+A = Seni üzmez abi, günlük kullanımda da gayet temiz lastik. -> FLOW1_NODE_KODEMAX_TRUST
+B = Tam senlik abi, ne çok aşağıda kalır ne gereksiz yere yukarı çıkar. -> FLOW1_NODE_KODEMAX_TRUST
+
+
+[FLOW1_NODE_KODEMAX_TRUST]
+Müşteri: Heh abi işte benim aradığım da o.
+Müşteri: Düzgün olsun ama bütçe de saçma sapan açılmasın.
+Müşteri: Kodemax mantıklı geldi.
+
+Seçenekler:
+A = Tamam abi, fiyatını söyleyeyim. -> FLOW1_NODE_PRICE_1
+
+
+[FLOW1_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW1_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam abi.
+Müşteri: Mantıklı oldu bu.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW1_NODE_SERVICE
+
+
+[FLOW1_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Abi biraz yukarıda kaldı fiyat.
+Müşteri: Ama çok da uzatmayayım, biraz daha oturursa burada yaptıralım.
+Müşteri: Çünkü tekrar tekrar gezesim de yok açıkçası.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW1_NODE_PRICE_2
+B = Fiyat bu abi. -> FLOW1_NODE_FAIL
+
+
+[FLOW1_NODE_PRICE_2]
+Müşteri: Tamam abi, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW1_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh tamam abi.
+Müşteri: Şimdi daha yerine oturdu.
+Müşteri: Yapalım gitsin.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW1_NODE_SERVICE
+
+
+[FLOW1_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yüksek gibi.
+Müşteri: Son bir rakam söyle, ona göre kapatalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW1_NODE_PRICE_3
+B = Fiyat bu abi. -> FLOW1_NODE_FAIL
+
+
+[FLOW1_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW1_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam abi.
+Müşteri: Bu oldu.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW1_NODE_SERVICE
+
+
+[FLOW1_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da bana fazla geldi.
+Müşteri: Ben vazgeçeyim o zaman.
+Müşteri: Belki sonra yine uğrarım.
+
+[FLOW1_END_FAIL]
+
+
+[FLOW1_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW1_NODE_DONE
+
+
+[FLOW1_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Benim istediğim gibi oldu valla.
+Müşteri: Düzgün oldu, içime de sindi.
+Müşteri: Eline sağlık.
+
+[FLOW1_END_SUCCESS]
+
+
+[FLOW1_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz düşüneyim o zaman.
+Müşteri: Belki sonra yine uğrarım.
+
+[FLOW1_END_FAIL]
+FLOW 2 Kodemax_Premium
+FLOW2 Kodemax_Premium
+
+[FLOW2_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastiklere bakıyordum da, benimkileri baya oldu.
+
+Seçenekler:
+A = Bir bakalım lastiklere. -> FLOW2_NODE_CHECK
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW2_NODE_SIZE
+
+
+[FLOW2_NODE_CHECK]
+Müşteri: Özellikle uzun yolda pek güven vermiyor.
+Müşteri: Bir de ses yapmaya başladı gibi.
+
+Seçenekler:
+A = Bunlar artık bitmiş, değişmesi lazım. -> FLOW2_NODE_CONFIRM
+B = Lastik sertleşmiş, çok bekletmeden değiştirmek daha iyi olur. -> FLOW2_NODE_CONFIRM
+
+
+[FLOW2_NODE_CONFIRM]
+Müşteri: Aynen, ben de öyle düşünüyorum.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> FLOW2_NODE_SIZE
+
+
+[FLOW2_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Zaten o ölçü vardı üstünde.
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, daha üst mü olsun yoksa daha dengeli mi? -> FLOW2_NODE_NEED
+B = Marka tarafında aklında bir şey var mı? -> FLOW2_NODE_NEED
+
+
+[FLOW2_NODE_NEED]
+Müşteri: Çok ucuza kaçmak istemiyorum.
+Müşteri: Ama sırf marka diye de fazla para vermeyeyim.
+Müşteri: Kararında bir şey olsun.
+
+Seçenekler:
+A = Tamam, sana uygun iki seçenek var. -> FLOW2_NODE_REVEAL
+B = Anladım, o zaman dengeli gidelim. -> FLOW2_NODE_REVEAL
+
+
+[FLOW2_NODE_REVEAL]
+Müşteri: Ne var elinizde?
+
+Seçenekler:
+A = Micheal var, daha üst segment lastik. -> FLOW2_NODE_MICHEAL_REACT
+B = Kodemax var, fiyatı da daha dengeli. -> FLOW2_NODE_KODEMAX_REACT
+
+
+[FLOW2_NODE_MICHEAL_REACT]
+Müşteri: Micheal tabii iyidir de...
+Müşteri: Ben o kadar çıkmayayım şimdi.
+Müşteri: Daha makul bir şey varsa ona bakalım.
+
+Seçenekler:
+A = O zaman Kodemax daha uygun olur. -> FLOW2_NODE_KODEMAX_TRUST
+B = İstersen Micheal fiyatını da söyleyeyim. -> FLOW2_NODE_MICHEAL_SOFT
+
+
+[FLOW2_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi de,
+Müşteri: çok fark ediyorsa ben girmeyeyim o işe.
+Müşteri: Daha orta karar bir şey bana daha uygun.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW2_NODE_KODEMAX_TRUST
+
+
+[FLOW2_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Çok çabuk üzmez değil mi?
+
+Seçenekler:
+A = Yok, günlük kullanımda gayet iyi gider. -> FLOW2_NODE_KODEMAX_TRUST
+B = Fiyatına göre temiz lastiktir, işini görür. -> FLOW2_NODE_KODEMAX_TRUST
+
+
+[FLOW2_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, benim aradığım da o zaten.
+Müşteri: Ne çok aşağı inelim ne de gereksiz yukarı çıkalım.
+Müşteri: Kodemax olur.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW2_NODE_PRICE_1
+
+
+[FLOW2_NODE_PRICE_1]
+Müşteri: Tamam, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW2_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+Müşteri: Bekletmeyelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW2_NODE_SERVICE
+
+
+[FLOW2_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek gibi geldi.
+Müşteri: Bir şey yaparsan burada bırakalım.
+Müşteri: Tekrar gezmek istemiyorum şimdi.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW2_NODE_PRICE_2
+B = Fiyat bu. -> FLOW2_NODE_FAIL
+
+
+[FLOW2_NODE_PRICE_2]
+Müşteri: Tamam, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW2_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW2_NODE_SERVICE
+
+
+[FLOW2_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle, ona göre karar vereyim.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW2_NODE_PRICE_3
+B = Fiyat bu. -> FLOW2_NODE_FAIL
+
+
+[FLOW2_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW2_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu bana uyar.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW2_NODE_SERVICE
+
+
+[FLOW2_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok, o kadar da çıkmayayım.
+Müşteri: Ben biraz bakayım o zaman.
+Müşteri: Sonra yine uğrarım.
+
+[FLOW2_END_FAIL]
+
+
+[FLOW2_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW2_NODE_DONE
+
+
+[FLOW2_NODE_DONE]
+Müşteri: Eyvallah.
+Müşteri: Güzel oldu.
+Müşteri: Eline sağlık.
+
+[FLOW2_END_SUCCESS]
+
+
+[FLOW2_NODE_FAIL]
+Müşteri: Tamam sağ ol.
+Müşteri: Ben biraz bakayım.
+Müşteri: Sonra yine uğrarım.
+
+[FLOW2_END_FAIL]
+FLOW3 KODEMAX PREMİUM
+[FLOW3_START]
+Müşteri: Kolay gelsin.
+Müşteri: Akşama doğru uzun yola çıkacağım da, lastikler artık iyi değil gibi.
+
+Seçenekler:
+A = Bir bakalım lastiklerin durumuna. -> FLOW3_NODE_CHECK
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW3_NODE_SIZE
+
+
+[FLOW3_NODE_CHECK]
+Müşteri: Özellikle yüksek hızda çok güven vermiyor.
+Müşteri: Bir de fren mesafesi uzadı gibi geliyor.
+
+Seçenekler:
+A = Bu lastikler zaten bitmiş, uzun yola bunlarla çıkılmaz. -> FLOW3_NODE_CONFIRM
+B = Lastik baya yıpranmış, çok bekletmeden değiştirmek lazım. -> FLOW3_NODE_CONFIRM
+
+
+[FLOW3_NODE_CONFIRM]
+Müşteri: Aynen, benim kafam da o.
+Müşteri: Şimdi taktıralım, yolda da kafamız rahat olsun.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> FLOW3_NODE_SIZE
+
+
+[FLOW3_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Zaten o ölçü vardı üstünde.
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, üst segment mi daha dengeli bir şey mi? -> FLOW3_NODE_NEED
+B = Marka tarafında bir tercihin var mı? -> FLOW3_NODE_NEED
+
+
+[FLOW3_NODE_NEED]
+Müşteri: En ucuzu olsun diye bakmıyorum.
+Müşteri: Uzun yol var sonuçta, düzgün bir şey olsun.
+Müşteri: Ama gidip de en pahalı lastiğe çıkmayalım şimdi.
+
+Seçenekler:
+A = Anladım, o zaman sana uygun iki seçenek var. -> FLOW3_NODE_REVEAL
+B = Tamam, hem güven verecek hem de bütçeyi çok zorlamayacak bir şey bakalım. -> FLOW3_NODE_REVEAL
+
+
+[FLOW3_NODE_REVEAL]
+Müşteri: Hangi markalar var elinizde?
+
+Seçenekler:
+A = Elimizde Micheal var, premium tarafta çok iyi lastik. -> FLOW3_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var, daha dengeli gider. -> FLOW3_NODE_KODEMAX_REACT
+
+
+[FLOW3_NODE_MICHEAL_REACT]
+Müşteri: Micheal tabii iyidir de...
+Müşteri: O tarafa çıkınca fiyat da baya artar şimdi.
+Müşteri: Ben bu işi bugün temiz halledip çıkmak istiyorum açıkçası.
+
+Seçenekler:
+A = O zaman Kodemax tarafı sana daha uygun olur. -> FLOW3_NODE_KODEMAX_TRUST
+B = Yine de istersen Micheal fiyatını söyleyeyim. -> FLOW3_NODE_MICHEAL_SOFT
+
+
+[FLOW3_NODE_MICHEAL_SOFT]
+Müşteri: Söyle tabii de,
+Müşteri: çok açılıyorsa benim işime gelmez.
+Müşteri: Daha mantıklı bir yerde çözelim bu işi.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW3_NODE_KODEMAX_TRUST
+
+
+[FLOW3_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Uzun yolda üzmez değil mi?
+
+Seçenekler:
+A = Seni üzmez, günlük kullanımda da uzun yolda da gayet temiz lastik. -> FLOW3_NODE_KODEMAX_TRUST
+B = Tam senlik, ne çok aşağıda kalır ne de gereksiz yere bütçeyi açar. -> FLOW3_NODE_KODEMAX_TRUST
+
+
+[FLOW3_NODE_KODEMAX_TRUST]
+Müşteri: Heh işte benim aradığım da o.
+Müşteri: Düzgün olsun, yolda da kafamı kurcalamasın.
+Müşteri: Kodemax mantıklı geldi.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW3_NODE_PRICE_1
+
+
+[FLOW3_NODE_PRICE_1]
+Müşteri: Tamam, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW3_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Mantıklı oldu.
+Müşteri: Halledelim o zaman, benim de acelem var zaten.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW3_NODE_SERVICE
+
+
+[FLOW3_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yukarıda kaldı fiyat.
+Müşteri: Ben çok uzatmak istemiyorum ama biraz daha yardımcı olursan burada yaptıralım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW3_NODE_PRICE_2
+B = Fiyat bu. -> FLOW3_NODE_FAIL
+
+
+[FLOW3_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW3_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+Müşteri: Yapalım, vakit kaybetmeyelim.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW3_NODE_SERVICE
+
+
+[FLOW3_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Bir tık daha var gibi.
+Müşteri: Son bir şey söyle, ona göre bırakalım burada.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW3_NODE_PRICE_3
+B = Fiyat bu. -> FLOW3_NODE_FAIL
+
+
+[FLOW3_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW3_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam abi.
+Müşteri: Yapalım o zaman.
+Müşteri: Zaten benim de acelem var.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW3_NODE_SERVICE
+
+
+[FLOW3_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da bana yüksek geldi.
+Müşteri: Ben çıkayım o zaman.
+Müşteri: Belki sonra yine bakarım.
+
+[FLOW3_END_FAIL]
+
+
+[FLOW3_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW3_NODE_DONE
+
+
+[FLOW3_NODE_DONE]
+Müşteri: Eyvallah.
+Müşteri: İçim rahat etti açıkçası.
+Müşteri: Uzun yol öncesi iyi oldu.
+Müşteri: Eline sağlık.
+
+[FLOW3_END_SUCCESS]
+
+
+[FLOW3_NODE_FAIL]
+Müşteri: Tamam sağ ol.
+Müşteri: Ben bir düşüneyim o zaman.
+Müşteri: Olmadı birazdan yine uğrarım.
+
+[FLOW3_END_FAIL]
+
+FLOW4 Kodemax_Premium
+
+[FLOW4_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastiklerin durumu iyi değil gibi, o yüzden lastik alayım diyorum.
+
+Seçenekler:
+A = Bir bakalım lastiklerin durumuna. -> FLOW4_NODE_CHECK
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW4_NODE_SIZE
+
+
+[FLOW4_NODE_CHECK]
+Müşteri: Yol tutuşu eskisi gibi değil.
+Müşteri: Bir de frenlemede çok içime sinmiyor artık.
+
+Seçenekler:
+A = Lastikler baya yıpranmış, değişim zamanı gelmiş. -> FLOW4_NODE_CONFIRM
+B = Bunlar artık kendini bırakmış, çok uzatmamak lazım. -> FLOW4_NODE_CONFIRM
+
+
+[FLOW4_NODE_CONFIRM]
+Müşteri: Aynen, benim düşündüğüm de o.
+Müşteri: Çok aşağı inmeyelim ama gereksiz de açılmayalım.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> FLOW4_NODE_SIZE
+
+
+[FLOW4_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Zaten o ölçü vardı üstünde.
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, üst segment mi daha fiyat performans mı? -> FLOW4_NODE_NEED
+B = Marka tarafında bir tercihin var mı? -> FLOW4_NODE_NEED
+
+
+[FLOW4_NODE_NEED]
+Müşteri: Öyle en ucuzu olsun diye bakmıyorum.
+Müşteri: Ama gidip de dünya para bağlamayalım şimdi lastiğe.
+Müşteri: Düzgün olsun, parasını da hak etsin yeter.
+
+Seçenekler:
+A = Anladım, o zaman sana uygun iki seçenek var. -> FLOW4_NODE_REVEAL
+B = Tamam, fiyat performans tarafında bakalım o zaman. -> FLOW4_NODE_REVEAL
+
+
+[FLOW4_NODE_REVEAL]
+Müşteri: Hangi markalar var elinizde?
+
+Seçenekler:
+A = Elimizde Micheal var, üst segmentte iyi lastik. -> FLOW4_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var, daha fiyat performans gider. -> FLOW4_NODE_KODEMAX_REACT
+
+
+[FLOW4_NODE_MICHEAL_REACT]
+Müşteri: Micheal tabii iyidir de...
+Müşteri: Ben o tarafa çıkmayayım şimdi.
+Müşteri: O kadar para bağlamaya gerek yok bence.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun olur. -> FLOW4_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW4_NODE_MICHEAL_SOFT
+
+
+[FLOW4_NODE_MICHEAL_SOFT]
+Müşteri: Söyle tabii de,
+Müşteri: çok fark ediyorsa bana gelmez.
+Müşteri: Ben daha mantıklı bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW4_NODE_KODEMAX_TRUST
+
+
+[FLOW4_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Parasına değecek bir lastik mi?
+
+Seçenekler:
+A = Değer, günlük kullanımda da gayet temiz lastik. -> FLOW4_NODE_KODEMAX_TRUST
+B = Ne boşuna fazla ödersin ne de gidip zayıf lastik alırsın. -> FLOW4_NODE_KODEMAX_TRUST
+
+
+[FLOW4_NODE_KODEMAX_TRUST]
+Müşteri: Heh işte benim baktığım şey o.
+Müşteri: Düzgün olsun ama para da yerini bulsun.
+Müşteri: Kodemax mantıklı durdu.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW4_NODE_PRICE_1
+
+
+[FLOW4_NODE_PRICE_1]
+Müşteri: Tamam, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW4_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Mantıklı bu.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW4_NODE_SERVICE
+
+
+[FLOW4_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı bu fiyat.
+Müşteri: Ben fiyat performans diye bakıyorum zaten.
+Müşteri: Bir tık daha oturursa olur bu iş.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW4_NODE_PRICE_2
+B = Fiyat bu. -> FLOW4_NODE_FAIL
+
+
+[FLOW4_NODE_PRICE_2]
+Müşteri: Tamam, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW4_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Şimdi daha mantıklı oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW4_NODE_SERVICE
+
+
+[FLOW4_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda gibi.
+Müşteri: Son bir rakam söyle, ona göre bırakalım burada.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW4_NODE_PRICE_3
+B = Fiyat bu. -> FLOW4_NODE_FAIL
+
+
+[FLOW4_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW4_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW4_NODE_SERVICE
+
+
+[FLOW4_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok, o da bana yüksek geldi.
+Müşteri: Ben çıkayım o zaman.
+Müşteri: Belki sonra yine bakarım.
+
+[FLOW4_END_FAIL]
+
+
+[FLOW4_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW4_NODE_DONE
+
+
+[FLOW4_NODE_DONE]
+Müşteri: Eyvallah.
+Müşteri: Tam istediğim ayarda oldu.
+Müşteri: Ne çok açıldık ne de boş iş yaptık.
+Müşteri: Eline sağlık.
+
+[FLOW4_END_SUCCESS]
+
+
+[FLOW4_NODE_FAIL]
+Müşteri: Tamam sağ ol.
+Müşteri: Ben biraz düşüneyim.
+Müşteri: Sonra yine uğrarım.
+
+[FLOW4_END_FAIL]
+
+Flow5 Kodemax Premium
+[FLOW5_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastikleri değiştireceğim de, bu sefer düzgün bir şey taktırayım diyorum.
+
+Seçenekler:
+A = Bir bakalım önce mevcut lastiklere. -> FLOW5_NODE_CHECK
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW5_NODE_SIZE
+
+
+[FLOW5_NODE_CHECK]
+Müşteri: Araba artık eskisi gibi toplu gitmiyor.
+Müşteri: Özellikle ani frende falan insanın içine sinmiyor.
+
+Seçenekler:
+A = Lastikler baya yıpranmış, değiştirmek gerekiyor. -> FLOW5_NODE_CONFIRM
+B = Bunlar artık işini bitirmiş, çok uzatmamak lazım. -> FLOW5_NODE_CONFIRM
+
+
+[FLOW5_NODE_CONFIRM]
+Müşteri: Aynen, benim istediğim de o zaten.
+Müşteri: Ucuz diye geçmeyelim ama fazlasına da girmeyelim.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> FLOW5_NODE_SIZE
+
+
+[FLOW5_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Zaten o ölçü vardı üstünde.
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, daha üst mü yoksa orta-üst ayar mı? -> FLOW5_NODE_NEED
+B = Marka tarafında bir düşüncen var mı? -> FLOW5_NODE_NEED
+
+
+[FLOW5_NODE_NEED]
+Müşteri: Çok hesap yaparak gelmedim açıkçası.
+Müşteri: Ama gidip de en üst segmente çıkmayayım.
+Müşteri: Temiz bir şey olsun yeter.
+
+Seçenekler:
+A = Anladım, sana uygun iki seçenek var. -> FLOW5_NODE_REVEAL
+B = Tamam, o zaman ayağı yere basan bir şey bakalım. -> FLOW5_NODE_REVEAL
+
+
+[FLOW5_NODE_REVEAL]
+Müşteri: Ne var elinizde?
+
+Seçenekler:
+A = Elimizde Micheal var, daha üst segment. -> FLOW5_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var, daha dengeli bir seçenek. -> FLOW5_NODE_KODEMAX_REACT
+
+
+[FLOW5_NODE_MICHEAL_REACT]
+Müşteri: Micheal güzel lastik tabii.
+Müşteri: Ama ben o tarafa çıkmayayım şimdi.
+Müşteri: Bana daha orta karar bir şey lazım.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun. -> FLOW5_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW5_NODE_MICHEAL_SOFT
+
+
+[FLOW5_NODE_MICHEAL_SOFT]
+Müşteri: Söyle tabii de,
+Müşteri: çok açılıyorsa hiç oraya girmeyelim.
+Müşteri: Ben daha derli toplu bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW5_NODE_KODEMAX_TRUST
+
+
+[FLOW5_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Çok zayıf kalmaz değil mi?
+
+Seçenekler:
+A = Yok, gayet dengeli lastik. -> FLOW5_NODE_KODEMAX_TRUST
+B = Günlük kullanımda da uzun ömürde de üzmez. -> FLOW5_NODE_KODEMAX_TRUST
+
+
+[FLOW5_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, benim aradığım şey o.
+Müşteri: Düzgün olsun ama kendimizi de gereksiz zorlamayalım.
+Müşteri: Kodemax bana uydu.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW5_NODE_PRICE_1
+
+
+[FLOW5_NODE_PRICE_1]
+Müşteri: Tamam, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Müşteri toplamda en fazla 3 fiyat duyar.
+
+
+[FLOW5_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Uygun.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW5_NODE_SERVICE
+
+
+[FLOW5_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yukarıda kaldı bu.
+Müşteri: Çok mesele etmem ama biraz daha oturursa iyi olur.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW5_NODE_PRICE_2
+B = Fiyat bu. -> FLOW5_NODE_FAIL
+
+
+[FLOW5_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW5_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi daha iyi oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW5_NODE_SERVICE
+
+
+[FLOW5_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yüksek gibi.
+Müşteri: Son bir rakam söyle, ona göre kapatalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW5_NODE_PRICE_3
+B = Fiyat bu. -> FLOW5_NODE_FAIL
+
+
+[FLOW5_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW5_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Bu bana uyar.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW5_NODE_SERVICE
+
+
+[FLOW5_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok, o da bana fazla geldi.
+Müşteri: Ben vazgeçeyim o zaman.
+Müşteri: Belki sonra yine bakarım.
+
+[FLOW5_END_FAIL]
+
+
+[FLOW5_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW5_NODE_DONE
+
+
+[FLOW5_NODE_DONE]
+Müşteri: Eyvallah.
+Müşteri: Temiz oldu.
+Müşteri: Tam istediğim ayarda oldu.
+Müşteri: Eline sağlık.
+
+[FLOW5_END_SUCCESS]
+
+
+[FLOW5_NODE_FAIL]
+Müşteri: Tamam sağ ol.
+Müşteri: Ben biraz bakayım.
+Müşteri: Sonra yine uğrarım.
+
+[FLOW5_END_FAIL]
+
+FLOW6 Kodemax_Premium
+
+[FLOW6_START]
+Müşteri: Kolay gelsin ustam.
+Müşteri: Lastik almak istiyorum da.
+
+Seçenekler:
+A = Yardımcı olalım, ebat neydi? -> FLOW6_NODE_SIZE
+B = Marka tercihiniz var mı? -> FLOW6_NODE_BRAND
+
+
+[FLOW6_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+Müşteri: Arabada da değişim vakti geldi artık.
+
+Seçenekler:
+A = Marka tercihin var mı? -> FLOW6_NODE_BRAND
+B = Üst segment mi bakıyorsun daha dengeli bir şey mi? -> FLOW6_NODE_NEED
+
+
+[FLOW6_NODE_BRAND]
+Müşteri: Fiyat performans bir şey istiyorum.
+Müşteri: Üst kalite olmasına gerek yok.
+
+Seçenekler:
+A = Elimizde Micheal var, üst segment. -> FLOW6_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var, daha dengeli gider. -> FLOW6_NODE_KODEMAX_REACT
+
+
+[FLOW6_NODE_NEED]
+Müşteri: Çok aşağı inmeyeyim.
+Müşteri: Ama gidip en pahalı lastiği de almayayım.
+
+Seçenekler:
+A = O zaman Micheal var, üst segment. -> FLOW6_NODE_MICHEAL_REACT
+B = O zaman Kodemax daha mantıklı olur. -> FLOW6_NODE_KODEMAX_REACT
+
+
+[FLOW6_NODE_MICHEAL_REACT]
+Müşteri: Micheal iyidir tabii de,
+Müşteri: ben o kadar çıkmayayım şimdi.
+
+Seçenekler:
+A = O zaman Kodemax daha uygun olur. -> FLOW6_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW6_NODE_MICHEAL_SOFT
+
+
+[FLOW6_NODE_MICHEAL_SOFT]
+Müşteri: Söyle ustam da,
+Müşteri: çok fark varsa ben ona girmeyeyim.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW6_NODE_KODEMAX_TRUST
+
+
+[FLOW6_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: İş görür mü?
+
+Seçenekler:
+A = İş görür, günlük kullanımda gayet yeterli. -> FLOW6_NODE_KODEMAX_TRUST
+B = Ne boşuna fazla ödersin ne de zayıf lastik alırsın. -> FLOW6_NODE_KODEMAX_TRUST
+
+
+[FLOW6_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, benim baktığım şey o.
+Müşteri: Düzgün olsun yeter.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW6_NODE_PRICE_1
+
+
+[FLOW6_NODE_PRICE_1]
+Müşteri: Tamam ustam, ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Müşteri toplamda en fazla 3 fiyat duyar.
+
+
+[FLOW6_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW6_NODE_SERVICE
+
+
+[FLOW6_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı.
+Müşteri: Daha oturursa olur bu iş.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW6_NODE_PRICE_2
+B = Fiyat bu. -> FLOW6_NODE_FAIL
+
+
+[FLOW6_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW6_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh tamam.
+Müşteri: Bu olur.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW6_NODE_SERVICE
+
+
+[FLOW6_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hala biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW6_NODE_PRICE_3
+B = Fiyat bu. -> FLOW6_NODE_FAIL
+
+
+[FLOW6_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW6_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW6_NODE_SERVICE
+
+
+[FLOW6_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok ustam, o da fazla geldi.
+Müşteri: Ben çıkayım o zaman.
+
+[FLOW6_END_FAIL]
+
+
+[FLOW6_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW6_NODE_DONE
+
+
+[FLOW6_NODE_DONE]
+Müşteri: Eyvallah ustam.
+Müşteri: Güzel oldu.
+Müşteri: Eline sağlık.
+
+[FLOW6_END_SUCCESS]
+
+
+[FLOW6_NODE_FAIL]
+Müşteri: Tamam ustam, sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[FLOW6_END_FAIL] 
+Flow7 Kodemax_Premium
+FLOW7 Kodemax_Premium
+
+[FLOW7_START]
+Müşteri: Kolay gelsin.
+Müşteri: 205/55 R16 arıyorum.
+
+Seçenekler:
+A = Hoş geldin abi, elimizde Micheal da var Kodemax da var. -> FLOW7_NODE_BRAND
+B = Nasıl bir şey bakıyorsun, üst segment mi daha dengeli mi? -> FLOW7_NODE_NEED
+
+
+[FLOW7_NODE_NEED]
+Müşteri: Çok aşağı inmeyeyim.
+Müşteri: Ama gidip de en üste çıkmayayım.
+
+Seçenekler:
+A = O zaman Micheal var, üst segment. -> FLOW7_NODE_MICHEAL_REACT
+B = O zaman Kodemax daha mantıklı olur. -> FLOW7_NODE_KODEMAX_REACT
+
+
+[FLOW7_NODE_BRAND]
+Müşteri: Micheal da olur tabii de,
+Müşteri: ben daha dengeli bir şey bakıyorum açıkçası.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun. -> FLOW7_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW7_NODE_MICHEAL_SOFT
+
+
+[FLOW7_NODE_MICHEAL_REACT]
+Müşteri: Micheal iyidir de,
+Müşteri: o kadar açılmayayım şimdi.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW7_NODE_KODEMAX_TRUST
+B = Yine de Micheal fiyatını söyleyeyim. -> FLOW7_NODE_MICHEAL_SOFT
+
+
+[FLOW7_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi de,
+Müşteri: çok fark varsa ben ona çıkmam.
+
+Seçenekler:
+A = O zaman Kodemax daha mantıklı olur. -> FLOW7_NODE_KODEMAX_TRUST
+
+
+[FLOW7_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: İşimi görür mü?
+
+Seçenekler:
+A = Görür abi, günlük kullanımda gayet yeterli. -> FLOW7_NODE_KODEMAX_TRUST
+B = Fiyatına göre temiz lastiktir. -> FLOW7_NODE_KODEMAX_TRUST
+
+
+[FLOW7_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, benim baktığım şey o.
+Müşteri: Kodemax olsun.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW7_NODE_PRICE_1
+
+
+[FLOW7_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW7_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW7_NODE_SERVICE
+
+
+[FLOW7_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı.
+Müşteri: Daha oturursa olur bu iş.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW7_NODE_PRICE_2
+B = Fiyat bu. -> FLOW7_NODE_FAIL
+
+
+[FLOW7_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW7_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW7_NODE_SERVICE
+
+
+[FLOW7_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW7_NODE_PRICE_3
+B = Fiyat bu. -> FLOW7_NODE_FAIL
+
+
+[FLOW7_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW7_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW7_NODE_SERVICE
+
+
+[FLOW7_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da bana fazla geldi.
+Müşteri: Ben çıkayım o zaman.
+
+[FLOW7_END_FAIL]
+
+
+[FLOW7_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW7_NODE_DONE
+
+
+[FLOW7_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Güzel oldu.
+Müşteri: Eline sağlık.
+
+[FLOW7_END_SUCCESS]
+
+
+[FLOW7_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[FLOW7_END_FAIL]
+FLOW8 Kodemax_Premium
+
+[FLOW8_START]
+Müşteri: Merhabalar kolay gelsin.
+Müşteri: Lastiklerime bakar mısınız, ne durumdadır?
+Müşteri: Değişmesi gerekiyor mu?
+
+Seçenekler:
+A = Tabii, herhangi bir şikayetiniz var mı? -> FLOW8_NODE_COMPLAINT
+B = Tabii, önce ebatı öğrenelim. -> FLOW8_NODE_SIZE
+
+
+[FLOW8_NODE_COMPLAINT]
+Müşteri: Islak zeminde biraz kaydırma yapıyor.
+Müşteri: Bir de yol sesi arttı gibi.
+
+Seçenekler:
+A = Kaç yıldır kullanıyorsunuz? -> FLOW8_NODE_YEAR
+B = Kaç bin km yaptınız? -> FLOW8_NODE_KM
+
+
+[FLOW8_NODE_YEAR]
+Müşteri: 8 yıl oldu.
+
+Seçenekler:
+A = Bu lastikler zaten ömrünü doldurmuş, değişmesi lazım. -> FLOW8_NODE_CONFIRM
+B = Evet, bu saatten sonra çok uzatmamak lazım. -> FLOW8_NODE_CONFIRM
+
+
+[FLOW8_NODE_KM]
+Müşteri: 80 bin civarı oldu.
+
+Seçenekler:
+A = Bu lastikler zaten yıpranmış, değişmesi lazım. -> FLOW8_NODE_CONFIRM
+B = Evet, uzun süre kullanılmış, değişim daha doğru olur. -> FLOW8_NODE_CONFIRM
+
+
+[FLOW8_NODE_CONFIRM]
+Müşteri: Tamamdır.
+Müşteri: O zaman değiştirelim.
+
+Seçenekler:
+A = Önce ebatı netleştirelim. -> FLOW8_NODE_SIZE
+
+
+[FLOW8_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+
+Seçenekler:
+A = Marka tarafında ne düşünüyorsun? -> FLOW8_NODE_NEED
+B = Elimizde Micheal da var, Kodemax da var. -> FLOW8_NODE_BRAND
+
+
+[FLOW8_NODE_NEED]
+Müşteri: Öyle çok en üst bir şey olmasına gerek yok.
+Müşteri: Düzgün olsun, işimizi görsün yeter.
+
+Seçenekler:
+A = O zaman Micheal var, üst segment. -> FLOW8_NODE_MICHEAL_REACT
+B = O zaman Kodemax daha mantıklı olur. -> FLOW8_NODE_KODEMAX_REACT
+
+
+[FLOW8_NODE_BRAND]
+Müşteri: Micheal da olur tabii de,
+Müşteri: çok oraya çıkmadan temiz bir şey olsa yeter.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun. -> FLOW8_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW8_NODE_MICHEAL_SOFT
+
+
+[FLOW8_NODE_MICHEAL_REACT]
+Müşteri: Micheal iyidir de,
+Müşteri: ben o kadar açılmayayım.
+Müşteri: Daha derli toplu bir şey olsun.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW8_NODE_KODEMAX_TRUST
+B = Yine de Micheal fiyatını söyleyeyim. -> FLOW8_NODE_MICHEAL_SOFT
+
+
+[FLOW8_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi de,
+Müşteri: çok fark varsa ben o tarafa çıkmam.
+
+Seçenekler:
+A = O zaman Kodemax daha mantıklı olur. -> FLOW8_NODE_KODEMAX_TRUST
+
+
+[FLOW8_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: İş görür mü?
+
+Seçenekler:
+A = İş görür, günlük kullanımda gayet yeterli. -> FLOW8_NODE_KODEMAX_TRUST
+B = Düzgün lastiktir, seni üzmez. -> FLOW8_NODE_KODEMAX_TRUST
+
+
+[FLOW8_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, bana uyar.
+Müşteri: Düzgün olsun yeter.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW8_NODE_PRICE_1
+
+
+[FLOW8_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW8_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW8_NODE_SERVICE
+
+
+[FLOW8_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı.
+Müşteri: Daha oturursa burada yaptıralım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW8_NODE_PRICE_2
+B = Fiyat bu. -> FLOW8_NODE_FAIL
+
+
+[FLOW8_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW8_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW8_NODE_SERVICE
+
+
+[FLOW8_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW8_NODE_PRICE_3
+B = Fiyat bu. -> FLOW8_NODE_FAIL
+
+
+[FLOW8_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW8_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW8_NODE_SERVICE
+
+
+[FLOW8_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben çıkayım o zaman.
+
+[FLOW8_END_FAIL]
+
+
+[FLOW8_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW8_NODE_DONE
+
+
+[FLOW8_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: İçim rahat etti.
+Müşteri: Eline sağlık.
+
+[FLOW8_END_SUCCESS]
+
+
+[FLOW8_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[FLOW8_END_FAIL]
+FLOW9 Kodemax_Premium
+
+[FLOW9_START]
+Müşteri: Merhaba kolay gelsin.
+Müşteri: Lastiklere bir baktırayım dedim.
+
+Seçenekler:
+A = Tabii, herhangi bir şikayetiniz var mı? -> FLOW9_NODE_COMPLAINT
+B = Önce ebatı öğrenelim, hangi ölçü lazımdı? -> FLOW9_NODE_SIZE
+
+
+[FLOW9_NODE_COMPLAINT]
+Müşteri: Yağmurlu havada biraz kaydırıyor gibi.
+Müşteri: Bir de araba eskisi kadar sağlam basmıyor yola.
+
+Seçenekler:
+A = Yeni yağan yağmurda mı yapıyor, normal yağmurda da oluyor mu? -> FLOW9_NODE_RAIN
+B = Kaç yıldır kullanıyorsunuz? -> FLOW9_NODE_YEAR
+
+
+[FLOW9_NODE_RAIN]
+Müşteri: Normal yağmurda da yapıyor.
+Müşteri: O yüzden çok içime sinmiyor açıkçası.
+
+Seçenekler:
+A = O zaman lastik artık zayıflamış, değişim daha doğru olur. -> FLOW9_NODE_CONFIRM
+B = Evet, bu durumda çok bekletmemek lazım. -> FLOW9_NODE_CONFIRM
+
+
+[FLOW9_NODE_YEAR]
+Müşteri: 6 yıl oldu aşağı yukarı.
+
+Seçenekler:
+A = Bu lastikler zaten yaşını doldurmuş. -> FLOW9_NODE_CONFIRM
+B = Evet, bu saatten sonra değişim daha mantıklı. -> FLOW9_NODE_CONFIRM
+
+
+[FLOW9_NODE_CONFIRM]
+Müşteri: Tamamdır.
+Müşteri: O zaman değiştirelim.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> FLOW9_NODE_SIZE
+
+
+[FLOW9_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+
+Seçenekler:
+A = Marka tarafında ne düşünüyorsun? -> FLOW9_NODE_NEED
+B = Elimizde Micheal da var, Kodemax da var. -> FLOW9_NODE_BRAND
+
+
+[FLOW9_NODE_NEED]
+Müşteri: Çok aşağı inmeyeyim.
+Müşteri: Ama gidip en üst segmente de çıkmayayım.
+
+Seçenekler:
+A = O zaman Micheal var, üst segment. -> FLOW9_NODE_MICHEAL_REACT
+B = O zaman Kodemax daha mantıklı olur. -> FLOW9_NODE_KODEMAX_REACT
+
+
+[FLOW9_NODE_BRAND]
+Müşteri: Micheal da olur tabii de,
+Müşteri: ben daha dengeli bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun. -> FLOW9_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW9_NODE_MICHEAL_SOFT
+
+
+[FLOW9_NODE_MICHEAL_REACT]
+Müşteri: Micheal iyidir de,
+Müşteri: ben o kadar açılmayayım şimdi.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW9_NODE_KODEMAX_TRUST
+B = Yine de Micheal fiyatını söyleyeyim. -> FLOW9_NODE_MICHEAL_SOFT
+
+
+[FLOW9_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi de,
+Müşteri: çok fark varsa ben o tarafa çıkmam.
+
+Seçenekler:
+A = O zaman Kodemax daha mantıklı olur. -> FLOW9_NODE_KODEMAX_TRUST
+
+
+[FLOW9_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Beni üzmez değil mi?
+
+Seçenekler:
+A = Üzmez, günlük kullanımda gayet yeterli. -> FLOW9_NODE_KODEMAX_TRUST
+B = Düzgün lastiktir, fiyatına göre temizdir. -> FLOW9_NODE_KODEMAX_TRUST
+
+
+[FLOW9_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, bana uyar.
+Müşteri: İşimizi görsün yeter.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW9_NODE_PRICE_1
+
+
+[FLOW9_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW9_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW9_NODE_SERVICE
+
+
+[FLOW9_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı.
+Müşteri: Daha oturursa burada yaptıralım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW9_NODE_PRICE_2
+B = Fiyat bu. -> FLOW9_NODE_FAIL
+
+
+[FLOW9_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW9_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW9_NODE_SERVICE
+
+
+[FLOW9_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW9_NODE_PRICE_3
+B = Fiyat bu. -> FLOW9_NODE_FAIL
+
+
+[FLOW9_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW9_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW9_NODE_SERVICE
+
+
+[FLOW9_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da bana fazla geldi.
+Müşteri: Ben çıkayım o zaman.
+
+[FLOW9_END_FAIL]
+
+
+[FLOW9_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW9_NODE_DONE
+
+
+[FLOW9_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Daha iyi oldu.
+Müşteri: Eline sağlık.
+
+[FLOW9_END_SUCCESS]
+
+
+[FLOW9_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[FLOW9_END_FAIL]
+FLOW10 Kodemax_Premium
+
+[FLOW10_START]
+Müşteri: Merhabalar kolay gelsin.
+Müşteri: Arabayı yeni aldım, lastikleri bir kontrol ettireyim dedim.
+
+Seçenekler:
+A = Tabii, herhangi bir şikayetiniz var mı? -> FLOW10_NODE_COMPLAINT
+B = Tabii, önce ebatı öğrenelim. -> FLOW10_NODE_SIZE
+
+
+[FLOW10_NODE_COMPLAINT]
+Müşteri: Çok net bir şey yok aslında.
+Müşteri: Ama yağmurda biraz tedirgin etti.
+
+Seçenekler:
+A = Yeni yağan yağmurda mı, normal yağmurda da yapıyor mu? -> FLOW10_NODE_RAIN
+B = Kaç yıldır kullanıldığını biliyor musun? -> FLOW10_NODE_YEAR
+
+
+[FLOW10_NODE_RAIN]
+Müşteri: Normal yağmurda da hafif kaydırıyor gibi.
+Müşteri: O yüzden bakayım dedim.
+
+Seçenekler:
+A = O zaman çok uzatmadan değiştirmek daha doğru olur. -> FLOW10_NODE_CONFIRM
+B = Evet, bu durumda lastik zayıflamış olabilir. -> FLOW10_NODE_CONFIRM
+
+
+[FLOW10_NODE_YEAR]
+Müşteri: Arabayı yeni aldım, o yüzden tam bilmiyorum.
+
+Seçenekler:
+A = O zaman riske girmeden değiştirmek daha mantıklı. -> FLOW10_NODE_CONFIRM
+B = Evet, çok emin değilsen değişim daha temiz olur. -> FLOW10_NODE_CONFIRM
+
+
+[FLOW10_NODE_CONFIRM]
+Müşteri: Tamamdır.
+Müşteri: O zaman değiştirelim.
+
+Seçenekler:
+A = Önce ebatı netleştirelim. -> FLOW10_NODE_SIZE
+
+
+[FLOW10_NODE_SIZE]
+Müşteri: 205/55 R16 lazım.
+
+Seçenekler:
+A = Marka tarafında ne düşünüyorsun? -> FLOW10_NODE_NEED
+B = Elimizde Micheal da var, Kodemax da var. -> FLOW10_NODE_BRAND
+
+
+[FLOW10_NODE_NEED]
+Müşteri: Çok aşağı inmeyeyim.
+Müşteri: Ama en üst segmente de çıkmayayım.
+
+Seçenekler:
+A = O zaman Micheal var, üst segment. -> FLOW10_NODE_MICHEAL_REACT
+B = O zaman Kodemax daha mantıklı olur. -> FLOW10_NODE_KODEMAX_REACT
+
+
+[FLOW10_NODE_BRAND]
+Müşteri: Micheal da olur tabii de,
+Müşteri: ben daha dengeli bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman Kodemax sana daha uygun. -> FLOW10_NODE_KODEMAX_TRUST
+B = İstersen yine de Micheal fiyatını söyleyeyim. -> FLOW10_NODE_MICHEAL_SOFT
+
+
+[FLOW10_NODE_MICHEAL_REACT]
+Müşteri: Micheal iyidir de,
+Müşteri: ben o kadar açılmayayım şimdi.
+
+Seçenekler:
+A = O zaman Kodemax konuşalım. -> FLOW10_NODE_KODEMAX_TRUST
+B = Yine de Micheal fiyatını söyleyeyim. -> FLOW10_NODE_MICHEAL_SOFT
+
+
+[FLOW10_NODE_MICHEAL_SOFT]
+Müşteri: Söyle abi de,
+Müşteri: çok fark varsa ben o tarafa çıkmam.
+
+Seçenekler:
+A = O zaman Kodemax daha mantıklı olur. -> FLOW10_NODE_KODEMAX_TRUST
+
+
+[FLOW10_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Beni üzmez değil mi?
+
+Seçenekler:
+A = Üzmez, günlük kullanımda gayet yeterli. -> FLOW10_NODE_KODEMAX_TRUST
+B = Düzgün lastiktir, fiyatına göre temizdir. -> FLOW10_NODE_KODEMAX_TRUST
+
+
+[FLOW10_NODE_KODEMAX_TRUST]
+Müşteri: Tamam, bana uyar.
+Müşteri: Temiz olsun yeter.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> FLOW10_NODE_PRICE_1
+
+
+[FLOW10_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 Kodemax ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Kodemax Premium müşteri market + %10’a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[FLOW10_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW10_NODE_SERVICE
+
+
+[FLOW10_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek kaldı.
+Müşteri: Daha oturursa burada yaptıralım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> FLOW10_NODE_PRICE_2
+B = Fiyat bu. -> FLOW10_NODE_FAIL
+
+
+[FLOW10_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[FLOW10_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Bu oldu.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW10_NODE_SERVICE
+
+
+[FLOW10_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> FLOW10_NODE_PRICE_3
+B = Fiyat bu. -> FLOW10_NODE_FAIL
+
+
+[FLOW10_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[FLOW10_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> FLOW10_NODE_SERVICE
+
+
+[FLOW10_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben çıkayım o zaman.
+
+[FLOW10_END_FAIL]
+
+
+[FLOW10_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> FLOW10_NODE_DONE
+
+
+[FLOW10_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: İçim rahat etti.
+Müşteri: Eline sağlık.
+
+[FLOW10_END_SUCCESS]
+
+
+[FLOW10_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[FLOW10_END_FAIL]

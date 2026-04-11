@@ -1,0 +1,349 @@
+MICHEAL_PRICEONLY_ALLSEASON_FLOW01
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: 4 mevsim lastik bakıyorum.
+Müşteri: Net bir fiyat almak istedim.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SIZE
+B = Hangi ölçü lazımdı abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden bakalım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden gidelim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Evet abi, 4 mevsim istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+B = Hangi marka bakıyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_BRAND]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: Onun fiyatını net duymak istedim.
+
+Seçenekler:
+A = Tamam abi, Micheal üzerinden söyleyeyim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_1_REPLY]
+Müşteri: Tamam abi.
+Müşteri: Bir tık daha net ne olur?
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_2_REPLY]
+Müşteri: Anladım.
+Müşteri: Son bir fiyat daha alayım senden.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_PRICE_3_REPLY]
+Müşteri: Eyvallah abi.
+Müşteri: Ben biraz daha bakayım.
+Müşteri: Sonra karar veririm.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_END_EXIT]
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben fiyat topluyorum zaten.
+Müşteri: Sağ ol.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW01_END_EXIT]
+
+
+
+
+MICHEAL_PRICEONLY_ALLSEASON_FLOW02
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: 4 mevsim bakıyorum da, piyasayı görmek istedim biraz.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SIZE
+B = Hangi ölçü lazımdı abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SIZE]
+Müşteri: 215/55 R17 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Tek set olsun istiyorum.
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden bakalım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+B = Marka tarafında ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Ben tek set kullanacağım.
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden gidelim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+B = Marka tarafında ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Evet abi, 4 mevsim istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+B = Hangi marka bakıyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_BRAND]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: Uygun yerdeyse onu düşüneceğim.
+
+Seçenekler:
+A = Tamam abi, Micheal fiyatını söyleyeyim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 215/55 R17 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_1_REPLY]
+Müşteri: Hımm tamam.
+Müşteri: Beklediğimden biraz yukarıda.
+Müşteri: Bir daha söyle bakalım, son ne yapabiliyorsun?
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam abi, daha net ne olur söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_2_REPLY]
+Müşteri: Anladım abi.
+Müşteri: Bir son fiyat daha alayım, öyle çıkayım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_PRICE_3_REPLY]
+Müşteri: Tamam abi.
+Müşteri: Kafamda oturdu şimdi.
+Müşteri: Birkaç yere daha uğrayıp ona göre karar vereceğim.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_END_EXIT]
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben bi piyasayı göreyim.
+Müşteri: Sağ ol.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW02_END_EXIT]
+
+
+
+
+
+MICHEAL_PRICEONLY_ALLSEASON_FLOW03
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Şöyle fiyat soruyorum da, not alıyorum hepsini.
+
+Seçenekler:
+A = Eyvallah abi, önce ebat neydi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SIZE
+B = Hangi ölçü lazımdı abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SIZE]
+Müşteri: 225/45 R17 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_WINTER
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Benim işime o geliyor.
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden bakalım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Yok abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Tek set kullanmak daha mantıklı geliyor bana.
+
+Seçenekler:
+A = Tamam abi, 4 mevsim üzerinden gidelim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Evet abi, 4 mevsim istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+B = Hangi marka bakıyorsun? -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_BRAND]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: O yüzden direkt onun fiyatını soruyorum.
+
+Seçenekler:
+A = Tamam abi, Micheal üzerinden söyleyeyim. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_1]
+Müşteri: Tamam abi, 225/45 R17 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_1_REPLY]
+Müşteri: Tamam abi.
+Müşteri: Bunu yazdım.
+Müşteri: Bir daha söyle, biraz daha oturmuş rakam var mı?
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam abi, son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_2_REPLY]
+Müşteri: Güzel.
+Müşteri: Bir de son fiyatı alayım, tam yazayım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_PRICE_3_REPLY]
+Müşteri: Eyvallah abi.
+Müşteri: Notumu aldım.
+Müşteri: Hepsini toparlayıp ona göre döneceğim.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_END_EXIT]
+
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben fiyat bakıyordum zaten.
+Müşteri: Sağ ol.
+
+[MICHEAL_PRICEONLY_ALLSEASON_FLOW03_END_EXIT]

@@ -1,0 +1,656 @@
+MICHEAL_STANDARD_SUMMER_FLOW01
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastiklere baktıracaktım, değişim lazım gibi duruyor.
+
+Seçenekler:
+A = Bir bakalım, herhangi bir şikayet var mı? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_COMPLAINT
+B = Önce ebatı öğrenelim, hangi ölçü lazım? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_COMPLAINT]
+Müşteri: Islak zeminde biraz kaydırıyor.
+Müşteri: Frenlemede de eskisi gibi değil.
+
+Seçenekler:
+A = Kaç yıldır kullanıyorsun? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_YEAR
+B = Kaç bin km yaptın? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_KM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_YEAR]
+Müşteri: 4 yıl oldu aşağı yukarı.
+
+Seçenekler:
+A = Bu lastikler artık zayıflamış, değişim doğru olur. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_CONFIRM
+B = Evet, bu saatten sonra lastikleri değiştirmek mantıklı. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_KM]
+Müşteri: 50 bin civarı yaptı.
+
+Seçenekler:
+A = Evet, artık değişim zamanı gelmiş. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_CONFIRM
+B = Çok uzatmadan değiştirmek daha iyi olur. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_CONFIRM]
+Müşteri: Tamam abi.
+Müşteri: O zaman değiştirelim.
+
+Seçenekler:
+A = Önce ebatı netleştirelim. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Üstünde de o vardı zaten.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka tarafında bir tercihin var mı? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Nasıl bir şey düşünüyorsun? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Marka tarafında bir tercihin var mı? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Marka tarafında bir tercihin var mı? -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_BRAND]
+Müşteri: Micheal istiyorum abi.
+Müşteri: Daha önce kullandım, memnundum.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_MICHEAL_TRUST
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_MICHEAL_TRUST
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_MICHEAL_TRUST]
+Müşteri: Tamam abi.
+Müşteri: Fiyatı uygunsa Micheal yapalım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 yazlık Micheal ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu biraz yüksek oldu abi.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek kaldı abi.
+Müşteri: Son bir rakam söyle, ona göre karar vereyim.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Bu bana uyar.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi, o da yüksek kaldı.
+Müşteri: Ben vazgeçeyim o zaman.
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_END_FAIL]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_STANDARD_SUMMER_FLOW01_NODE_DONE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: İstediğim gibi oldu.
+Müşteri: Eline sağlık.
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_END_SUCCESS]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz bakayım.
+
+[MICHEAL_STANDARD_SUMMER_FLOW01_END_FAIL]
+
+
+
+
+
+MICHEAL_STANDARD_SUMMER_FLOW02
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_START]
+Müşteri: Kolay gelsin.
+Müşteri: Lastikleri yenilemeyi düşünüyorum da, artık pek içime sinmiyor.
+
+Seçenekler:
+A = Ne taraftan rahatsız ediyor, kayma mı ses mi? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PROBLEM
+B = Önce ebatı söyle abi, hangi ölçü lazımdı? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PROBLEM]
+Müşteri: Yol sesi arttı biraz.
+Müşteri: Bir de ıslakta pek güven vermiyor.
+
+Seçenekler:
+A = Kaç senedir kullanıyorsun bunları? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_YEAR
+B = Son zamanlarda frenlemede de fark ettin mi? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAKE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_YEAR]
+Müşteri: 5 seneyi geçti.
+Müşteri: O yüzden zaten bakmaya geldim.
+
+Seçenekler:
+A = Tamam, bunların değişmesi lazım artık. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_CONFIRM
+B = Evet, bu saatten sonra uzatmak çok doğru değil. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAKE]
+Müşteri: Evet, özellikle ani frende fark ediyor.
+Müşteri: Eskisi gibi değil.
+
+Seçenekler:
+A = O zaman değişim doğru karar olur. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_CONFIRM
+B = Evet, lastik artık tutmuyor demek ki. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_CONFIRM]
+Müşteri: Aynen.
+Müşteri: Hazır değiştirecekken de düzgün bir şey olsun istiyorum.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Ruhsatta da öyle yazıyor zaten.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka olarak aklında bir şey var mı? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+B = Daha önce memnun kaldığın bir marka oldu mu? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+B = Marka olarak aklında bir şey var mı? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+B = Daha önce memnun kaldığın bir marka oldu mu? -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_BRAND]
+Müşteri: Micheal düşünüyorum.
+Müşteri: Çok uçmadan düzgün iş çıkarıyor bence.
+
+Seçenekler:
+A = Elimizde var, Micheal üzerinden gidebiliriz. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_TRUST
+B = Tamam, o ebatta Micheal konuşalım. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_TRUST
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_TRUST]
+Müşteri: Olur abi.
+Müşteri: Fiyatı normalse direkt yaptıralım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 yazlık Micheal ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Olur bu.
+Müşteri: Geçelim.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu biraz açtı abi.
+Müşteri: Piyasasının üstüne çıkmayayım ben.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam, daha net ne olur söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek kaldı.
+Müşteri: Son bir fiyat ver, ona göre kapatalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne diyorsun?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Bu olur.
+Müşteri: Başlayalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi.
+Müşteri: O rakama girmeyeyim.
+Müşteri: Kalsın şimdilik.
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_END_FAIL]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_STANDARD_SUMMER_FLOW02_NODE_DONE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Araba toparladı kendini.
+Müşteri: Güzel oldu, sağ ol.
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_END_SUCCESS]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_STANDARD_SUMMER_FLOW02_END_FAIL]
+
+
+
+
+
+MICHEAL_STANDARD_SUMMER_FLOW03
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_START]
+Müşteri: Kolay gelsin.
+Müşteri: Araba son zamanlarda yolda biraz gezmeye başladı, lastikten midir diye geldim.
+
+Seçenekler:
+A = Bir bakalım, en çok ne zaman hissediyorsun bunu? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PROBLEM
+B = Önce ebatı öğrenelim, hangi ölçü lazım? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PROBLEM]
+Müşteri: Özellikle çevre yolunda belli ediyor.
+Müşteri: Direksiyon da eskisi kadar toplu hissettirmiyor.
+
+Seçenekler:
+A = Lastikleri ne zamandır kullanıyorsun? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_YEAR
+B = Yağmurda da aynı şeyi yapıyor mu? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_RAIN
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_YEAR]
+Müşteri: 4-5 sene oldu.
+Müşteri: Zaten artık değişmesi gerekiyordur diye düşünüyorum.
+
+Seçenekler:
+A = Evet, ömrünü doldurmuş, değişim doğru olur. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_CONFIRM
+B = Bu saatten sonra uzatmak çok mantıklı değil. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_RAIN]
+Müşteri: Yağmurda daha çok belli ediyor.
+Müşteri: O yüzden içime sinmiyor zaten.
+
+Seçenekler:
+A = Tamam, lastik artık zayıflamış demek. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_CONFIRM
+B = Evet, değişim vakti gelmiş. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_CONFIRM
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_CONFIRM]
+Müşteri: Tamam.
+Müşteri: Hazır değiştirecekken düzgün bir şey takalım.
+
+Seçenekler:
+A = Önce ebatı netleştirelim. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Araçta o var zaten.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_WINTER
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka tarafında bir tercihin var mı? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+B = Daha önce memnun kaldığın bir marka oldu mu? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+B = Marka tarafında bir tercihin var mı? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+B = Daha önce memnun kaldığın bir marka oldu mu? -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_BRAND]
+Müşteri: Ben Micheal istiyorum.
+Müşteri: Çok abartı değil ama güven veriyor o marka.
+
+Seçenekler:
+A = Elimizde var, Micheal üzerinden gidebiliriz. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_TRUST
+B = Tamam, o ebatta Micheal çıkarırım sana. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_TRUST
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_TRUST]
+Müşteri: Olur.
+Müşteri: Fiyatı piyasasına uygunsa direkt değiştirelim.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_1]
+Müşteri: Tamam, 205/55 R16 yazlık Micheal ne kadar oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Uygunmuş.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu bana yüksek geldi.
+Müşteri: Piyasasının üstüne çıkmak istemiyorum.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam, daha net bir rakam söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Bu mantıklı.
+Müşteri: Başlayalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yukarıda kaldı.
+Müşteri: Son bir fiyat ver, ona göre karar vereyim.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_FAIL
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam, son ne diyorsun?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Bu olur.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok.
+Müşteri: Bu rakama girmeyeyim ben.
+Müşteri: Kalsın şimdilik.
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_END_FAIL]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_STANDARD_SUMMER_FLOW03_NODE_DONE
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Araba kendine geldi.
+Müşteri: Tam istediğim gibi oldu.
+Müşteri: Eline sağlık.
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_END_SUCCESS]
+
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_STANDARD_SUMMER_FLOW03_END_FAIL]
+
+
+
+
+
+

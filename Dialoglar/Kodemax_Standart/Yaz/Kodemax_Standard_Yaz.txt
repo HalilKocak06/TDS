@@ -1,0 +1,574 @@
+KODEMAX_STANDARD_SUMMER_FLOW01
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Lastik bakıyorum.
+
+Seçenekler:
+A = Buyur abi, önce ebat neydi? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SIZE
+B = Tabii abi, hangi ölçü lazımdı? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SIZE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Nasıl bir şey bakıyorsun, fiyat performans mı? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_NEED
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Nasıl bir şey bakıyorsun, fiyat performans mı? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_NEED
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Nasıl bir şey bakıyorsun, fiyat performans mı? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_NEED
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_NEED]
+Müşteri: Fiyat performans bir şey olsun.
+Müşteri: Boşuna fazla para vermeyeyim.
+
+Seçenekler:
+A = O zaman marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND
+B = Tamam abi, dengeli gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_BRAND]
+Müşteri: Kodemax düşünüyorum abi. --RUNTIME ORDER
+Müşteri: Düzgün olsun, işimi görsün yeter.
+
+Seçenekler:
+A = Elimizde Kodemax var abi. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_KODEMAX_TRUST
+B = Tamam abi, Kodemax üzerinden gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_KODEMAX_TRUST
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_KODEMAX_TRUST]
+Müşteri: Tamam.
+Müşteri: O zaman fiyatını söyle.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_1]
+Müşteri: 205/55 R16 yazlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu biraz yüksek oldu.
+Müşteri: Daha uygun olursa yapalım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Bu olur.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben vazgeçeyim.
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_END_FAIL]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_SUMMER_FLOW01_NODE_DONE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Güzel oldu.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_SUMMER_FLOW01_END_FAIL]
+
+
+
+
+KODEMAX_STANDARD_SUMMER_FLOW02
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Uygun fiyatlı bir lastik bakıyorum.
+Müşteri: Çok da uğraştırmasın yeter.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SIZE
+B = Lastiklerde ne sıkıntı var, neden değiştireceksin? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PROBLEM
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PROBLEM]
+Müşteri: Lastiklerim iyi değil, değiştirmem lazım.
+Müşteri: Çok pahalı bir şey de düşünmüyorum.
+
+Seçenekler:
+A = Tamam abi, önce ebatı netleştirelim. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SIZE
+B = Nasıl bir şey düşünüyorsun, fiyat performans mı? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_NEED
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, fiyat performans mı? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_NEED]
+Müşteri: Fiyatı uygun olsun.
+Müşteri: Ama gidip de dandik bir şey takmayalım.
+
+Seçenekler:
+A = Tamam abi, dengeli bir şey bakalım. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_BRAND
+B = O zaman sana Kodemax uygun olur. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_BRAND]
+Müşteri: Kodemax düşünüyorum abi. --RUNTIME ORDER
+Müşteri: Çok yukarı çıkmayayım, düzgün olsun yeter.
+
+Seçenekler:
+A = Tamam abi, Kodemax üzerinden gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_REACT
+B = Elimizde Kodemax var abi. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: İş görür mü?
+
+Seçenekler:
+A = İş görür abi, fiyatına göre gayet iyi lastik. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_TRUST
+B = Rahat kullanırsın, günlük kullanımda üzmez. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_TRUST
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_KODEMAX_TRUST]
+Müşteri: Tamam.
+Müşteri: Fiyatı da uygunsa Kodemax yapalım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 yazlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Bu olur.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Biraz yüksek oldu abi.
+Müşteri: Daha uygun olursa yapalım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi oldu.
+Müşteri: Kodemax yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek kaldı.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamamdır.
+Müşteri: Bu fiyata olur.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_END_FAIL]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_SUMMER_FLOW02_NODE_DONE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Bu bana yeter.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_SUMMER_FLOW02_END_FAIL]
+
+
+
+
+
+
+
+KODEMAX_STANDARD_SUMMER_FLOW03
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Kodemax var mı?
+Müşteri: Daha önce almıştım, gayet hoşuma gitmişti.
+Müşteri: Yine ondan almak istiyorum.
+
+Seçenekler:
+A = Var abi, önce ebatı söyle. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SIZE
+B = Var abi, hangi ölçü lazımdı? -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SIZE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, o ebatta yazlık Kodemax var. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+B = Elimizde var abi. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden gidelim. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+B = Elimizde yazlık Kodemax var. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, yazlık üzerinden bakalım. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+B = O zaman yazlık Kodemax konuşalım. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_TRUST]
+Müşteri: Tamam abi.
+Müşteri: Ben zaten memnun kalmıştım bundan.
+Müşteri: Fiyatı uygunsa direkt alayım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_1]
+Müşteri: 205/55 R16 yazlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu biraz yüksek oldu abi.
+Müşteri: Daha uygunu olursa alayım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Bu olur.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek kaldı.
+Müşteri: Son bir fiyat söyle abi.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_FAIL
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamamdır.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben vazgeçeyim.
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_END_FAIL]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax yazlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_SUMMER_FLOW03_NODE_DONE
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Zaten memnundum, yine iyi oldu.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_SUMMER_FLOW03_END_FAIL]

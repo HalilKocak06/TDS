@@ -1,0 +1,777 @@
+MICHEAL_PREMIUM_SUMMER_FLOW01
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_START]
+Müşteri: Kolay gelsin usta.
+Müşteri: Arabanın lastikleri bir süredir güven vermiyor.
+Müşteri: Hani gidiyor ama insanın içine de tam sinmiyor.
+
+Seçenekler:
+A = Ne hissediyorsun genel olarak? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_FEELING
+B = Çok büyütmeden de çözülür belki, bir bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID_OPEN
+C = Araç ne abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_CAR
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_FEELING]
+Müşteri: Özellikle yüksek hızda daha çok hissettiriyor.
+Müşteri: Direksiyonda o eski stabilliği yok.
+Müşteri: Uzun yolda da insan ister istemez kafasına takıyor.
+
+Seçenekler:
+A = İyi lastik bunları baya değiştirir. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_HINT
+B = Çok abartmadan da toparlanır. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID_OPEN]
+Müşteri: Hesap tabii önemli ama...
+Müşteri: Ben sırf uygun diye sonradan can sıkacak bir şey istemiyorum.
+Müşteri: Bu sefer biraz daha içime sinecek bir şey olsun istiyorum.
+
+Seçenekler:
+A = O zaman biraz daha iyi tarafa bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_HINT
+B = Yine de çok uçmadan gideriz. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_CAR]
+Müşteri: Araç biraz seçiyor açıkçası.
+Müşteri: Üstüne ne taktığın fark ediyor.
+Müşteri: O yüzden çok rastgele gitmek istemiyorum.
+
+Seçenekler:
+A = O zaman kaliteli tarafa bakmak lazım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_HINT
+B = Orta segment de iş görebilir. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_HINT]
+Müşteri: Aynen usta.
+Müşteri: Sonuçta çoluğumuzu çocuğumuzu taşıyoruz.
+Müşteri: Güvenli, sorunsuz bir şey olsun istiyorum.
+
+Seçenekler:
+A = Mantıklı abi, aynı kafadayım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+B = O zaman premium tarafa bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MID]
+Müşteri: Orta yol olur da...
+Müşteri: Ama bu sefer biraz daha içime sinecek bir şey istiyorum.
+Müşteri: Çok aşağı inmeyi istemiyorum açıkçası.
+
+Seçenekler:
+A = Tamam, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+B = O zaman biraz daha üst tarafa yakın bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım bana.
+Müşteri: Ruhsatta da öyle yazıyor.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, aklım biraz Micheal tarafında.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben biraz daha Micheal düşünüyordum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+B = Marka olarak aklındaki Micheal mı yani? -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_REVEAL]
+Müşteri: Aklım biraz Micheal tarafında.
+Müşteri: Eğer fiyatı çok uçuk değilse ben ona daha yakınım.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Aracın üstünde fark edecekse ona çıkarım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_KODEMAX]
+Müşteri: Kodemax çok alt tarafta kalmaz mı abi?
+Müşteri: Ben açıkçası biraz daha Micheal düşünüyordum.
+Müşteri: Kodemax takıp geçmek istemiyorum ben.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Ben yine aynı hayal kırıklığını yaşamak istemiyorum.
+Müşteri: Bu sefer biraz daha içime sinen bir şey bakıyorum.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam...
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_ACCEPTED
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Bir tık yüksek söyledin.
+Müşteri: Son bir güzellik yaparsan direkt bırakayım aracı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW01_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam usta, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Şimdi daha mantıklı oldu.
+Müşteri: Tamam, yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_ACCEPTED
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda kaldı.
+Müşteri: Son bir fiyat söyle, ona göre yapalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW01_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam usta, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_ACCEPTED
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok usta...
+Müşteri: Micheal güzel de, o rakam fazla geldi.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_END_FAIL]
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Düzgün iş olsun, ben kafam rahat olsun.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_DONE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: Eline sağlık.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW01_END_SUCCESS]
+
+MICHEAL_PREMIUM_SUMMER_FLOW02
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_START]
+Müşteri: Kolay gelsin usta, lastik bakacaktım.
+Müşteri: Arabada son zamanlarda bir sertlik, bir uğultu var.
+Müşteri: Hani çok kötü değil ama sürüşün tadı kaçtı biraz.
+
+Seçenekler:
+A = En çok ne rahatsız ediyor seni abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_FEELING
+B = Hallederiz abi, bir bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID_OPEN
+C = Araç ne abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_CAR
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_FEELING]
+Müşteri: En çok ses rahatsız ediyor açıkçası.
+Müşteri: Özellikle asfalt değişince içeride hemen hissediliyor.
+Müşteri: Bir de araba eskisi gibi yumuşak gitmiyor.
+
+Seçenekler:
+A = Lastik çok etkiler onu, özellikle kaliteli lastik. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_HINT
+B = Çok büyütmeden çözülür o iş. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID_OPEN]
+Müşteri: Hesap tabii önemli ama...
+Müşteri: Ben sırf uygun diye yine içime sinmeyecek bir şey taktırmak istemiyorum.
+Müşteri: Geçen sefer de biraz o kafayla gitmiştim, çok memnun kalmadım.
+
+Seçenekler:
+A = O zaman daha düzgün bir şey bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_HINT
+B = Yine de çok uçmadan gideriz. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_CAR]
+Müşteri: Araç konforu biraz belli ediyor açıkçası.
+Müşteri: Üzerindeki lastik iyi değilse direkt hissediyorsun.
+Müşteri: O yüzden rastgele bir şey takıp geçmek istemiyorum.
+
+Seçenekler:
+A = O zaman kaliteli tarafa bakmak lazım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_HINT
+B = Orta segment de iş görebilir. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_HINT]
+Müşteri: Ben açık konuşayım...
+Müşteri: Lastik biraz sürüş keyfi işi de.
+Müşteri: Sessiz olsun, konforlu olsun, güven versin... bunlar benim için önemli.
+
+Seçenekler:
+A = Mantıklı abi, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+B = Tamam abi, premium tarafa bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MID]
+Müşteri: Orta yol olur da...
+Müşteri: Ama bu sefer biraz daha fark hissedeyim istiyorum.
+Müşteri: Çok alt tarafa inersem yine içime sinmeyecek.
+
+Seçenekler:
+A = O zaman üst tarafa daha yakın bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+B = Önce ebatı alayım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SIZE]
+Müşteri: 225/45 R17 lazım bana.
+Müşteri: Sessiz olsun, yumuşak gitsin, bir de güven versin yeter.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, Micheal düşünüyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben Micheal tarafına daha yakınım.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+B = Anladım abi, Micheal bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_REVEAL]
+Müşteri: Aklım Micheal tarafında açıkçası.
+Müşteri: Madem değiştireceğim, biraz fark hissettirsin istiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Sessizlik ve konfor fark edecekse ben ona çıkarım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_KODEMAX]
+Müşteri: Kodemax istemiyorum abi.
+Müşteri: Madem değiştireceğim, daha içime sinen bir şey olsun istiyorum.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Ben bu sefer biraz daha memnun kalacağım bir şey bakıyorum.
+Müşteri: Sonra yine keşke demek istemiyorum.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam...
+Müşteri: İçime sindi açıkçası.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Bir tık yüksek söyledin.
+Müşteri: Ama gerçekten dediğin gibi fark edecekse çok da uzatmam.
+Müşteri: Son bir güzellik yaparsan direkt bırakayım aracı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW02_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam usta, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh, şimdi daha mantıklı oldu.
+Müşteri: Tamam, yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda kaldı.
+Müşteri: Son bir fiyat söyle, ona göre yapalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW02_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam usta, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok abi, o rakam bana fazla geldi.
+Müşteri: Ben biraz daha bakayım.
+Müşteri: Sağ ol yine de.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_END_FAIL]
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Düzgün iş olsun, ben kafam rahat olsun.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_DONE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW02_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: Araba daha derli toplu gidiyor resmen.
+Müşteri: Eline sağlık ustam.
+[MICHEAL_PREMIUM_SUMMER_FLOW02_END_SUCCESS]
+
+
+
+
+
+
+MICHEAL_PREMIUM_SUMMER_FLOW03
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_START]
+Müşteri: Kolay gelsin usta.
+Müşteri: Lastik bakıyorum da şu anki lastiklerimden pek memnun değilim.
+Müşteri: Hani gözle bakınca kötü durmuyor ama sürüşte insan hissediyor.
+
+Seçenekler:
+A = Ne hissediyorsun sürerken? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_FEELING
+B = Daha önce ne kullandın, ne memnun etmedi seni? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_OLD_OPEN
+C = Sürüşte mi rahatsız ediyor, görüntüde mi daha çok? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_STYLE_OPEN
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_FEELING]
+Müşteri: En çok yüksek hızda belli ediyor.
+Müşteri: Direksiyonda o netlik azaldı gibi.
+Müşteri: Bir de araba eskisi kadar toplu gitmiyor hissi var.
+
+Seçenekler:
+A = Lastik markası ve hamuru çok etkiler onu. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_HINT
+B = Çok büyütmeden çözülür aslında. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_OLD_OPEN]
+Müşteri: Açık konuşayım, geçen sefer biraz fazla ortalama bir seçim yaptım.
+Müşteri: İş görsün diye girdik ama sonrasında çok da içime sinmedi.
+Müşteri: Bu sefer biraz daha düzgün bir şey istiyorum.
+
+Seçenekler:
+A = O zaman bu sefer biraz daha iyi tarafa bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_HINT
+B = Yine de bütçeyi çok zorlamadan gideriz. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MID
+C = Önce ebatı netleştirelim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_STYLE_OPEN]
+Müşteri: İkisi de aslında.
+Müşteri: Araba düzgün dursun istiyorum ama üstünde nasıl hissettirdiği daha önemli.
+Müşteri: Sonuçta her gün biniyorsun, insan içine sinen bir şey istiyor.
+
+Seçenekler:
+A = O zaman kaliteli tarafa bakmak lazım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_HINT
+B = Orta segmentte de üzmeyen şeyler var. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MID
+C = Önce ebatı netleştirelim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_HINT]
+Müşteri: Ben açık söyleyeyim...
+Müşteri: Lastik biraz arabayı tamamlayan iş.
+Müşteri: Hem güven versin, hem düzgün hissettirsin, hem de insan içine sinsin istiyorum.
+
+Seçenekler:
+A = Mantıklı, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+B = Tamam, premium tarafı konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MID]
+Müşteri: Orta yol olur da...
+Müşteri: Ama bu sefer gerçekten fark hissedeyim istiyorum.
+Müşteri: Çok aşağıda bir şey olursa yine içime sinmeyecek.
+
+Seçenekler:
+A = O zaman biraz daha üst kaliteye yaklaşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+B = Önce ebatı alayım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SIZE]
+Müşteri: 225/40 R18 lazım bana.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Evet abi, yazlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Yok abi, yazlık istiyorum.
+
+Seçenekler:
+A = Tamam, yazlık üzerinden bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, Micheal düşünüyorum açıkçası.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben Micheal tarafına daha yakınım.
+Müşteri: Bu sefer biraz daha içime sinen bir şey istiyorum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+B = Anladım abi, Micheal bakalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_REVEAL]
+Müşteri: Micheal’ı düşünüyorum açıkçası.
+Müşteri: Maddiyatta sorun yok.
+Müşteri: Sonuçta aracın üstünde fark edecekse değer.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_KODEMAX]
+Müşteri: Yok abi, yan ürün istemiyorum.
+Müşteri: Ben bu sefer biraz daha memnun kalacağım bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Sonra yine keşke demek istemiyorum.
+Müşteri: Bu sefer düzgün bir şey olsun.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Eğer fiyatı çok saçma değilse ben ona daha yakınım.
+Müşteri: Sonuçta aracın üstünde fark edecekse değer.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam...
+Müşteri: İçime sindi açıkçası.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Bir tık yüksek söyledin.
+Müşteri: Ama gerçekten dediğin gibi fark edecekse çok da uzatmam.
+Müşteri: Son bir güzellik yaparsan direkt bırakayım aracı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW03_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam usta, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh, şimdi daha mantıklı oldu.
+Müşteri: Tamam, yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda kaldı.
+Müşteri: Son bir fiyat söyle, ona göre yapalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_SUMMER_FLOW03_END_FAIL
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam usta, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok usta...
+Müşteri: Micheal güzel de, o rakam biraz fazla geldi.
+Müşteri: O kadar açılınca tadı kaçıyor.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_END_FAIL]
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Düzgün iş olsun, ben kafam rahat olsun.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_DONE
+
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: Araba daha toplu hissettiriyor.
+Müşteri: Eline sağlık ustam.
+
+[MICHEAL_PREMIUM_SUMMER_FLOW03_END_SUCCESS]

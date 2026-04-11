@@ -1,0 +1,600 @@
+KODEMAX_STANDARD_WINTER_FLOW01
+
+[KODEMAX_STANDARD_WINTER_FLOW01_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Kış gelmeden lastikleri değiştireyim dedim.
+Müşteri: Çok pahalı bir şeye girmeyeyim ama düzgün olsun istiyorum.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SIZE
+B = Lastiklerde ne sıkıntı var, neden değiştireceksin? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_PROBLEM
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PROBLEM]
+Müşteri: Özellikle yağmurda ve soğukta pek güven vermiyor.
+Müşteri: Frenlemede de eskisi gibi değil.
+
+Seçenekler:
+A = Tamam abi, önce ebatı netleştirelim. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SIZE
+B = Nasıl bir şey düşünüyorsun, fiyat performans mı? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_NEED
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden gidelim. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+Müşteri: Bu sefer direkt kışlık taktıracağım.
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden bakalım. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun, fiyat performans mı? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_NEED
+B = Marka tarafında ne düşünüyorsun? -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_NEED]
+Müşteri: Fiyatı uygun olsun.
+Müşteri: Ama kışta da üzmesin.
+
+Seçenekler:
+A = Tamam abi, dengeli bir şey bakalım. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_BRAND
+B = O zaman Kodemax sana uygun olur. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_BRAND]
+Müşteri: Kodemax düşünüyorum abi. --RUNTIME ORDER
+Müşteri: Çok yukarı çıkmayayım, işimi görsün yeter.
+
+Seçenekler:
+A = Elimizde Kodemax var abi. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_REACT
+B = Tamam abi, Kodemax üzerinden gidelim. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Kışta iş görür mü?
+
+Seçenekler:
+A = İş görür abi, fiyatına göre gayet iyi lastik. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_TRUST
+B = Günlük kullanımda rahat götürür, kışta da üzmez. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_TRUST
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_KODEMAX_TRUST]
+Müşteri: Tamam.
+Müşteri: Fiyatı da uygunsa Kodemax yapalım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 kışlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Bu biraz yüksek oldu abi.
+Müşteri: Daha uygun olursa yapalım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Bu olur.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek kaldı.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamamdır.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi, o da fazla geldi.
+Müşteri: Ben vazgeçeyim.
+
+[KODEMAX_STANDARD_WINTER_FLOW01_END_FAIL]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax kışlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_WINTER_FLOW01_NODE_DONE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Kış gelmeden halletmiş olduk.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_WINTER_FLOW01_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW01_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_WINTER_FLOW01_END_FAIL]
+
+
+
+KODEMAX_STANDARD_WINTER_FLOW02
+
+[KODEMAX_STANDARD_WINTER_FLOW02_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Havalar da soğuyor artık, lastikleri değiştireyim dedim.
+
+Seçenekler:
+A = İyi yapmışsın abi, önce ebat neydi? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SIZE
+B = Ne taraftan rahatsız ediyor lastikler? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_PROBLEM
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PROBLEM]
+Müşteri: Sabahları özellikle araba pek toplu hissettirmiyor.
+Müşteri: Bir de ıslakta pek güven vermiyor artık.
+
+Seçenekler:
+A = Tamam abi, önce ebatı netleştirelim. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SIZE
+B = Nasıl bir şey düşünüyorsun, fiyat performans mı? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_NEED
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+Müşteri: Bu sefer direkt kışlık taktırayım dedim.
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden bakalım. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_NEED
+B = Marka tarafında bir şey düşündün mü? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+Müşteri: Bu sefer net kışlık alacağım.
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden gidelim. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_NEED
+B = Marka tarafında bir şey düşündün mü? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Nasıl bir şey düşünüyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_NEED
+B = Marka tarafında aklında ne var? -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_NEED]
+Müşteri: Çok para dökmeyeyim.
+Müşteri: Ama gidip de saçma sapan bir şey de takmayalım.
+
+Seçenekler:
+A = Tamam abi, dengeli bir şey bakalım. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_BRAND
+B = O zaman Kodemax tarafı sana uyar. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_BRAND]
+Müşteri: Kodemax düşünüyorum abi. --RUNTIME ORDER
+Müşteri: İşimi görsün, beni yolda bırakmasın yeter.
+
+Seçenekler:
+A = Elimizde Kodemax var abi. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_REACT
+B = Tamam abi, Kodemax üzerinden gidelim. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_REACT
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_REACT]
+Müşteri: Kodemax nasıl peki?
+Müşteri: Kışta sıkıntı çıkarmaz değil mi?
+
+Seçenekler:
+A = Günlük kullanımda gayet iş görür abi. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_TRUST
+B = Fiyatına göre düzgün lastiktir, rahat kullanırsın. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_TRUST
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_KODEMAX_TRUST]
+Müşteri: Tamam abi.
+Müşteri: Fiyatı da uygunsa bunu yapalım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 kışlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Biraz yukarıda kaldı abi.
+Müşteri: Daha makul olursa burada yaptıralım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ biraz yukarıda gibi.
+Müşteri: Son bir rakam söyle, ona göre kapatalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Bu bana uyar.
+Müşteri: Geçelim o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi.
+Müşteri: O da fazla geldi.
+Müşteri: Ben vazgeçeyim.
+
+[KODEMAX_STANDARD_WINTER_FLOW02_END_FAIL]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax kışlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_WINTER_FLOW02_NODE_DONE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Kafam rahatladı.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_WINTER_FLOW02_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW02_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[KODEMAX_STANDARD_WINTER_FLOW02_END_FAIL]
+
+
+
+
+
+KODEMAX_STANDARD_WINTER_FLOW03
+
+[KODEMAX_STANDARD_WINTER_FLOW03_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Kışlık lastik bakıyorum.
+
+Seçenekler:
+A = Buyur abi, ebat neydi? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SIZE
+B = Tabii abi, hangi ölçü lazımdı? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SIZE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_WINTER
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+B = Tamam abi, kışlık üzerinden bakalım. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+B = Tamam abi, kışlık üzerinden gidelim. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka tarafında ne düşünüyorsun abi? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+B = Hangi marka bakıyorsun? -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_BRAND]
+Müşteri: Kodemax bakıyorum abi. --RUNTIME ORDER
+Müşteri: Uygun olsun, işimi görsün yeter.
+
+Seçenekler:
+A = Tamam abi, Kodemax var. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_TRUST
+B = Elimizde var abi. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_TRUST
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_TRUST]
+Müşteri: Tamam abi.
+Müşteri: Fiyatını söyle o zaman.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_1
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_1]
+Müşteri: 205/55 R16 kışlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Standart müşteri market price üstünü kabul etmez.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= MarketPrice
+
+Müşteri: Tamam abi.
+Müşteri: Uygunsa yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > MarketPrice
+
+Müşteri: Biraz fazla oldu abi.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam, daha uygun ne olur?
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= MarketPrice
+
+Müşteri: Tamam.
+Müşteri: Bu olur.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > MarketPrice
+
+Müşteri: Hâlâ yüksek abi.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_FAIL
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= MarketPrice
+
+Müşteri: Tamamdır.
+Müşteri: Yapalım o zaman.
+
+Seçenekler:
+A = Aracı içeri al. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_SERVICE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > MarketPrice
+
+Müşteri: Yok abi.
+Müşteri: O da fazla geldi.
+Müşteri: Kalsın.
+
+[KODEMAX_STANDARD_WINTER_FLOW03_END_FAIL]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Kodemax kışlık lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> KODEMAX_STANDARD_WINTER_FLOW03_NODE_DONE
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Güzel oldu.
+Müşteri: Eline sağlık.
+
+[KODEMAX_STANDARD_WINTER_FLOW03_END_SUCCESS]
+
+
+[KODEMAX_STANDARD_WINTER_FLOW03_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben bakayım biraz daha.
+
+[KODEMAX_STANDARD_WINTER_FLOW03_END_FAIL]
+
+

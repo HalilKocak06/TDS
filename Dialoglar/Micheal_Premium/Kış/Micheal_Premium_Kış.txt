@@ -1,0 +1,791 @@
+MICHEAL_PREMIUM_WINTER_FLOW01
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_START]
+Müşteri: Kolay gelsin usta.
+Müşteri: Kış gelmeden şu lastik işini halledeyim dedim.
+Müşteri: Araba son zamanlarda özellikle soğukta pek içime sinmiyor.
+
+Seçenekler:
+A = En çok ne tarafta rahatsız ediyor abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_FEELING
+B = Bir bakalım abi, çok uzatmadan çözelim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID_OPEN
+C = Araç ne abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_CAR
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_FEELING]
+Müşteri: Özellikle sabahları daha çok hissediyorum.
+Müşteri: Frenlemede ve dönüşte eskisi kadar güven vermiyor.
+Müşteri: Yağmurda da insan ister istemez tedirgin oluyor.
+
+Seçenekler:
+A = Kışta lastik çok fark ettirir abi. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_HINT
+B = Çok büyütmeden toparlanır belki. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID_OPEN]
+Müşteri: Hesap tabii önemli ama...
+Müşteri: Ben sırf uygun diye sonradan pişman olacağım bir şey istemiyorum.
+Müşteri: Kışta insan daha da dikkat ediyor zaten.
+
+Seçenekler:
+A = O zaman biraz daha iyi tarafa bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_HINT
+B = Yine de çok uçmadan gideriz. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_CAR]
+Müşteri: Araç biraz seçiyor açıkçası.
+Müşteri: Kışın üstünde ne olduğu daha çok fark ediyor.
+Müşteri: O yüzden rastgele bir şey takıp geçmek istemiyorum.
+
+Seçenekler:
+A = O zaman kaliteli tarafa bakmak lazım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_HINT
+B = Orta segment de iş görür. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_HINT]
+Müşteri: Aynen usta.
+Müşteri: Sonuçta kış işi şakaya gelmiyor.
+Müşteri: Hem güven versin hem de kafam rahat etsin istiyorum.
+
+Seçenekler:
+A = Mantıklı abi, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+B = Tamam abi, premium tarafa bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MID]
+Müşteri: Orta yol olur da...
+Müşteri: Ama bu sefer biraz daha içime sinecek bir şey istiyorum.
+Müşteri: Kışta çok aşağıda bir şey olsun istemiyorum.
+
+Seçenekler:
+A = O zaman biraz daha üst tarafa yakın bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım bana.
+Müşteri: Ruhsatta da o yazıyor zaten.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, aklım Micheal tarafında.
+Müşteri: Kışta biraz daha güvenli tarafa çıkmak istiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben biraz daha Micheal düşünüyordum.
+Müşteri: Kışta içime sinen bir şey olsun istiyorum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+B = Anladım abi, Micheal bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL]
+Müşteri: Aklım biraz Micheal tarafında açıkçası.
+Müşteri: Kışta fark edecekse ben ona çıkarım.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Eğer fiyatı çok uçuk değilse ben ona yakınım.
+Müşteri: Sonuçta kışlıkta insan daha az risk almak istiyor.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_KODEMAX]
+Müşteri: Kodemax çok alt tarafta kalmaz mı abi?
+Müşteri: Ben açıkçası biraz daha Micheal düşünüyordum.
+Müşteri: Kışta çok deneme yapmak istemiyorum.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Ben bu sefer daha memnun kalacağım bir şey istiyorum.
+Müşteri: Sonra yine keşke demek istemiyorum.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam...
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Bir tık yüksek söyledin.
+Müşteri: Son bir güzellik yaparsan direkt bırakayım aracı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW01_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam usta, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Şimdi daha mantıklı oldu.
+Müşteri: Tamam, yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda kaldı.
+Müşteri: Son bir fiyat söyle, ona göre yapalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW01_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam usta, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok usta...
+Müşteri: Micheal güzel de, o rakam fazla geldi.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_END_FAIL]
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Düzgün iş olsun, ben kafam rahat olsun.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_DONE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: Kış gelmeden halletmiş olduk.
+Müşteri: Eline sağlık.
+
+[MICHEAL_PREMIUM_WINTER_FLOW01_END_SUCCESS]
+
+MICHEAL_PREMIUM_WINTER_FLOW02
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_START]
+Müşteri: Kolay gelsin usta.
+Müşteri: Bu sene kış erken çökecek gibi duruyor, ben de işi sağlama alayım dedim.
+Müşteri: Sabahları araba zaten başka bir karaktere bürünüyor.
+
+Seçenekler:
+A = Soğukta mı daha çok hissediyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_WEATHER
+B = Aynen abi, sabah yol başka oluyor. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MORNING
+C = Araç ne abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_CAR
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_WEATHER]
+Müşteri: Özellikle sabah ilk çıkışta çok belli ediyor.
+Müşteri: Yol kuru olsa bile insan tam güvenemiyor.
+Müşteri: Yağmur olunca zaten daha da rahatsız ediyor.
+
+Seçenekler:
+A = Kış lastiği orada baya fark ettirir. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_HINT
+B = Lastik yaşlandıysa normal abi. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MORNING]
+Müşteri: Aynen öyle.
+Müşteri: Sabah soğukta araba başka, öğlen başka oluyor resmen.
+Müşteri: O yüzden ben kış gelmeden düzgün bir şey taktırayım dedim.
+
+Seçenekler:
+A = Mantıklı, kışta iş şansa bırakılmaz. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_HINT
+B = Çok abartmadan da çözülür. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_CAR]
+Müşteri: Araç aslında güzel ama üstündeki lastik zayıf kalınca tadı kaçıyor.
+Müşteri: Özellikle kışta bunu daha net anlıyorsun.
+Müşteri: Ben de o yüzden biraz daha düzgün bir şey bakıyorum.
+
+Seçenekler:
+A = O zaman kaliteli tarafa bakmak lazım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_HINT
+B = Orta yol da bulunur aslında. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_HINT]
+Müşteri: Ben açık konuşayım...
+Müşteri: Kışlıkta çok hesap kitap yapmayı sevmiyorum.
+Müşteri: Sonuçta bir yerde o güven hissini satın alıyorsun.
+
+Seçenekler:
+A = Doğru diyorsun abi, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+B = O zaman premium tarafa bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MID]
+Müşteri: Hesap tabii önemli de...
+Müşteri: Ben yine de çok aşağıda bir şey taktırıp içime kurt düşsün istemiyorum.
+Müşteri: Kışın insan biraz daha tedirgin oluyor zaten.
+
+Seçenekler:
+A = O zaman biraz daha iyi tarafa yaklaşalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE]
+Müşteri: 225/45 R17 lazım bana.
+Müşteri: Dört tane değişeceğim.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum.
+Müşteri: Bu havada yazlıkla uğraşılmaz.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum.
+Müşteri: Ben bu sefer direkt kışlık taktıracağım.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, Micheal düşünüyorum.
+Müşteri: Kışta biraz daha sağlam tarafta olayım istiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben Micheal tarafına daha yakınım.
+Müşteri: Kışlıkta içime daha çok siniyor açıkçası.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+B = Anladım abi, Micheal bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_REVEAL]
+Müşteri: Aklım Micheal tarafında açıkçası.
+Müşteri: Kışlıkta biraz daha düzgün bir şey olsun istiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_KODEMAX]
+Müşteri: Kodemax kötü demiyorum da...
+Müşteri: Ben bu sefer daha gönül rahatlığıyla bineceğim bir şey istiyorum.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Kışta “idare eder” kafasına girmek istemiyorum.
+Müşteri: Bu sefer biraz daha düzgün bir şey olsun.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Kışın yola çıkınca insan biraz daha içi rahat olsun istiyor.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam...
+Müşteri: İçime sindi açıkçası.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Bir tık yüksek söyledin.
+Müşteri: Ama gerçekten dediğin gibi fark edecekse çok da uzatmam.
+Müşteri: Son bir güzellik yaparsan direkt bırakayım aracı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW02_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam usta, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh, şimdi daha mantıklı oldu.
+Müşteri: Tamam, yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda kaldı.
+Müşteri: Son bir fiyat söyle, ona göre yapalım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW02_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam usta, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok usta...
+Müşteri: Micheal güzel de, o rakam bana fazla geldi.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_END_FAIL]
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Kış bastırmadan halletmiş olalım.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_DONE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: İçim daha rahat etti açıkçası.
+Müşteri: Eline sağlık ustam.
+
+[MICHEAL_PREMIUM_WINTER_FLOW02_END_SUCCESS]
+
+
+MICHEAL_PREMIUM_WINTER_FLOW03
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_START]
+Müşteri: Kolay gelsin usta.
+Müşteri: Bu kış biraz uzun yolum olacak, o yüzden lastiği şansa bırakmayayım dedim.
+Müşteri: Ailece çıkıyoruz genelde, insan daha da dikkat ediyor.
+
+Seçenekler:
+A = Uzun yolda mı daha çok hissediyorsun sorunu? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_TRAVEL
+B = Aynen abi, kışta uzun yol ayrı mesele. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_AGREE
+C = Araç ne abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_CAR
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_TRAVEL]
+Müşteri: Aynen öyle.
+Müşteri: Özellikle yüksek hızda ve ani frende daha çok hissediyorum.
+Müşteri: Bir de yağmurlu havada insanın içi rahat etmiyor.
+
+Seçenekler:
+A = Kış lastiği orada ciddi fark ettirir. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_HINT
+B = Lastik yorulmuş olabilir abi. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_AGREE]
+Müşteri: Aynen abi.
+Müşteri: Tek başına olsan belki çok takmazsın ama aile olunca iş değişiyor.
+Müşteri: O yüzden biraz daha içime sinen bir şey olsun istiyorum.
+
+Seçenekler:
+A = O zaman sağlam tarafa bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_HINT
+B = Çok uçmadan da çözebiliriz. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_CAR]
+Müşteri: Araç iyi aslında.
+Müşteri: Ama lastik zayıf olunca bütün dengesi bozuluyor.
+Müşteri: Kışta daha da belli oluyor zaten.
+
+Seçenekler:
+A = O zaman lastikten kısmamak lazım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_HINT
+B = Orta segment de idare eder. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MID
+C = Ebat neydi abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_HINT]
+Müşteri: Ben açık söyleyeyim usta...
+Müşteri: Kışlıkta güven benim için en önemlisi.
+Müşteri: Biraz fazla veririm ama kafam rahat olsun isterim.
+
+Seçenekler:
+A = Mantıklı abi, önce ebatı netleştirelim. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+B = O zaman premium tarafa bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MID]
+Müşteri: Çok abartmaya da gerek yok ama...
+Müşteri: Ben yine de güven veren bir şey olsun istiyorum.
+Müşteri: Kışta sürüş keyfinden çok güven önemli.
+
+Seçenekler:
+A = O zaman biraz daha üst tarafa çıkalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE]
+Müşteri: 225/50 R17 lazım bana.
+Müşteri: Dört tane değiştireceğim.
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_WINTER
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum.
+Müşteri: Bu iş yazlıkla olmaz.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum.
+Müşteri: Ben direkt kışlık taktıracağım.
+
+Seçenekler:
+A = Tamam, kışlık üzerinden bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum.
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL
+B = Micheal mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_BRAND_ASK_MICHEAL
+C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_BRAND_ASK_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_BRAND_ASK_MICHEAL]
+Müşteri: Evet abi, Micheal düşünüyorum.
+Müşteri: Kışlıkta riske girmek istemiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+B = Tamam abi, Micheal üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_BRAND_ASK_KODEMAX]
+Müşteri: Yok abi, ben Micheal tarafına daha yakınım.
+Müşteri: Bu işte biraz daha güvenli olsun istiyorum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+B = Anladım abi, Micheal bakalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_REVEAL]
+Müşteri: Aklım Micheal tarafında açıkçası.
+Müşteri: Uzun yolda da içim rahat olsun istiyorum.
+
+Seçenekler:
+A = Micheal var abi. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+B = Kodemax var abi. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_KODEMAX
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_KODEMAX]
+Müşteri: Yok abi...
+Müşteri: Bu sefer daha sağlam bir şey olsun istiyorum.
+Müşteri: Kışta idare eder kafasına girmek istemiyorum.
+
+Seçenekler:
+A = O zaman Micheal göstereyim. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+B = Kodemax da iş görür aslında. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_KODEMAX_INSIST
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_KODEMAX_INSIST]
+Müşteri: Yok usta...
+Müşteri: Bu işte kafam rahat olsun istiyorum.
+Müşteri: Bir kere yapayım, düzgün olsun.
+
+Seçenekler:
+A = Tamam, o zaman Micheal konuşalım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_MICHEAL]
+Müşteri: Heh, benim aklımdaki oydu zaten.
+Müşteri: Fiyat çok uçmuyorsa ben ona çıkarım.
+
+Seçenekler:
+A = Tamam, fiyatını söyleyeyim. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_1]
+Müşteri: Peki bunun fiyatı ne oluyor?
+
+Sistem:
+- Oyuncu 1. fiyatı input ile girer.
+- Premium müşteri market + %10'a kadar kabul edebilir.
+- Oyuncu toplamda en fazla 3 teklif verir.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: İçime sindi.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif kabul edilmezse
+
+Müşteri: Biraz yüksek söyledin.
+Müşteri: Son bir şey yaparsan direkt bırakayım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_2
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW03_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam, sen ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif kabul edilirse
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi oldu.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif kabul edilmezse
+
+Müşteri: Hâlâ biraz yukarıda.
+Müşteri: Son bir fiyat söyle.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_3
+B = Fiyat bu. -> MICHEAL_PREMIUM_WINTER_FLOW03_END_FAIL
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif kabul edilirse
+
+Müşteri: Tamam.
+Müşteri: Yapalım ustam.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_ACCEPTED
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif de kabul edilmezse
+
+Müşteri: Yok usta...
+Müşteri: O kadar da çıkmayayım şimdi.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_END_FAIL]
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_ACCEPTED]
+Müşteri: Aracı al içeri o zaman.
+Müşteri: Uzun yolda içim rahat olsun.
+
+Seçenekler:
+A = İş bitti. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_DONE
+
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_NODE_DONE]
+Müşteri: Güzel olmuş.
+Müşteri: İçim daha rahat etti açıkçası.
+Müşteri: Eline sağlık ustam.
+
+[MICHEAL_PREMIUM_WINTER_FLOW03_END_SUCCESS]

@@ -1,0 +1,581 @@
+MICHEAL_CHEAP_ALLSEASON_FLOW01
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Lastik bakıyorum da, bir fiyat soracağım.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SIZE
+B = Söyle abi, hangi ölçü lazımdı? -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SIZE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, ben 4 mevsim bakıyorum. --RUNTIME ORDER
+Müşteri: Sürekli sök takla uğraşmak istemiyorum.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Aynen abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Kış da çok sert olmuyor zaten burada.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Yok abi, kışlık düşünmüyorum. --RUNTIME ORDER
+Müşteri: Her sezon sök takla uğraşmak istemiyorum.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_MICHEAL_REACT]
+Müşteri: Micheal olur abi. --RUNTIME ORDER
+Müşteri: Ama fiyatı da düzgün konuşalım, ona göre bağlayacağım.
+
+Seçenekler:
+A = Tamam abi, Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1
+B = Olur abi, Micheal için rakamı çıkarayım. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_KODEMAX_REACT]
+Müşteri: Yok abi, ben Micheal bakıyorum. --RUNTIME ORDER
+Müşteri: Arada kalmayayım diye biraz düzgün bir şey olsun istiyorum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1
+B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri iyi pazarlık yapar.
+- 4 mevsim istemesinin sebebi sezonluk sök-tak ile uğraşmak istememesidir.
+- Kış şartlarının çok sert olmadığını düşünür.
+- MarketPrice'ın yaklaşık %5 altına kadar almaya çalışır.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam abi.
+Müşteri: Bu rakam olur.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > CheapCustomerTargetPrice
+
+Müşteri: Yok abi, bu biraz yukarıda kaldı.
+Müşteri: Ben 4 mevsime daha mantıklı bir rakam bekliyordum.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_2]
+Müşteri: Sen bir daha bak abi.
+Müşteri: Ben bu işi biraz araştırdım açıkçası.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi oldu.
+Müşteri: Geçelim.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > CheapCustomerTargetPrice
+
+Müşteri: Hâlâ yüksek abi.
+Müşteri: Son bir rakam söyle, ona göre bağlayacağım ya da çıkacağım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+Müşteri: 4 mevsim diye geldik, rakam da otursun.
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam.
+Müşteri: Bu bana uyar.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > CheapCustomerTargetPrice
+
+Müşteri: Yok abi.
+Müşteri: Ben o rakama girmem.
+Müşteri: Kalsın.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_END_FAIL]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal 4 mevsim lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_DONE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Uğraştırmadan halletmiş olduk.
+Müşteri: Eline sağlık.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_END_SUCCESS]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW01_END_FAIL]
+
+
+
+
+
+
+
+MICHEAL_CHEAP_ALLSEASON_FLOW02
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Bir şey sorup çıkacağım, lastik fiyatı bakıyorum.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SIZE
+B = Söyle abi, hangi ölçü lazımdı? -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SIZE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, ben 4 mevsim bakıyorum. --RUNTIME ORDER
+Müşteri: Sürekli yazlık kışlık değişim işi bana gelmiyor.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Aynen abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Ben tek seferde halledip geçmek istiyorum.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Yok abi, kışlık düşünmüyorum. --RUNTIME ORDER
+Müşteri: Burada öyle sert kış da olmuyor zaten.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_MICHEAL_REACT]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: Ama rakam düzgün olursa burada bağlarım.
+
+Seçenekler:
+A = Tamam abi, Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1
+B = Olur abi, Micheal için rakamı çıkarayım. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_KODEMAX_REACT]
+Müşteri: Kodemax düşünmüyorum abi, ben Micheal bakıyorum. --RUNTIME ORDER
+Müşteri: 4 mevsim alacaksam içime sinsin istiyorum.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1
+B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri iyi pazarlık yapar.
+- 4 mevsim istemesinin sebebi sezonluk değişimle uğraşmak istememesidir.
+- Fiyat konusunda sıkıdır ve pazarlıkta kozlarını kullanır.
+- MarketPrice'ın yaklaşık %5 altına kadar almaya çalışır.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam abi.
+Müşteri: Bu rakam iş görür.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > CheapCustomerTargetPrice
+
+Müşteri: Abi bu biraz fazla geldi.
+Müşteri: 4 mevsim alıyoruz diye o kadar da açılmayalım.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_2]
+Müşteri: Bir daha bak abi.
+Müşteri: Benzer lastiğe daha oturaklı rakam duydum.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi daha mantıklı oldu.
+Müşteri: Geçelim.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > CheapCustomerTargetPrice
+
+Müşteri: Hâlâ yukarıda abi.
+Müşteri: Son bir rakam söyle de ona göre burada bağlayayım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+Müşteri: Ben bunu bugün netleştireceğim.
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam.
+Müşteri: Bu bana uyar.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > CheapCustomerTargetPrice
+
+Müşteri: Yok abi.
+Müşteri: Ben o rakama girmem.
+Müşteri: Bir yere daha soracağım.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_END_FAIL]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal 4 mevsim lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_DONE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: En azından sök tak derdim kalmadı.
+Müşteri: Eline sağlık.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_END_SUCCESS]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW02_END_FAIL]
+
+
+
+
+
+
+
+MICHEAL_CHEAP_ALLSEASON_FLOW03
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Bir lastik fiyatı sorup çıkacağım.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SIZE
+B = Söyle abi, hangi ölçü lazımdı? -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SIZE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_WINTER
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, ben 4 mevsim bakıyorum. --RUNTIME ORDER
+Müşteri: Zaten taşınacağım yerde kış yok gibi bir şey.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Aynen abi, 4 mevsim istiyorum. --RUNTIME ORDER
+Müşteri: Ben şimdi başka şehire geçeceğim, orada kış yok gibi zaten.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Yok abi, kışlık düşünmüyorum. --RUNTIME ORDER
+Müşteri: Gideceğim yerde kış neredeyse yok, 4 mevsim daha mantıklı.
+
+Seçenekler:
+A = Elimizde Micheal var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_MICHEAL_REACT
+B = Elimizde Kodemax var. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_KODEMAX_REACT
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_MICHEAL_REACT]
+Müşteri: Micheal olur abi. --RUNTIME ORDER
+Müşteri: Ama fiyatı sıkı konuşurum, baştan söyleyeyim.
+
+Seçenekler:
+A = Tamam abi, Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1
+B = Olur abi, Micheal için rakamı çıkarayım. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_KODEMAX_REACT]
+Müşteri: Yok abi, ben Micheal bakıyorum. --RUNTIME ORDER
+Müşteri: 4 mevsim alacaksam en azından içime sinen bir şey olsun.
+
+Seçenekler:
+A = Tamam abi, o zaman Micheal fiyatını söyleyeyim. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1
+B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 4 mevsim Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri ciddi pazarlık yapar.
+- 4 mevsim istemesinin sebebi yeni taşınacağı yerde kışın sert olmamasıdır.
+- Sezonluk sök-tak ile uğraşmak istemez.
+- MarketPrice'ın yaklaşık %5 altına kadar almaya çalışır.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1_ACCEPT]
+Koşul:
+- 1. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam abi.
+Müşteri: Bu rakam olur.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_1_REJECT]
+Koşul:
+- 1. teklif > CheapCustomerTargetPrice
+
+Müşteri: Yok abi, bu yüksek.
+Müşteri: 4 mevsim alıp kafam rahat etsin diyorum ama rakam da oturmalı.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_2]
+Müşteri: Bir daha bak abi.
+Müşteri: Ben bu işi ucu açık bırakmam, net rakam lazım.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_2_ACCEPT]
+Koşul:
+- 2. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Heh tamam.
+Müşteri: Şimdi mantıklı oldu.
+Müşteri: Geçelim.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_2_REJECT]
+Koşul:
+- 2. teklif > CheapCustomerTargetPrice
+
+Müşteri: Hâlâ yukarıda abi.
+Müşteri: Son bir rakam söyle, ona göre burada kapatayım ya da çıkayım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_FAIL
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+Müşteri: Gideceğim yerde kış derdi yok ama fiyat derdi var.
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_3_ACCEPT]
+Koşul:
+- 3. teklif <= CheapCustomerTargetPrice
+
+Müşteri: Tamam.
+Müşteri: Bu bana uyar.
+Müşteri: Yapalım.
+
+Seçenekler:
+A = Aracı içeri al. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SERVICE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_PRICE_3_REJECT]
+Koşul:
+- 3. teklif > CheapCustomerTargetPrice
+
+Müşteri: Yok abi.
+Müşteri: Ben o rakama girmem.
+Müşteri: Kalsın.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_END_FAIL]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_SERVICE]
+Sistem:
+- Araç lifte alınır.
+- Micheal 4 mevsim lastikler takılır.
+- Balans yapılır.
+- Oyuncu işi tamamlar.
+
+Seçenekler:
+A = İşlem tamamlandı. -> MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_DONE
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_DONE]
+Müşteri: Eyvallah abi.
+Müşteri: Kafam rahat etti.
+Müşteri: Eline sağlık.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_END_SUCCESS]
+
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_NODE_FAIL]
+Müşteri: Tamam abi sağ ol.
+Müşteri: Ben biraz daha bakayım.
+
+[MICHEAL_CHEAP_ALLSEASON_FLOW03_END_FAIL]

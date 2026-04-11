@@ -1,0 +1,345 @@
+MICHEAL_PRICEONLY_WINTER_FLOW01
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Kışlık lastik fiyatı bakıyorum.
+Müşteri: Şöyle birkaç yere sorup kafamda oturtacağım.
+
+Seçenekler:
+A = Tabii abi, önce ebat neydi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SIZE
+B = Hangi ölçü lazımdı abi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SIZE
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_WINTER
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden bakalım. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden gidelim. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+B = Hangi marka bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_BRAND]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: Onun fiyatını bir net alayım dedim.
+
+Seçenekler:
+A = Tamam abi, Micheal üzerinden söyleyeyim. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_1
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_1_REPLY]
+Müşteri: Hımm abi.
+Müşteri: Bir tık daha oturursa iyi olur.
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_2]
+Müşteri: Tamam abi, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_2_REPLY]
+Müşteri: Anladım abi.
+Müşteri: Son bir fiyat daha söyle de not alayım.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_PRICE_3_REPLY]
+Müşteri: Eyvallah abi.
+Müşteri: Ben biraz daha dolaşayım.
+Müşteri: Akşama kadar kafamda netleşir.
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_END_EXIT]
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben biraz bakayım Sağ ol.
+
+[MICHEAL_PRICEONLY_WINTER_FLOW01_END_EXIT]
+
+
+MICHEAL_PRICEONLY_WINTER_FLOW02
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Sanayiyi şöyle turluyorum bugün.
+Müşteri: Kışlık lastik fiyatı soruyorum.
+
+Seçenekler:
+A = Eyvallah abi, önce ebat neydi? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SIZE
+B = Tabii abi, hangi ölçü lazımdı? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SIZE
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SIZE]
+Müşteri: 225/45 R17 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_WINTER
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+Müşteri: Havalar dönüyor artık.
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden bakalım. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+Müşteri: Direkt kışlık bakıyorum ben.
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden gidelim. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+B = Hangi marka bakıyorsun? -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_BRAND]
+Müşteri: Micheal bakıyorum abi. --RUNTIME ORDER
+Müşteri: Onu bir herkes öneriyor zaten.
+
+Seçenekler:
+A = Tamam abi, Micheal fiyatını söyleyeyim. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_1
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_1]
+Müşteri: Tamam abi, 225/45 R17 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_1_REPLY]
+Müşteri: Tamam abi.
+Müşteri: Az önce bir yerde daha sordum, ona yakın söyledin.
+Müşteri: Biraz daha var mı pay?
+
+Seçenekler:
+A = 2. fiyatı ver. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_2
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_2]
+Müşteri: Tamam abi, son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_2_REPLY]
+Müşteri: Heh tamam.
+Müşteri: Bunu da yazdım.
+Müşteri: Son bir fiyat daha alayım senden.
+
+Seçenekler:
+A = 3. fiyatı ver. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_3
+B = Fiyat bu abi. -> MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_EXIT
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_PRICE_3_REPLY]
+Müşteri: Eyvallah abi.
+Müşteri: Birkaç yer daha var, onlara da uğrayayım.
+Müşteri: Sonra kafamda oturturum.
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_END_EXIT]
+
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben bugün geziyorum zaten.
+Müşteri: Sağ ol.
+
+[MICHEAL_PRICEONLY_WINTER_FLOW02_END_EXIT]
+
+
+
+
+KODEMAX_PRICEONLY_WINTER_FLOW03
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_START]
+Müşteri: Kolay gelsin abi.
+Müşteri: Kışlık lastik fiyatı soruyorum.
+Müşteri: Çok uzatmadan bi fiyat alıp çıkacağım.
+
+Seçenekler:
+A = Buyur abi, ebat neydi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SIZE
+B = Hangi ölçü lazımdı abi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SIZE
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SIZE]
+Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: Dört tane soruyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Yazlık mı bakıyorsun abi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_SUMMER
+B = 4 mevsim mi bakıyorsun abi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_ALLSEASON
+C = Kışlık mı bakıyorsun abi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_WINTER
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_SUMMER]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden bakalım. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_ALLSEASON]
+Müşteri: Yok abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Tamam abi, kışlık üzerinden gidelim. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+B = Marka olarak ne düşünüyorsun? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_SEASON_WINTER]
+Müşteri: Evet abi, kışlık istiyorum. --RUNTIME ORDER
+
+Seçenekler:
+A = Marka olarak ne düşünüyorsun abi? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+B = Hangi marka bakıyorsun? -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_BRAND]
+Müşteri: Kodemax bakıyorum abi. --RUNTIME ORDER
+Müşteri: Uygun olsun, işimi görsün yeter.
+
+Seçenekler:
+A = Tamam abi, Kodemax üzerinden söyleyeyim. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_1
+B = Olur abi, fiyatını çıkarayım. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_1
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_1]
+Müşteri: Tamam abi, 205/55 R16 kışlık Kodemax ne kadar oluyor? --RUNTIME ORDER
+
+Sistem:
+- Oyuncu 1. fiyatı girer.
+- Bu müşteri satın alma yapmaz.
+- Oyuncu toplamda en fazla 3 fiyat teklifi verir.
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_1_REPLY]
+Müşteri: Hımm abi.
+Müşteri: Biraz daha makul olursa iyi.
+
+Seçenekler:
+A = 2. fiyatı ver. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_2
+B = Fiyat bu abi. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_EXIT
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_2]
+Müşteri: Tamam abi, sen son ne yapabiliyorsan söyle.
+
+Sistem:
+- Oyuncu 2. fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_2_REPLY]
+Müşteri: Anladım abi.
+Müşteri: Son bir fiyat daha alayım senden.
+
+Seçenekler:
+A = 3. fiyatı ver. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_3
+B = Fiyat bu abi. -> KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_EXIT
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_3]
+Müşteri: Tamam abi, son ne olur?
+
+Sistem:
+- Oyuncu 3. ve son fiyatı girer.
+- Bu müşteri yine satın alma yapmaz.
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_PRICE_3_REPLY]
+Müşteri: Eyvallah abi.
+Müşteri: Ben biraz daha gezeyim.
+Müşteri: Ona göre karar veririm artık.
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_END_EXIT]
+
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_NODE_EXIT]
+Müşteri: Tamam abi.
+Müşteri: Ben fiyat alıyordum zaten.
+Müşteri: Sağ ol.
+
+[KODEMAX_PRICEONLY_WINTER_FLOW03_END_EXIT]
