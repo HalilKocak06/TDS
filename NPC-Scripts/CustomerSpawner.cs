@@ -84,6 +84,16 @@ public class CustomerSpawner : MonoBehaviour
         if(customer == null) customer = go.AddComponent<CustomerController>();
 
         customer.Init(talkPoint, outsidePoint1, waitingPoint, exitPoint, coordinator);
+        if(EconomyManager.I != null && EconomyManager.I.TryCreateRandomOrder(out var order))
+        {
+            customer.SetPendingOrder(order);
+            Debug.Log($"[Spawner] Assigned pending order -> {order.Display}");
+        }
+        else
+        {
+            Debug.LogWarning("[Spawner] Failed to assign pending order");
+        }
+        
         customer.SetPlayer(playerTransform);
         customer.OnFreedTalkPoint -= HandleFreedTalkPoint;
         customer.OnFreedTalkPoint += HandleFreedTalkPoint;

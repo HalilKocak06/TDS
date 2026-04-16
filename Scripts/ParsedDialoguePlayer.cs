@@ -14,6 +14,8 @@ public class ParsedDialoguePlayer : MonoBehaviour
     private ParsedDialogueFlow currentFlow;
     private ParsedDialogueNode currentNode;
     private TireOrder runtimeOrder;
+    private CustomerProfileSO runtimeProfile;
+    private int offerTurnIndex = 0;
 
     private readonly List<DialogueChoiceDataEx> visibleChoices = new();
 
@@ -39,8 +41,10 @@ public class ParsedDialoguePlayer : MonoBehaviour
             TrySelectChoiceByIndex(2);
     }
 
-    public void StartDialogue(ParsedDialogueFlow flow , TireOrder order = null)
+    public void StartDialogue(ParsedDialogueFlow flow , TireOrder order = null , CustomerProfileSO profile = null)
     {
+        Debug.Log("[DialoguePlayer] A StartDialogue ENTER");
+
         if (flow == null)
         {
             Debug.LogError("[DialoguePlayer] flow null");
@@ -55,6 +59,10 @@ public class ParsedDialoguePlayer : MonoBehaviour
 
         currentFlow = flow;
         runtimeOrder = order;
+        runtimeProfile = profile;
+        offerTurnIndex = 0;
+
+
         currentNode = flow.FindNode(flow.startNodeId);
 
         if (currentNode == null)
@@ -63,11 +71,16 @@ public class ParsedDialoguePlayer : MonoBehaviour
             return;
         }
 
+        Debug.Log("[DialoguePlayer] B before ui.Show()");
         ui.Show();
+        Debug.Log("[DialoguePlayer] C after ui.Show()");
         ui.ClearChoices();
         ui.SetOfferUIVisible(false);
 
         Debug.Log($"[DialoguePlayer] StartDialogue -> {flow.flowId}");
+
+        if (runtimeOrder != null)
+        ui.RefreshEconomyPanel(runtimeOrder);
         ShowCurrentNode();
     }
 
@@ -84,7 +97,7 @@ public class ParsedDialoguePlayer : MonoBehaviour
         visibleChoices.Clear();
         ui.ClearChoices();
 
-        string combined = string.Join("\n", currentNode.lines.Select(l => l.text));
+        string combined = string.Join("\n", currentNode.lines.Select(l => ResolveRuntimeText(l.text))); //Ebatı çözmeye çalışır.
         ui.SetNpcLine(combined);
 
         if (currentNode.kind == ParsedNodeKind.PriceInput)
@@ -92,6 +105,8 @@ public class ParsedDialoguePlayer : MonoBehaviour
             ui.SetOfferUIVisible(true);
             ui.SetOfferPlaceholder("Fiyat gir...");
             ui.SetOfferText(debugOffer.ToString());
+
+            int market = GetMarketUnitPrice();
 
             Debug.Log($"[DialoguePlayer] Price node. Q/E ile değiştir, Enter ile gönder. Current={debugOffer}");
         }
@@ -189,10 +204,26 @@ public class ParsedDialoguePlayer : MonoBehaviour
 
     private void SubmitDebugOffer()
     {
-        int targetPrice = CalculateTargetPrice();
-        bool accepted = debugOffer <= targetPrice;
+        int marketUnitPrice = GetMarketUnitPrice();
 
-        Debug.Log($"[DialoguePlayer] Submit offer={debugOffer}, target={targetPrice}, accepted={accepted}");
+        bool accepted;
+        string evalMessage = "";
+
+        if(EconomyManager.I != null && runtimeProfile != null)
+        {
+            var eval = EconomyManager.I.EvaluateOffer(runtimeProfile, debugOffer, marketUnitPrice, offerTurnIndex);
+            offerTurnIndex++;
+            accepted = eval.accepted;
+            evalMessage = eval.message;
+
+            Debug.Log($"[DialoguePlayer] Eval -> accepted={eval.accepted}, rejected={eval.rejected}, counter={eval.counter}, msg={eval.message}");
+        }
+        else
+        {
+            accepted = debugOffer <= marketUnitPrice;
+            offerTurnIndex++;
+            evalMessage = accepted ? "Tamam, anlaştik." : "Olmadi.";
+        }
 
         string nextNodeId = accepted
             ? currentNode.id + "_ACCEPT"
@@ -206,35 +237,63 @@ public class ParsedDialoguePlayer : MonoBehaviour
             return;
         }
 
+        Debug.Log($"[DialoguePlayer] Submit offer={debugOffer}, market={marketUnitPrice}, next={nextNodeId}, msg={evalMessage}");
+
         currentNode = next;
         ShowCurrentNode();
     }
 
-    private int CalculateTargetPrice()
+    private int GetMarketUnitPrice()
     {
-        int market = fallbackMarketPrice;
+        if(runtimeOrder != null && EconomyManager.I != null)
+            return EconomyManager.I.GetMarketUnitPrice(runtimeOrder);
 
-        if (currentFlow == null)
-            return market;
+        return fallbackMarketPrice;    
+    }
 
-        string type = currentFlow.customerTypeKey?.ToUpperInvariant();
+    private string ResolveRuntimeText(string raw) //RUntime'da ebatı yazdırmaya sağlar.
+    {
+        if(string.IsNullOrEmpty(raw))
+            return raw;
 
-        switch (type)
+        if(runtimeOrder == null)
         {
-            case "CHEAP":
-                return Mathf.RoundToInt(market * 0.95f);
+            return raw;
+        }
 
-            case "REFERENCED":
-                return Mathf.RoundToInt(market * 1.05f);
+        string result = raw;
+        result = result.Replace("{ORDER_SIZE}", $"{runtimeOrder.size.width}/{runtimeOrder.size.aspect} R{runtimeOrder.size.rim}");
+        result = result.Replace("{ORDER_BRAND}", runtimeOrder.brand.ToString());
+        result = result.Replace("{ORDER_SEASON_TEXT}", SeasonToText(runtimeOrder.season));
+        result = result.Replace("{ORDER_QUANTITY}", runtimeOrder.quantity.ToString());
+        result = result.Replace("{ORDER_QUANTITY_TEXT}", QuantityToText(runtimeOrder.quantity));
 
-            case "PREMIUM":
-                return Mathf.RoundToInt(market * 1.10f);
+        return result;
 
-            case "STANDARD":
-                return market;
+    }
 
-            default:
-                return market;
+
+
+    private string SeasonToText(TireSeason season)
+    {
+        switch (season)
+        {
+            case TireSeason.Summer: return "yazlık";
+            case TireSeason.Winter: return "kışlık";
+            case TireSeason.FourSeason: return "4 mevsim";
+            default: return season.ToString();
+        }
+    }
+
+    private string QuantityToText(int qty)
+    {
+        switch (qty)
+        {
+            case 1: return "bir";
+            case 2: return "iki";
+            case 3: return "üç";
+            case 4: return "dört";
+            default: return qty.ToString();
         }
     }
 }

@@ -89,7 +89,7 @@ public static class DialogueTextParser
                 if (nodeId.EndsWith("_START", StringComparison.OrdinalIgnoreCase))
                     currentFlow.startNodeId = nodeId;
 
-                if (nodeId.Contains("PRICE_", StringComparison.OrdinalIgnoreCase))
+                if (IsPurePriceInputNode(nodeId))
                     currentNode.kind = ParsedNodeKind.PriceInput;
 
                 if (nodeId.Contains("_NODE_SERVICE", StringComparison.OrdinalIgnoreCase))
@@ -237,5 +237,23 @@ public static class DialogueTextParser
                t.Contains("oyuncu 2. fiyatı girer") ||
                t.Contains("oyuncu 3. ve son fiyatı girer") ||
                t.Contains("oyuncu fiyatı girer");
+    }
+
+    private static bool IsPurePriceInputNode(string nodeId)
+    {
+        if(string.IsNullOrWhiteSpace(nodeId))
+            return false;
+
+        string id = nodeId.ToUpperInvariant();
+
+        //fiyat node'u olmalı
+        if(!id.Contains("_NODE_PRICE_"))
+            return false;
+
+        //Ama accept/reject olmamalı
+        if(id.EndsWith("_ACCEPT") || id.EndsWith("_REJECT"))
+            return false;
+
+        return true;            
     }
 }

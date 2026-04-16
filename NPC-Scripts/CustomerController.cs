@@ -89,6 +89,8 @@ public class CustomerController : MonoBehaviour
     public bool HasPendingOrder() => pendingOrder != null;
     public bool HasAcceptedDeal() => dealAccepted;
 
+    public CustomerDialogueContext DialogueContext { get; private set;}
+
 
     public void BeginEnterShop()
     {
@@ -303,10 +305,12 @@ public class CustomerController : MonoBehaviour
 
     void SayNeedTire()
     {
-        if(EconomyManager.I != null && EconomyManager.I.TryCreateRandomOrder(out var o))
-            pendingOrder = o;
-        else
-            pendingOrder = new TireOrder { size = new TireSize(195,55,16), season = TireSeason.Summer, condition=TireCondition.New, quantity=4};
+        if(pendingOrder == null)
+        {
+            Debug.LogWarning("[Customer] pendingOrder yok!");
+            busyTalking = false;
+            return;
+        }
 
         Debug.Log($"Kolay gelsin ustam {pendingOrder.Display} istiyorum");
         talkStage = TalkStage.CustomerAsked;
@@ -495,5 +499,23 @@ public class CustomerController : MonoBehaviour
         return !isInWaitingArea;    
 
     }
+
+    private CustomerDialogueContext dialogueContext;
+
+    public bool HasDialogueContext()
+    {
+        return dialogueContext != null;
+    }
+
+    public CustomerDialogueContext GetDialogueContext()
+    {
+        return dialogueContext;
+    }
+
+    public void SetDialogueContext(CustomerDialogueContext context)
+    {
+        dialogueContext = context;
+    }
+
     
 }

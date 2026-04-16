@@ -12,6 +12,7 @@ public class CustomerClickInteractor : MonoBehaviour
     [SerializeField] LayerMask customerLayer;
     [SerializeField] private DialogSystemController dialogUI;
     [SerializeField] DialogueUIController dialogUIController;
+    [SerializeField] private DialogueRuntimeService dialogueRuntimeService;
 
     void Awake()
     {
@@ -67,8 +68,68 @@ public class CustomerClickInteractor : MonoBehaviour
             Debug.Log($"[Click] Dialogue blocked for {customer.name}");
             return;
         }
-        customer.StartDialogue();
+        
+        // customer.StartDialogue();
+        StartRuntimeDialogueForCustomer(customer);
         
         
     }
+
+    private void StartRuntimeDialogueForCustomer(CustomerController customer)
+{
+    Debug.Log("[Click] A");
+
+    if (customer == null)
+    {
+        Debug.LogWarning("[Click] B customer null");
+        return;
+    }
+
+    Debug.Log("[Click] C");
+
+    if (dialogueRuntimeService == null)
+    {
+        Debug.LogWarning("[Click] D dialogueRuntimeService null");
+        return;
+    }
+
+    Debug.Log("[Click] E before HasDialogueContext");
+
+    bool hasContext = customer.HasDialogueContext();
+    Debug.Log("[Click] F hasContext = " + hasContext);
+
+    if (!hasContext)
+    {
+        Debug.Log("[Click] G before GetPendingOrder");
+
+        TireOrder order = customer.GetPendingOrder();
+
+        Debug.Log("[Click] H after GetPendingOrder");
+
+        if (order == null)
+        {
+            Debug.LogWarning("[Click] I Customer has no pending order");
+            return;
+        }
+
+        Debug.Log($"[Click] J Pending order found -> {order.brand} {order.size.width}/{order.size.aspect}R{order.size.rim} {order.season} x{order.quantity}");
+
+        CustomerDialogueContext context = dialogueRuntimeService.BuildContext(order);
+
+        Debug.Log("[Click] K after BuildContext");
+
+        if (context == null)
+        {
+            Debug.LogWarning("[Click] L Failed to build dialogue context");
+            return;
+        }
+
+        customer.SetDialogueContext(context);
+        Debug.Log($"[Click] M Dialogue context assigned -> type={context.customerType}, flow={context.flow.flowId}");
+    }
+
+    Debug.Log("[Click] N before StartDialogue");
+    dialogueRuntimeService.StartDialogue(customer.GetDialogueContext());
+    Debug.Log("[Click] O after StartDialogue");
+}
 }

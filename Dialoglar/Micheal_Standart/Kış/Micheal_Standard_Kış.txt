@@ -46,7 +46,7 @@ A = Önce ebatı netleştirelim. -> MICHEAL_STANDARD_WINTER_FLOW01_NODE_SIZE
 
 
 [MICHEAL_STANDARD_WINTER_FLOW01_NODE_SIZE]
-Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: {ORDER_SIZE} lazım. --RUNTIME ORDER
 Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
 
 Seçenekler:
@@ -97,7 +97,7 @@ A = Tamam, fiyatını söyleyeyim. -> MICHEAL_STANDARD_WINTER_FLOW01_NODE_PRICE_
 
 
 [MICHEAL_STANDARD_WINTER_FLOW01_NODE_PRICE_1]
-Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+Müşteri: Tamam abi, {ORDER_SIZE} kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
 
 Sistem:
 - Oyuncu 1. fiyatı girer.
@@ -229,7 +229,7 @@ B = Tabii abi, hangi ölçü lazımdı? -> MICHEAL_STANDARD_WINTER_FLOW02_NODE_S
 
 
 [MICHEAL_STANDARD_WINTER_FLOW02_NODE_SIZE]
-Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: {ORDER_SIZE} lazım. --RUNTIME ORDER
 Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
 
 Seçenekler:
@@ -280,7 +280,7 @@ A = Tamam, fiyatını söyleyeyim. -> MICHEAL_STANDARD_WINTER_FLOW02_NODE_PRICE_
 
 
 [MICHEAL_STANDARD_WINTER_FLOW02_NODE_PRICE_1]
-Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+Müşteri: Tamam abi, {ORDER_SIZE} kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
 
 Sistem:
 - Oyuncu 1. fiyatı girer.

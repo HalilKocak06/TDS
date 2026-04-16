@@ -266,30 +266,49 @@ public partial class EconomyManager
     {
         if (profile == null) return OfferEval.Reject("profile missing");
 
-        if (profile.willNeverBuy)
-            return OfferEval.Reject("Sadece fiyat bakıyorum, almayacağım.");
-
-        // müşteri bandı: [market*(1+minDiscount) , market*(1+maxMarkup)]
-        int minAccept = Mathf.RoundToInt(marketUnitPrice * (1f + profile.minDiscount));
-        int maxAccept = Mathf.RoundToInt(marketUnitPrice * (1f + profile.maxMarkup));
-
         // turn limiti
         if (offerTurnIndex >= profile.maxOfferTurns)
-            return OfferEval.Reject("Yeterince konuştuk, ben çıkıyorum.");
+            return OfferEval.Reject("Ben bi etrafa bakayim, ben çıkıyorum.");
 
-        if (offerUnitPrice < minAccept)
-            return OfferEval.Counter(
-                counterUnitPrice: minAccept,
-                reason: $"Bu fiyata olmaz. En az {minAccept} olursa konuşuruz."
-            );
+        if (profile.willNeverBuy || profile.type == CustomerType.PriceOnly)
+            return OfferEval.Reject("Sadece fiyat bakıyorum, almayacağım.");
 
-        if (offerUnitPrice > maxAccept)
-            return OfferEval.Counter(
-                counterUnitPrice: maxAccept,
-                reason: $"Pahalı geldi. {maxAccept} olursa alırım."
-            );
+        int maxAcceptPrice = marketUnitPrice;
 
-        return OfferEval.Accept("Tamam, anlaştık.");
+        switch(profile.type)
+        {
+            case CustomerType.Premium:
+                    maxAcceptPrice = Mathf.RoundToInt(marketUnitPrice * 1.10f);
+                    break;
+
+            case CustomerType.Standard:
+                    maxAcceptPrice = marketUnitPrice;
+                    break;
+
+            case CustomerType.Cheap:
+                    maxAcceptPrice = Mathf.RoundToInt(marketUnitPrice * 0.95f);
+                    break;
+
+            case CustomerType.Referral:
+                    maxAcceptPrice = Mathf.RoundToInt(marketUnitPrice * 1.05f);
+                    break;
+
+            case CustomerType.PriceOnly:
+                    return OfferEval.Reject("Ben bi etrafa bakayım");
+
+            default:
+                    maxAcceptPrice = marketUnitPrice;
+                    break;        
+
+        }
+
+        if(offerUnitPrice <= maxAcceptPrice)
+                return OfferEval.Accept("Tamamdır halledelim");
+
+        return OfferEval.Counter(
+            counterUnitPrice: maxAcceptPrice,
+            reason: $"Bu fiyat fazla . En fazla .."
+        );        
     }
 
     // Pazarlık sonucu STOĞU REZERVE ET (para job sonrası alınır)

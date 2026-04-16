@@ -7,6 +7,7 @@ public class DialogueRuntimeStarter : MonoBehaviour
     [Header("Refs")]
     [SerializeField] private DialogueFlowLibrary library;
     [SerializeField] private ParsedDialoguePlayer player;
+    [SerializeField] private CustomerProfileLibrary profileLibrary;
 
     [Header("Debug Start")]
     [SerializeField] private bool startOnPlay = true;
@@ -44,6 +45,14 @@ public class DialogueRuntimeStarter : MonoBehaviour
             return;
         }
 
+        if (profileLibrary == null)
+        {
+            Debug.LogWarning("[DialogueRuntimeStarter] player null");
+            return;
+        }
+
+
+
         var order = new TireOrder
         {
             size = new TireSize(width, aspect, rim),
@@ -54,9 +63,11 @@ public class DialogueRuntimeStarter : MonoBehaviour
         };
 
         CustomerType pickedType = CustomerTypePicker.PickRandom();
+        CustomerProfileSO profile = profileLibrary.GetProfile(pickedType);
 
         Debug.Log($"[DialogueRuntimeStarter] Order = {order.brand} {order.size.width}/{order.size.aspect}R{order.size.rim} {order.season} x{order.quantity}");
         Debug.Log($"[DialogueRuntimeStarter] Picked CustomerType = {pickedType}");
+        Debug.Log($"[DialogueRuntimeStarter] Picked Profile = {(profile != null ? profile.name : "null")}");
 
         ParsedDialogueFlow flow = library.PickRandomFlow(order, pickedType);
 

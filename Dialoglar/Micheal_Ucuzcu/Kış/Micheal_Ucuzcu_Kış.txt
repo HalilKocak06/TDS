@@ -10,7 +10,7 @@ B = Hangi ölçü lazımdı abi? -> MICHEAL_CHEAP_WINTER_FLOW01_NODE_SIZE
 
 
 [MICHEAL_CHEAP_WINTER_FLOW01_NODE_SIZE]
-Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: {ORDER_SIZE} lazım. --RUNTIME ORDER
 Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
 
 Seçenekler:
@@ -62,14 +62,13 @@ B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_WINTER_FLOW01_NODE_PR
 
 
 [MICHEAL_CHEAP_WINTER_FLOW01_NODE_PRICE_1]
-Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+Müşteri: Tamam abi, {ORDER_SIZE} kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
 
 Sistem:
 - Oyuncu 1. fiyatı girer.
 - Bu müşteri iyi pazarlık yapar.
 - MarketPrice'ın yaklaşık %5 altına kadar almaya çalışır.
 - Oyuncu toplamda en fazla 3 fiyat teklifi verir.
-
 
 [MICHEAL_CHEAP_WINTER_FLOW01_NODE_PRICE_1_ACCEPT]
 Koşul:
@@ -195,7 +194,7 @@ B = Söyle abi, hangi ölçü lazımdı? -> MICHEAL_CHEAP_WINTER_FLOW02_NODE_SIZ
 
 
 [MICHEAL_CHEAP_WINTER_FLOW02_NODE_SIZE]
-Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: {ORDER_SIZE} lazım. --RUNTIME ORDER
 Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
 
 Seçenekler:
@@ -247,7 +246,7 @@ B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_WINTER_FLOW02_NODE_PR
 
 
 [MICHEAL_CHEAP_WINTER_FLOW02_NODE_PRICE_1]
-Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+Müşteri: Tamam abi, {ORDER_SIZE} kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
 
 Sistem:
 - Oyuncu 1. fiyatı girer.
@@ -384,7 +383,7 @@ B = Söyle abi, hangi ölçü lazımdı? -> MICHEAL_CHEAP_WINTER_FLOW03_NODE_SIZ
 
 
 [MICHEAL_CHEAP_WINTER_FLOW03_NODE_SIZE]
-Müşteri: 205/55 R16 lazım. --RUNTIME ORDER
+Müşteri: {ORDER_SIZE} lazım. --RUNTIME ORDER
 Müşteri: Dört tane değişeceğim. --RUNTIME ORDER
 
 Seçenekler:
@@ -436,7 +435,7 @@ B = Olur abi, Micheal üzerinden gidelim. -> MICHEAL_CHEAP_WINTER_FLOW03_NODE_PR
 
 
 [MICHEAL_CHEAP_WINTER_FLOW03_NODE_PRICE_1]
-Müşteri: Tamam abi, 205/55 R16 kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
+Müşteri: Tamam abi, {ORDER_SIZE} kışlık Micheal ne kadar oluyor? --RUNTIME ORDER
 
 Sistem:
 - Oyuncu 1. fiyatı girer.

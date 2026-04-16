@@ -65,7 +65,7 @@ B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SIZE]
-Müşteri: 205/55 R16 lazım bana.
+Müşteri: {ORDER_SIZE} lazım bana.
 Müşteri: Ruhsatta da o yazıyor zaten.
 
 Seçenekler:
@@ -75,7 +75,7 @@ C = Kışlık mı bakıyorsun abi? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_SUMMER]
-Müşteri: Yok abi, kışlık istiyorum.
+Müşteri: Yok abi, {ORDER_SEASON_TEXT} istiyorum.
 
 Seçenekler:
 A = Tamam, kışlık üzerinden gidelim. -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
@@ -91,7 +91,7 @@ B = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVE
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW01_NODE_SEASON_WINTER]
-Müşteri: Evet abi, kışlık istiyorum.
+Müşteri: Evet abi, {ORDER_SEASON_TEXT} istiyorum.
 
 Seçenekler:
 A = Marka olarak ne düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_REVEAL
@@ -100,7 +100,7 @@ C = Kodemax mı düşünüyorsun? -> MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_AS
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW01_NODE_BRAND_ASK_MICHEAL]
-Müşteri: Evet abi, aklım Micheal tarafında.
+Müşteri: Evet abi, aklım {ORDER_BRAND} tarafında.
 Müşteri: Kışta biraz daha güvenli tarafa çıkmak istiyorum.
 
 Seçenekler:
@@ -327,7 +327,7 @@ B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW02_NODE_SIZE]
-Müşteri: 225/45 R17 lazım bana.
+Müşteri: {ORDER_SIZE} lazım bana.
 Müşteri: Dört tane değişeceğim.
 
 Seçenekler:
@@ -592,7 +592,7 @@ B = Önce ebatı alayım. -> MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE
 
 
 [MICHEAL_PREMIUM_WINTER_FLOW03_NODE_SIZE]
-Müşteri: 225/50 R17 lazım bana.
+Müşteri: {ORDER_SIZE} lazım bana.
 Müşteri: Dört tane değiştireceğim.
 
 Seçenekler:
